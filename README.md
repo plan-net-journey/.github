@@ -46,7 +46,7 @@ Folge den Schritten in der [ONBOARDING.md](ONBOARDING.md) selbst.
 
 ## Skills
 
-- **[Journey-Skills Marketplace](https://github.com/plan-net-journey/Journey-Skills/blob/main/MARKETPLACE.md)** — 52 kundenuebergreifende Skills
+- **Journey-Skills Marketplace** — 52 kundenuebergreifende Skills (nach Org-Beitritt verfuegbar)
 - **Kunden-Repos** — Projektspezifische Skills leben im jeweiligen Repo
 
 ## Admin Setup
