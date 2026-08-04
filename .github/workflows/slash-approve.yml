@@ -69,6 +69,10 @@ jobs:
             -f "invitee_id=${USER_ID}" \
             -f role=direct_member 2>&1 || echo "Note: User may already be a member"
 
+          echo "Adding ${USERNAME} to Journey-Skills (Marketplace)..."
+          gh api "repos/plan-net-journey/Journey-Skills/collaborators/${USERNAME}" \
+            -X PUT -f permission=push 2>/dev/null || echo "Note: Will get access after accepting org invite"
+
           echo "Done!"
 
       - name: Handle repo request
