@@ -4,7 +4,7 @@
 
 Dieses Repository verwaltet organisationsweite Prozesse fuer [plan-net-journey](https://github.com/plan-net-journey).
 
-**Warum das alles?** Lies die [Erklaerung](ERKLAERUNG.html) — warum GitHub, warum Claude Code, warum dieses Setup.
+**Warum das alles?** Lies die [Erklaerung](https://plan-net-journey.github.io/.github/ERKLAERUNG.html) — warum GitHub, warum Claude Code, warum dieses Setup.
 
 ## Onboarding — Neues Teammitglied
 
