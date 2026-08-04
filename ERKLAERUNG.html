@@ -266,25 +266,100 @@
   <!-- TICKET SYSTEM -->
   <div class="section">
     <span class="section-label label-blue">Alles per Ticket</span>
-    <h2>Vier Ticket-Typen</h2>
-    <p>Kein manuelles Setup noetig. Ticket erstellen, Admin gibt frei, Automation macht den Rest.</p>
+    <h2>Wie funktioniert ein Ticket?</h2>
+    <p>Egal ob Org-Zugang, neues Repo oder Berechtigungen — der Ablauf ist immer gleich:</p>
 
-    <div class="cards">
-      <div class="card card-accent card-yellow">
-        <h3>Org-Zugang</h3>
-        <p>Neues Teammitglied braucht Zugang zur Organisation. Admin antwortet <code>/approve</code> und GitHub laedt automatisch ein.</p>
+    <div class="flow">
+      <div class="flow-step" style="border-left: 3px solid var(--blue-border);">
+        <h4><span class="flow-num num-blue">1</span> Ticket erstellen</h4>
+        <p>Du fuellst ein Formular auf GitHub aus. Kein Freitext — klare Felder fuer das was gebraucht wird.</p>
       </div>
-      <div class="card card-accent card-blue">
-        <h3>Neues Repo</h3>
-        <p>Neues Kundenprojekt? Ticket erstellen — privates Repo wird automatisch mit Template erstellt und Team eingeladen.</p>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step" style="border-left: 3px solid var(--yellow-border);">
+        <h4><span class="flow-num num-yellow">2</span> Admin wird benachrichtigt</h4>
+        <p>Der Admin bekommt automatisch eine E-Mail von GitHub. Kein Slack, kein Anrufen noetig.</p>
       </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step" style="border-left: 3px solid var(--green-border);">
+        <h4><span class="flow-num num-green">3</span> Admin gibt frei</h4>
+        <p>Der Admin antwortet auf die E-Mail mit <code>/approve</code>. Ein Wort — fertig.</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step" style="border-left: 3px solid var(--teal-border);">
+        <h4><span class="flow-num num-teal">4</span> Automation laeuft</h4>
+        <p>GitHub fuehrt die Aktion automatisch aus: Einladung verschicken, Repo erstellen, Zugang setzen. Kein manueller Schritt.</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step" style="border-left: 3px solid var(--purple-border);">
+        <h4><span class="flow-num num-purple">5</span> Ticket schliesst sich</h4>
+        <p>Das Ticket wird automatisch geschlossen mit einer Zusammenfassung was passiert ist. Alles dokumentiert.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 1.5rem;">
+      <h3 style="font-size: 1rem; margin-bottom: .75rem;">Vier Ticket-Typen</h3>
+      <div class="cards">
+        <div class="card card-accent card-yellow">
+          <h3>Org-Zugang</h3>
+          <p>Neues Teammitglied braucht Zugang zur Organisation.</p>
+        </div>
+        <div class="card card-accent card-blue">
+          <h3>Neues Repo</h3>
+          <p>Neues Kundenprojekt? Privates Repo wird automatisch mit Template erstellt.</p>
+        </div>
+        <div class="card card-accent card-purple">
+          <h3>Repo-Zugang</h3>
+          <p>Schreibzugang zu einem bestehenden Repo oder dem Marketplace.</p>
+        </div>
+        <div class="card card-accent card-green">
+          <h3>Feedback</h3>
+          <p>Etwas unklar oder fehlt? Wir entwickeln das Setup aktiv weiter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- SKILLS & CLAUDE CODE -->
+  <div class="section">
+    <span class="section-label label-teal">Was sind Skills?</span>
+    <h2>Claude Code: Skills, Agents und Projekt-Kontext</h2>
+    <p>Claude Code ist mehr als ein Chatbot — es ist ein Arbeitsumfeld das sich an euer Projekt anpasst.</p>
+
+    <div class="cards" style="grid-template-columns: 1fr;">
+      <div class="card card-accent card-teal">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;">
+          <div>
+            <h3 style="margin-bottom: .5rem;">Skills</h3>
+            <p style="font-size: .85rem;">Wiederverwendbare Anweisungen fuer haeufige Aufgaben. Wie Rezepte die Claude befolgt.<br><br>
+            <strong>Beispiel:</strong> <code>/campaign</code> startet die Kampagnenplanung mit dem richtigen Framework und den richtigen Fragen.<br><br>
+            Aufruf: <code>/skill-name</code> in Claude Code eingeben.</p>
+          </div>
+          <div>
+            <h3 style="margin-bottom: .5rem;">Agents</h3>
+            <p style="font-size: .85rem;">Spezialisierte KI-Persoenlichkeiten fuer bestimmte Arbeitsweisen.<br><br>
+            <strong>Beispiel:</strong> Der <em>Rook</em>-Agent ist ein kontraerer Stratege der eure Ideen auf Schwachstellen prueft.<br><br>
+            Wechsel: <code>switch to Rook</code> in Claude Code sagen.</p>
+          </div>
+          <div>
+            <h3 style="margin-bottom: .5rem;">Projekt-Kontext</h3>
+            <p style="font-size: .85rem;">Claude liest automatisch die <code>CLAUDE.md</code> im Projekt und versteht den Kontext.<br><br>
+            <strong>Beispiel:</strong> Wer ist der Kunde, welche Regeln gelten, wo liegen die Dateien.<br><br>
+            Claude merkt sich auch Dinge zwischen Sessions ueber <code>MEMORY.md</code>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top: 1rem;">
       <div class="card card-accent card-purple">
-        <h3>Repo-Zugang</h3>
-        <p>Schreibzugang zu einem bestehenden Repo noetig? Ticket mit gewuenschter Berechtigung erstellen.</p>
+        <h3>Warum ist das besser als einzelne Prompts?</h3>
+        <p>Ein Prompt geht verloren. Ein Skill ist versioniert, geteilt, getestet und verbessert sich ueber die Zeit. Wenn jemand einen besseren Weg findet eine Kampagne zu planen, profitieren alle — nicht nur die eine Person.</p>
       </div>
       <div class="card card-accent card-green">
-        <h3>Feedback</h3>
-        <p>Etwas unklar, fehlt, oder funktioniert nicht? Feedback-Ticket erstellen — wir entwickeln das Setup aktiv weiter.</p>
+        <h3>Muss ich programmieren koennen?</h3>
+        <p>Nein. Skills sind Markdown-Dateien mit Anweisungen in natuerlicher Sprache. Wer einen klaren Brief schreiben kann, kann einen Skill schreiben. Claude Code hilft dabei.</p>
       </div>
     </div>
   </div>
