@@ -1,0 +1,333 @@
+<title>PNJ GitHub Setup — Warum wir was machen</title>
+<style>
+  @font-face {
+    font-family: 'Display';
+    src: local('.AppleSystemUIFontRounded-Bold'), local('system-ui');
+  }
+
+  :root {
+    --bg: #f8f9fa; --canvas: #ffffff; --text: #1a1b1e; --text2: #495057; --text3: #868e96;
+    --border: #dee2e6; --shadow: rgba(0,0,0,.06);
+    --yellow: #fff3bf; --yellow-border: #ffd43b; --yellow-text: #664d03;
+    --teal: #c3fae8; --teal-border: #38d9a9; --teal-text: #0b5e3f;
+    --purple: #e5dbff; --purple-border: #9775fa; --purple-text: #3b1f8e;
+    --coral: #ffe3e3; --coral-border: #ff8787; --coral-text: #862e2e;
+    --green: #d3f9d8; --green-border: #51cf66; --green-text: #1b5e20;
+    --blue: #d0ebff; --blue-border: #4dabf7; --blue-text: #1864ab;
+    --draft-bg: #fff3bf; --draft-text: #664d03; --draft-border: #fcc419;
+    --arrow: #adb5bd;
+  }
+  @media (prefers-color-scheme: dark) { :root {
+    --bg: #141517; --canvas: #1a1b1e; --text: #e9ecef; --text2: #adb5bd; --text3: #868e96;
+    --border: #343a40; --shadow: rgba(0,0,0,.3);
+    --yellow: #3d3400; --yellow-border: #fcc419; --yellow-text: #ffe066;
+    --teal: #0a2e22; --teal-border: #20c997; --teal-text: #96f2d7;
+    --purple: #241845; --purple-border: #845ef7; --purple-text: #d0bfff;
+    --coral: #350f0f; --coral-border: #fa5252; --coral-text: #ffc9c9;
+    --green: #0d2e12; --green-border: #40c057; --green-text: #b2f2bb;
+    --blue: #0d2137; --blue-border: #339af0; --blue-text: #a5d8ff;
+    --draft-bg: #3d3400; --draft-text: #ffe066; --draft-border: #e6a700;
+    --arrow: #495057;
+  }}
+  :root[data-theme="light"] {
+    --bg: #f8f9fa; --canvas: #ffffff; --text: #1a1b1e; --text2: #495057; --text3: #868e96;
+    --border: #dee2e6; --shadow: rgba(0,0,0,.06);
+    --yellow: #fff3bf; --yellow-border: #ffd43b; --yellow-text: #664d03;
+    --teal: #c3fae8; --teal-border: #38d9a9; --teal-text: #0b5e3f;
+    --purple: #e5dbff; --purple-border: #9775fa; --purple-text: #3b1f8e;
+    --coral: #ffe3e3; --coral-border: #ff8787; --coral-text: #862e2e;
+    --green: #d3f9d8; --green-border: #51cf66; --green-text: #1b5e20;
+    --blue: #d0ebff; --blue-border: #4dabf7; --blue-text: #1864ab;
+    --draft-bg: #fff3bf; --draft-text: #664d03; --draft-border: #fcc419;
+    --arrow: #adb5bd;
+  }
+  :root[data-theme="dark"] {
+    --bg: #141517; --canvas: #1a1b1e; --text: #e9ecef; --text2: #adb5bd; --text3: #868e96;
+    --border: #343a40; --shadow: rgba(0,0,0,.3);
+    --yellow: #3d3400; --yellow-border: #fcc419; --yellow-text: #ffe066;
+    --teal: #0a2e22; --teal-border: #20c997; --teal-text: #96f2d7;
+    --purple: #241845; --purple-border: #845ef7; --purple-text: #d0bfff;
+    --coral: #350f0f; --coral-border: #fa5252; --coral-text: #ffc9c9;
+    --green: #0d2e12; --green-border: #40c057; --green-text: #b2f2bb;
+    --blue: #0d2137; --blue-border: #339af0; --blue-text: #a5d8ff;
+    --draft-bg: #3d3400; --draft-text: #ffe066; --draft-border: #e6a700;
+    --arrow: #495057;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  .draft-banner { background: var(--draft-bg); border-bottom: 2px solid var(--draft-border); color: var(--draft-text); text-align: center; padding: .6rem 1rem; font-size: .85rem; font-weight: 600; letter-spacing: .03em; position: sticky; top: 0; z-index: 100; }
+  .draft-banner a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+  .page { max-width: 920px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+  .hero { text-align: center; margin-bottom: 3.5rem; padding-top: 1rem; }
+  .hero h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.15; margin-bottom: .5rem; text-wrap: balance; }
+  .hero h1 span { background: linear-gradient(135deg, var(--purple-border), var(--teal-border)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { font-size: 1.1rem; color: var(--text2); max-width: 560px; margin: 0 auto; text-wrap: balance; }
+
+  .section { margin-bottom: 3rem; }
+  .section-label { display: inline-block; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: .2rem .65rem; border-radius: .25rem; margin-bottom: .75rem; }
+  .section h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: .35rem; }
+  .section > p { color: var(--text2); font-size: .95rem; margin-bottom: 1.25rem; }
+
+  .label-yellow { background: var(--yellow); color: var(--yellow-text); border: 1px solid var(--yellow-border); }
+  .label-teal { background: var(--teal); color: var(--teal-text); border: 1px solid var(--teal-border); }
+  .label-purple { background: var(--purple); color: var(--purple-text); border: 1px solid var(--purple-border); }
+  .label-coral { background: var(--coral); color: var(--coral-text); border: 1px solid var(--coral-border); }
+  .label-green { background: var(--green); color: var(--green-text); border: 1px solid var(--green-border); }
+  .label-blue { background: var(--blue); color: var(--blue-text); border: 1px solid var(--blue-border); }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+
+  .card { background: var(--canvas); border: 1px solid var(--border); border-radius: .65rem; padding: 1.15rem 1.25rem; box-shadow: 0 2px 8px var(--shadow); position: relative; }
+  .card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; display: flex; align-items: center; gap: .5rem; }
+  .card p { font-size: .85rem; color: var(--text2); }
+  .card-icon { font-size: 1.3rem; flex-shrink: 0; }
+  .card-accent { border-left: 3px solid; }
+  .card-yellow { border-left-color: var(--yellow-border); }
+  .card-teal { border-left-color: var(--teal-border); }
+  .card-purple { border-left-color: var(--purple-border); }
+  .card-coral { border-left-color: var(--coral-border); }
+  .card-green { border-left-color: var(--green-border); }
+  .card-blue { border-left-color: var(--blue-border); }
+
+  .flow { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 1.25rem 0; }
+  .flow-step { background: var(--canvas); border: 1px solid var(--border); border-radius: .65rem; padding: .85rem 1.25rem; width: 100%; max-width: 600px; box-shadow: 0 2px 8px var(--shadow); }
+  .flow-step h4 { font-size: .85rem; font-weight: 700; margin-bottom: .15rem; display: flex; align-items: center; gap: .4rem; }
+  .flow-step p { font-size: .8rem; color: var(--text2); }
+  .flow-arrow { color: var(--arrow); font-size: 1.2rem; padding: .15rem 0; }
+  .flow-num { display: inline-flex; align-items: center; justify-content: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; font-size: .7rem; font-weight: 700; flex-shrink: 0; }
+  .num-yellow { background: var(--yellow); color: var(--yellow-text); border: 1px solid var(--yellow-border); }
+  .num-teal { background: var(--teal); color: var(--teal-text); border: 1px solid var(--teal-border); }
+  .num-purple { background: var(--purple); color: var(--purple-text); border: 1px solid var(--purple-border); }
+  .num-green { background: var(--green); color: var(--green-text); border: 1px solid var(--green-border); }
+  .num-blue { background: var(--blue); color: var(--blue-text); border: 1px solid var(--blue-border); }
+
+  .compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: .75rem; align-items: start; margin: 1rem 0; }
+  @media (max-width: 640px) { .compare { grid-template-columns: 1fr; } }
+  .compare-vs { display: flex; align-items: center; justify-content: center; color: var(--text3); font-weight: 700; font-size: .8rem; padding-top: 1.5rem; }
+  @media (max-width: 640px) { .compare-vs { padding-top: 0; } }
+  .compare-card { background: var(--canvas); border: 1px solid var(--border); border-radius: .65rem; padding: 1rem; box-shadow: 0 2px 8px var(--shadow); }
+  .compare-card h4 { font-size: .85rem; font-weight: 700; margin-bottom: .5rem; }
+  .compare-card ul { list-style: none; font-size: .8rem; color: var(--text2); }
+  .compare-card ul li { padding: .15rem 0; padding-left: 1.2rem; position: relative; }
+  .compare-card ul li::before { position: absolute; left: 0; }
+  .old li::before { content: '\2717'; color: var(--coral-border); }
+  .new li::before { content: '\2713'; color: var(--green-border); }
+
+  .cta { background: var(--blue); border: 1px solid var(--blue-border); border-radius: .65rem; padding: 1.5rem; text-align: center; margin-top: 2rem; }
+  .cta h3 { font-size: 1.1rem; font-weight: 700; color: var(--blue-text); margin-bottom: .35rem; }
+  .cta p { font-size: .9rem; color: var(--blue-text); opacity: .85; margin-bottom: .75rem; }
+  .cta-links { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+  .cta-link { display: inline-block; padding: .45rem 1.1rem; background: var(--blue-border); color: #fff; text-decoration: none; border-radius: .35rem; font-size: .85rem; font-weight: 600; }
+  .cta-link:hover { opacity: .9; }
+  .cta-link-secondary { background: transparent; border: 1px solid var(--blue-border); color: var(--blue-text); }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+</style>
+
+<div class="draft-banner">
+  DRAFT VERSION — Wird aktiv weiterentwickelt. <a href="https://github.com/plan-net-journey/.github/issues/new?template=feedback.yml">Feedback geben</a>
+</div>
+
+<div class="page">
+
+  <div class="hero">
+    <h1>Warum wir <span>GitHub</span> nutzen</h1>
+    <p>Unser Setup fuer kollaborative Entwicklung von Skills, Agents und Projekt-Assets bei Plan Net Journey.</p>
+  </div>
+
+  <!-- WARUM -->
+  <div class="section">
+    <span class="section-label label-yellow">Das Problem</span>
+    <h2>Warum aendern wir ueberhaupt etwas?</h2>
+    <p>Unsere bisherige Arbeitsweise mit KI-Tools hat Grenzen, die uns bremsen.</p>
+
+    <div class="compare">
+      <div class="compare-card">
+        <h4>Bisher</h4>
+        <ul class="old">
+          <li>Jeder arbeitet mit eigenen Prompts und Einstellungen</li>
+          <li>Skills und Wissen gehen verloren wenn jemand geht</li>
+          <li>Keine Versionierung — was weg ist, ist weg</li>
+          <li>Dateien per Mail/Slack hin und her schicken</li>
+          <li>Kein gemeinsamer Wissensstand</li>
+        </ul>
+      </div>
+      <div class="compare-vs">vs.</div>
+      <div class="compare-card">
+        <h4>Mit GitHub + Claude Code</h4>
+        <ul class="new">
+          <li>Skills und Agents als Code — teilbar, versioniert, nachvollziehbar</li>
+          <li>Alles lokal gespeichert und im Team geteilt</li>
+          <li>Jede Aenderung nachvollziehbar (wer, wann, warum)</li>
+          <li>Grosse Dateien ueber Cloud-Storage verlinkt</li>
+          <li>50+ fertige Skills im Marketplace</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- DIE BAUSTEINE -->
+  <div class="section">
+    <span class="section-label label-teal">Die Bausteine</span>
+    <h2>Was wir nutzen und warum</h2>
+    <p>Vier Werkzeuge, jedes mit einem klaren Zweck.</p>
+
+    <div class="cards">
+      <div class="card card-accent card-teal">
+        <h3><span class="card-icon">&#9881;</span> GitHub</h3>
+        <p><strong>Was:</strong> Plattform auf der unser Code und unsere Skills leben.</p>
+        <p><strong>Warum:</strong> Industriestandard fuer Versionierung. Jede Aenderung ist nachvollziehbar, nichts geht verloren, und alle arbeiten auf dem gleichen Stand.</p>
+      </div>
+      <div class="card card-accent card-teal">
+        <h3><span class="card-icon">&#9000;</span> Claude Code</h3>
+        <p><strong>Was:</strong> KI-Assistent der direkt mit deinen Dateien arbeitet.</p>
+        <p><strong>Warum:</strong> Anders als Claude Desktop kann Claude Code Dateien lesen, bearbeiten und Befehle ausfuehren. Projektkontext bleibt lokal und wird mit git versioniert.</p>
+      </div>
+      <div class="card card-accent card-teal">
+        <h3><span class="card-icon">&#128273;</span> SSH Keys</h3>
+        <p><strong>Was:</strong> Verschluesselter Zugang zu GitHub ohne Passwort.</p>
+        <p><strong>Warum:</strong> Sicherer als Passwoerter, funktioniert automatisch, wird einmal eingerichtet und laeuft dann. Standard in der Softwareentwicklung.</p>
+      </div>
+      <div class="card card-accent card-teal">
+        <h3><span class="card-icon">&#128230;</span> Cloud-Storage Symlinks</h3>
+        <p><strong>Was:</strong> Grosse Dateien (Videos, PPTX) bleiben in Box/OneDrive, das Projekt verlinkt darauf.</p>
+        <p><strong>Warum:</strong> Git ist nicht fuer grosse Binaerdateien gemacht. Cloud-Storage kann das besser — und eure Dateien sind dort schon.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- SKILL ARCHITEKTUR -->
+  <div class="section">
+    <span class="section-label label-purple">Skills & Marketplace</span>
+    <h2>Zwei Orte fuer Skills</h2>
+    <p>Allgemeine Skills werden geteilt, projektspezifische bleiben beim Kunden.</p>
+
+    <div class="cards">
+      <div class="card card-accent card-purple">
+        <h3>Journey-Skills Marketplace</h3>
+        <p><strong>52 fertige Skills</strong> die fuer alle Projekte funktionieren: Customer Intelligence, Kampagnenplanung, Content, Brand CX und mehr.</p>
+        <p>Wird zentral gepflegt. Neue Skills kommen per Pull Request rein.</p>
+      </div>
+      <div class="card card-accent card-green">
+        <h3>Kunden-Repo Skills</h3>
+        <p>Skills die <strong>nur fuer einen Kunden</strong> relevant sind: Brand-spezifische Checks, Kampagnen-Templates, Client-APIs.</p>
+        <p>Leben im jeweiligen Projekt-Repository und werden nicht geteilt.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- DER FLOW -->
+  <div class="section">
+    <span class="section-label label-green">Der Weg</span>
+    <h2>Vom Start zum ersten Projekt</h2>
+    <p>Was passiert wenn du als neues Teammitglied anfaengst.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <h4><span class="flow-num num-yellow">1</span> Link bekommen</h4>
+        <p>Kollegin schickt dir den Link zur GitHub-Seite per Slack oder Mail.</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step">
+        <h4><span class="flow-num num-teal">2</span> Tools einrichten</h4>
+        <p>Claude Code installieren, GitHub-Account erstellen, SSH-Key anlegen. Claude fuehrt dich Schritt fuer Schritt durch.</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step">
+        <h4><span class="flow-num num-blue">3</span> Zugang beantragen</h4>
+        <p>Ein Ticket wird automatisch erstellt. Admin bekommt eine Benachrichtigung und gibt frei.</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step">
+        <h4><span class="flow-num num-purple">4</span> Marketplace entdecken</h4>
+        <p>Journey-Skills klonen und 52 fertige Skills durchstoebern. Sofort einsetzbar.</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step">
+        <h4><span class="flow-num num-green">5</span> Kunden-Repo starten</h4>
+        <p>Neues Repo per Ticket beantragen — wird automatisch mit Template erstellt. Projektspezifische Skills bauen.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- TICKET SYSTEM -->
+  <div class="section">
+    <span class="section-label label-blue">Alles per Ticket</span>
+    <h2>Vier Ticket-Typen</h2>
+    <p>Kein manuelles Setup noetig. Ticket erstellen, Admin gibt frei, Automation macht den Rest.</p>
+
+    <div class="cards">
+      <div class="card card-accent card-yellow">
+        <h3>Org-Zugang</h3>
+        <p>Neues Teammitglied braucht Zugang zur Organisation. Admin antwortet <code>/approve</code> und GitHub laedt automatisch ein.</p>
+      </div>
+      <div class="card card-accent card-blue">
+        <h3>Neues Repo</h3>
+        <p>Neues Kundenprojekt? Ticket erstellen — privates Repo wird automatisch mit Template erstellt und Team eingeladen.</p>
+      </div>
+      <div class="card card-accent card-purple">
+        <h3>Repo-Zugang</h3>
+        <p>Schreibzugang zu einem bestehenden Repo noetig? Ticket mit gewuenschter Berechtigung erstellen.</p>
+      </div>
+      <div class="card card-accent card-green">
+        <h3>Feedback</h3>
+        <p>Etwas unklar, fehlt, oder funktioniert nicht? Feedback-Ticket erstellen — wir entwickeln das Setup aktiv weiter.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- REGELN -->
+  <div class="section">
+    <span class="section-label label-coral">Regeln</span>
+    <h2>Das gilt fuer alle</h2>
+
+    <div class="cards" style="grid-template-columns: 1fr;">
+      <div class="card card-accent card-coral">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div>
+            <h3 style="margin-bottom: .5rem;">Immer</h3>
+            <p style="font-size: .85rem;">&#10003; Alle Repos sind <strong>privat</strong><br>
+            &#10003; SSH Keys fuer Git-Zugang<br>
+            &#10003; Neue Repos nur per Ticket<br>
+            &#10003; Grosse Dateien per Symlink, nie ins Repo<br>
+            &#10003; Aenderungen per Pull Request</p>
+          </div>
+          <div>
+            <h3 style="margin-bottom: .5rem;">Nie</h3>
+            <p style="font-size: .85rem;">&#10007; Oeffentliche Repos erstellen<br>
+            &#10007; Passwoerter / Tokens committen<br>
+            &#10007; Videos oder PPTX ins Repo<br>
+            &#10007; Direkt auf <code>main</code> pushen<br>
+            &#10007; Skills mit Kundendaten in den Marketplace</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h3>Bereit loszulegen?</h3>
+    <p>Starte mit dem Onboarding oder gib Feedback zu diesem Setup.</p>
+    <div class="cta-links">
+      <a href="https://github.com/plan-net-journey/.github" class="cta-link">Onboarding starten</a>
+      <a href="https://github.com/plan-net-journey/.github/issues/new?template=feedback.yml" class="cta-link cta-link-secondary">Feedback geben</a>
+    </div>
+  </div>
+
+</div>

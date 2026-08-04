@@ -417,7 +417,7 @@ Git Config:
 
 ## Hinweise fuer Claude
 
-- Kommuniziere auf Deutsch mit dem User
+- **Sprache:** Antworte in der Sprache in der der User dich anspricht. Deutsch oder Englisch — passe dich an.
 - Sei geduldig — viele User haben noch nie mit git/GitHub gearbeitet
 - Erklaere WARUM jeder Schritt wichtig ist, nicht nur WAS zu tun ist
 - Bei Fehlern: debugge aktiv, nicht nur Fehlermeldung zeigen
@@ -425,3 +425,4 @@ Git Config:
 - Ueberpruefe jeden Schritt bevor du zum naechsten gehst
 - Falls der User schon erfahren ist und Schritte ueberspringen will, lass ihn
 - Am Ende die Zusammenfassung aus Phase 10 zeigen, auch wenn Schritte uebersprungen wurden
+- Weise am Ende auf das Feedback-Ticket hin: https://github.com/plan-net-journey/.github/issues/new?template=feedback.yml

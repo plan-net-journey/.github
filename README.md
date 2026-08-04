@@ -1,14 +1,18 @@
 # Plan Net Journey - Organisation
 
+> **DRAFT** — Dieses Setup wird aktiv weiterentwickelt. [Feedback geben](../../issues/new?template=feedback.yml)
+
 Dieses Repository verwaltet organisationsweite Prozesse fuer [plan-net-journey](https://github.com/plan-net-journey).
+
+**Warum das alles?** Lies die [Erklaerung](ERKLAERUNG.html) — warum GitHub, warum Claude Code, warum dieses Setup.
 
 ## Onboarding — Neues Teammitglied
 
 ### Variante 1: Mit Claude Code (empfohlen)
 
 1. [Claude Code installieren](https://claude.ai/download) (Desktop App oder CLI)
-2. Claude Code oeffnen und einfach sagen: *"Hilf mir beim PNJ GitHub Onboarding"* und die [ONBOARDING.md](ONBOARDING.md) als Datei mitgeben — oder diesen Link verwenden: https://claude.ai/claude-code/onboard/iCikgg3eQUXj
-3. Claude fuehrt dich automatisch durch alle Schritte
+2. Claude Code oeffnen und sagen: *"Hilf mir beim PNJ GitHub Onboarding"* und die [ONBOARDING.md](ONBOARDING.md) als Datei mitgeben
+3. Claude fuehrt dich automatisch durch alle Schritte — auf Deutsch oder Englisch
 
 ### Variante 2: Manuell
 
@@ -21,6 +25,7 @@ Folge den Schritten in der [ONBOARDING.md](ONBOARDING.md) selbst.
 | **Zugang zur Org beantragen** | [Access Request](../../issues/new?template=access-request.yml) | Jeder mit GitHub Account |
 | **Neues Repo beantragen** | [Repo Request](../../issues/new?template=repo-request.yml) | Org-Mitglieder |
 | **Schreibzugang zu Repo** | [Repo Access](../../issues/new?template=repo-access-request.yml) | Org-Mitglieder |
+| **Feedback geben** | [Feedback](../../issues/new?template=feedback.yml) | Alle |
 
 ### Ablauf
 
@@ -34,8 +39,14 @@ Folge den Schritten in der [ONBOARDING.md](ONBOARDING.md) selbst.
 
 - **Alle Repos sind private** — es gibt keine Ausnahmen
 - Members koennen keine Repos direkt erstellen — alles ueber Tickets
-- GitHub Account muss mit `@house-of-communication.com` E-Mail registriert sein
+- Neue Accounts: `@house-of-communication.com` E-Mail empfohlen
+- Bestehende GitHub Accounts koennen verwendet werden
 - SSH Keys sind Pflicht fuer git-Operationen
+
+## Skills
+
+- **[Journey-Skills Marketplace](https://github.com/plan-net-journey/Journey-Skills/blob/main/MARKETPLACE.md)** — 52 kundenuebergreifende Skills
+- **Kunden-Repos** — Projektspezifische Skills leben im jeweiligen Repo
 
 ## Admin Setup
 
