@@ -1,0 +1,67 @@
+name: Auto-Invite on Approval
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  invite:
+    if: github.event.label.name == 'approved' && contains(github.event.issue.labels.*.name, 'access-request')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Extract GitHub username from issue
+        id: extract
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body;
+            const match = body.match(/GitHub Username\s*\n\n(.+)/);
+            if (!match) {
+              core.setFailed('Could not extract GitHub username from issue body');
+              return;
+            }
+            const username = match[1].trim();
+            core.setOutput('username', username);
+            core.info(`Extracted username: ${username}`);
+
+      - name: Invite user to organization
+        if: steps.extract.outputs.username != ''
+        env:
+          GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
+        run: |
+          USERNAME="${{ steps.extract.outputs.username }}"
+          echo "Inviting ${USERNAME} to plan-net-journey..."
+
+          RESPONSE=$(gh api orgs/plan-net-journey/invitations \
+            -f invitee_id="$(gh api users/${USERNAME} --jq '.id')" \
+            -f role="direct_member" 2>&1) || true
+
+          if echo "$RESPONSE" | grep -q '"id"'; then
+            echo "Invitation sent successfully!"
+          elif echo "$RESPONSE" | grep -q 'already a member'; then
+            echo "User is already a member."
+          else
+            echo "Response: $RESPONSE"
+            exit 1
+          fi
+
+      - name: Comment and close issue
+        if: steps.extract.outputs.username != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const username = '${{ steps.extract.outputs.username }}';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `✅ Einladung an **@${username}** wurde gesendet!\n\nBitte check deine E-Mail (${username}) fuer die GitHub Einladung.\n\nNach Annahme der Einladung hast du Zugang zur Organisation.`
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            });

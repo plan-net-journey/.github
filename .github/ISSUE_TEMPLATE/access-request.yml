@@ -1,0 +1,56 @@
+name: "Zugang zur Organisation beantragen"
+description: "Beantrage Zugang zur plan-net-journey GitHub Organisation"
+title: "Access Request: "
+labels: ["access-request"]
+assignees: ["basteiz"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Willkommen bei Plan Net Journey!
+        Bitte fuell das Formular aus, um Zugang zur GitHub Organisation zu beantragen.
+        Dein GitHub-Account sollte mit deiner **@house-of-communication.com** E-Mail registriert sein.
+
+  - type: input
+    id: github-username
+    attributes:
+      label: GitHub Username
+      description: "Dein GitHub Benutzername"
+      placeholder: "z.B. max-mustermann"
+    validations:
+      required: true
+
+  - type: input
+    id: email
+    attributes:
+      label: E-Mail Adresse
+      description: "Deine @house-of-communication.com Adresse"
+      placeholder: "vorname.nachname@house-of-communication.com"
+    validations:
+      required: true
+
+  - type: input
+    id: full-name
+    attributes:
+      label: Voller Name
+      placeholder: "Max Mustermann"
+    validations:
+      required: true
+
+  - type: input
+    id: team-role
+    attributes:
+      label: Team / Rolle
+      description: "In welchem Team arbeitest du und welche Rolle hast du?"
+      placeholder: "z.B. Journey Strategy / Consultant"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Grund / Projekte
+      description: "An welchen Projekten oder Repos moechtest du arbeiten?"
+      placeholder: "z.B. Zugang zu Journey-Skills fuer AI Agent Entwicklung"
+    validations:
+      required: false

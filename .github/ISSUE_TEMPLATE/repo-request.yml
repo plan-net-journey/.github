@@ -1,0 +1,67 @@
+name: "Neues Repository beantragen"
+description: "Beantrage ein neues Repository in der plan-net-journey Organisation"
+title: "Repo Request: "
+labels: ["repo-request"]
+assignees: ["basteiz"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Neues Repository beantragen
+        Bitte beschreibe das gewuenschte Repository. Ein Admin wird es nach Pruefung erstellen.
+
+  - type: input
+    id: repo-name
+    attributes:
+      label: Repository Name
+      description: "Gewuenschter Name (lowercase, kebab-case)"
+      placeholder: "z.B. kunde-projektname"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: visibility
+    attributes:
+      label: Sichtbarkeit
+      options:
+        - Private (Standard)
+        - Public
+    validations:
+      required: true
+
+  - type: input
+    id: client
+    attributes:
+      label: Kunde / Projekt
+      description: "Fuer welchen Kunden oder welches Projekt?"
+      placeholder: "z.B. Kundenname - Kampagne XY"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: "Was ist der Zweck des Repos?"
+      placeholder: "Skills und Agents fuer die XY-Kampagne"
+    validations:
+      required: true
+
+  - type: input
+    id: team-members
+    attributes:
+      label: Team-Mitglieder (GitHub Usernames)
+      description: "Wer braucht Zugang? Komma-getrennte GitHub Usernames"
+      placeholder: "z.B. basteiz, EmHadd, Luke2605"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: features
+    attributes:
+      label: Gewuenschte Features
+      options:
+        - label: "Git LFS (fuer grosse Dateien wie Videos, PPTX)"
+        - label: "Branch Protection Rules"
+        - label: "CLAUDE.md Template vorinstallieren"
+        - label: ".claude/ Verzeichnisstruktur vorinstallieren"
