@@ -11,8 +11,9 @@ Dieses Repository verwaltet organisationsweite Prozesse fuer [plan-net-journey](
 ### Variante 1: Mit Claude Code (empfohlen)
 
 1. [Claude Code installieren](https://claude.ai/download) (Desktop App oder CLI)
-2. Claude Code oeffnen und sagen: *"Hilf mir beim PNJ GitHub Onboarding"* und die [ONBOARDING.md](ONBOARDING.md) als Datei mitgeben
-3. Claude fuehrt dich automatisch durch alle Schritte — auf Deutsch oder Englisch
+2. Dieses Repo klonen: `git clone https://github.com/plan-net-journey/.github.git`
+3. Claude Code im Repo-Ordner oeffnen und sagen: *"Lies die ONBOARDING.md und fuehre mich durch das Setup"*
+4. Claude fuehrt dich automatisch durch alle Schritte — auf Deutsch oder Englisch
 
 ### Variante 2: Manuell
 
