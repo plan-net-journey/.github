@@ -69,9 +69,9 @@ jobs:
             -f "invitee_id=${USER_ID}" \
             -f role=direct_member 2>&1 || echo "Note: User may already be a member"
 
-          echo "Adding ${USERNAME} to Journey-Skills (Marketplace)..."
+          echo "Adding ${USERNAME} to Journey-Skills (Marketplace) with read access..."
           gh api "repos/plan-net-journey/Journey-Skills/collaborators/${USERNAME}" \
-            -X PUT -f permission=push 2>/dev/null || echo "Note: Will get access after accepting org invite"
+            -X PUT -f permission=pull 2>/dev/null || echo "Note: Will get access after accepting org invite"
 
           echo "Done!"
 
@@ -145,20 +145,22 @@ jobs:
             const body = issue.body;
 
             let message = '';
+            const ticketHint = `\n\n---\n**Weitere Berechtigungen?** Alles laeuft ueber Tickets:\n- [Repo-Zugang beantragen](https://github.com/plan-net-journey/.github/issues/new?template=repo-access-request.yml)\n- [Neues Repo beantragen](https://github.com/plan-net-journey/.github/issues/new?template=repo-request.yml)\n- [Feedback geben](https://github.com/plan-net-journey/.github/issues/new?template=feedback.yml)`;
+
             if (labels.includes('access-request')) {
               const match = body.match(/GitHub Username[\s\S]*?\n\n(.+)/);
               const username = match ? match[1].trim() : 'unknown';
-              message = `Einladung an **@${username}** wurde gesendet! Bitte check deine E-Mail fuer die GitHub Einladung.`;
+              message = `Einladung an **@${username}** wurde gesendet!\n\nBitte check deine E-Mail fuer die GitHub Einladung. Nach Annahme hast du:\n- Zugang zur Organisation\n- Lesezugang zum [Journey-Skills Marketplace](https://github.com/plan-net-journey/Journey-Skills)` + ticketHint;
             } else if (labels.includes('repo-request')) {
               const match = body.match(/Repository Name[\s\S]*?\n\n(.+)/);
               const repoName = match ? match[1].trim().toLowerCase().replace(/\s+/g, '-') : 'unknown';
-              message = `Repository **plan-net-journey/${repoName}** wurde erstellt (private)! Clone: \`gh repo clone plan-net-journey/${repoName}\``;
+              message = `Repository **plan-net-journey/${repoName}** wurde erstellt (private)!\n\nClone: \`gh repo clone plan-net-journey/${repoName}\`` + ticketHint;
             } else if (labels.includes('repo-access')) {
               const repoMatch = body.match(/Repository Name[\s\S]*?\n\n(.+)/);
               const userMatch = body.match(/GitHub Username[\s\S]*?\n\n(.+)/);
               const repoName = repoMatch ? repoMatch[1].trim() : 'unknown';
               const username = userMatch ? userMatch[1].trim() : 'unknown';
-              message = `**@${username}** hat jetzt Zugang zu **plan-net-journey/${repoName}**!`;
+              message = `**@${username}** hat jetzt Zugang zu **plan-net-journey/${repoName}**!` + ticketHint;
             }
 
             if (message) {

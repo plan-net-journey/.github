@@ -395,23 +395,26 @@ Git Config:
    ```bash
    gh repo clone plan-net-journey/Journey-Skills
    ```
-   Der Marketplace enthaelt 50+ kundenuebergreifende Skills und das Soul System.
+   Du hast automatisch Lesezugang. Der Marketplace enthaelt 50+ kundenuebergreifende Skills.
    Siehe `MARKETPLACE.md` fuer den vollstaendigen Katalog.
 
-2. **Projekte klonen:** `gh repo clone plan-net-journey/REPO-NAME`
-
-3. **Projektstruktur verstehen:**
+2. **Projektstruktur verstehen:**
    - `CLAUDE.md` — Projektkontext und Anweisungen fuer Claude
    - `MEMORY.md` — Index der gespeicherten Erinnerungen
    - `.claude/skills/` — Projektspezifische Skills (leben im Kunden-Repo)
    - `.claude/agents/` — Agent-Definitionen
    - Kundenuebergreifende Skills → Journey-Skills Marketplace
 
-4. **Grosse Dateien einrichten:** `/setup-assets` Skill ausfuehren (im Kunden-Repo)
+3. **Grosse Dateien einrichten:** `/setup-assets` Skill ausfuehren (im Kunden-Repo)
 
-5. **Neues Repo benoetigt?** Issue erstellen: https://github.com/plan-net-journey/.github/issues/new?template=repo-request.yml
+**Alles weitere laeuft ueber Tickets:**
 
-6. **Schreibzugang zu Repo?** Issue erstellen: https://github.com/plan-net-journey/.github/issues/new?template=repo-access-request.yml
+| Was | Ticket |
+|-----|--------|
+| Neues Repo fuer einen Kunden | [Repo Request](https://github.com/plan-net-journey/.github/issues/new?template=repo-request.yml) |
+| Schreibzugang zu einem Repo | [Repo Access](https://github.com/plan-net-journey/.github/issues/new?template=repo-access-request.yml) |
+| Schreibzugang zum Marketplace | [Repo Access](https://github.com/plan-net-journey/.github/issues/new?template=repo-access-request.yml) (Repo: Journey-Skills) |
+| Etwas unklar oder fehlt | [Feedback](https://github.com/plan-net-journey/.github/issues/new?template=feedback.yml) |
 
 ---
 
