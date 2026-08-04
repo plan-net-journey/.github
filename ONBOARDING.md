@@ -96,17 +96,18 @@ Alle vier muessen installiert sein bevor es weitergeht.
 
 Frag den User ob bereits ein GitHub Account existiert.
 
-**Falls NEIN:**
+**Falls NEIN (neuer Account):**
 1. Sag dem User, dass ein GitHub Account benoetigt wird
-2. **WICHTIG:** Die E-Mail MUSS `vorname.nachname@house-of-communication.com` sein
+2. **Empfehlung:** Die E-Mail sollte `vorname.nachname@house-of-communication.com` sein
 3. Sag dem User: Geh zu https://github.com/signup und erstelle einen Account
 4. Warte bis der User fertig ist und frag nach dem GitHub Username
 5. Verifiziere: `curl -s https://api.github.com/users/USERNAME --max-time 10 | grep login`
 
-**Falls JA:**
+**Falls JA (bestehender Account):**
 1. Frag nach dem GitHub Username
 2. Verifiziere dass der Account existiert: `curl -s https://api.github.com/users/USERNAME --max-time 10 | grep login`
-3. Empfehle, die @house-of-communication.com Adresse als E-Mail hinzuzufuegen falls noch nicht geschehen (GitHub Settings → Emails)
+3. Der User kann seinen bestehenden Account verwenden, unabhaengig von der E-Mail
+4. Optional: Empfehle die @house-of-communication.com Adresse als zusaetzliche E-Mail hinzuzufuegen (GitHub Settings → Emails)
 
 Merke dir den Username fuer spaetere Schritte.
 
@@ -121,9 +122,9 @@ ls -la ~/.ssh/id_ed25519.pub 2>/dev/null && cat ~/.ssh/id_ed25519.pub | head -1 
 
 **Falls kein Key vorhanden:**
 
-Der User muss den Befehl interaktiv ausfuehren (Passphrase-Abfrage). Ersetze die E-Mail:
+Der User muss den Befehl interaktiv ausfuehren (Passphrase-Abfrage). Verwende die E-Mail des Users (die mit der der GitHub Account registriert ist):
 ```
-! ssh-keygen -t ed25519 -C "vorname.nachname@house-of-communication.com" -f ~/.ssh/id_ed25519
+! ssh-keygen -t ed25519 -C "user@example.com" -f ~/.ssh/id_ed25519
 ```
 
 Warte bis der User bestaetigt, dass der Key erstellt wurde, dann verifiziere:
@@ -164,28 +165,35 @@ Pruefe die aktuelle Konfiguration:
 ```bash
 echo "Name:  $(git config --global user.name)"
 echo "Email: $(git config --global user.email)"
-echo "Proto: $(git config --global url.git@github.com:.insteadOf 2>/dev/null || echo 'nicht gesetzt')"
 ```
 
-Falls Name oder E-Mail nicht gesetzt oder die E-Mail nicht @house-of-communication.com ist:
+**Wichtig:** Die globale Git-Config NICHT aendern falls der User bereits eine eingerichtet hat — das wuerde alle anderen Projekte beeinflussen.
 
-Frag den User nach vollem Namen und E-Mail (MUSS @house-of-communication.com sein):
+**Falls git config komplett leer ist (neuer User):**
+
+Frag den User nach vollem Namen und E-Mail:
 ```bash
 git config --global user.name "Vorname Nachname"
 git config --global user.email "vorname.nachname@house-of-communication.com"
 ```
 
-SSH als Standard-Protokoll fuer GitHub setzen:
+**Falls bereits konfiguriert (bestehender User):**
+
+Erklaere dem User, dass PNJ-Repos eine eigene Identity bekommen koennen. Nach dem Klonen eines PNJ-Repos kann man lokal setzen:
 ```bash
-git config --global url."git@github.com:".insteadOf "https://github.com/"
+cd <repo-verzeichnis>
+git config user.name "Vorname Nachname"
+git config user.email "vorname.nachname@house-of-communication.com"
 ```
 
-Verifiziere:
+Das betrifft nur dieses eine Repo, nicht die globale Konfiguration.
+
+**SSH-Protokoll:** Wird NICHT global umgeschrieben. Stattdessen nutzen wir `gh config`:
 ```bash
-echo "Name:  $(git config --global user.name)"
-echo "Email: $(git config --global user.email)"
-git config --global --get-regexp url 2>/dev/null || echo "URL rewrite nicht gesetzt"
+gh config set git_protocol ssh
 ```
+
+Das sorgt dafuer, dass `gh repo clone` automatisch SSH verwendet, ohne andere git-Operationen zu beeinflussen.
 
 ---
 
