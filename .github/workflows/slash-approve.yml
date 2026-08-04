@@ -85,11 +85,11 @@ jobs:
             exit 1
           fi
 
-          echo "Creating PRIVATE repo plan-net-journey/${REPO_NAME}..."
+          echo "Creating PRIVATE repo plan-net-journey/${REPO_NAME} from template..."
           gh repo create "plan-net-journey/${REPO_NAME}" \
             --private \
             --description "$DESCRIPTION" \
-            --add-readme 2>&1
+            --template plan-net-journey/project-template 2>&1
 
           MEMBERS=$(echo "$BODY" | grep -A2 "Team-Mitglieder" | tail -1 | xargs)
           if [ -n "$MEMBERS" ]; then
