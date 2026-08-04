@@ -26,15 +26,14 @@ jobs:
 
             if (labels.includes('approved')) {
               core.info('Issue already has approved label');
-              return;
+            } else {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['approved']
+              });
             }
-
-            await github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue.number,
-              labels: ['approved']
-            });
 
             await github.rest.reactions.createForIssueComment({
               owner: context.repo.owner,
@@ -43,4 +42,104 @@ jobs:
               content: '+1'
             });
 
-            core.info(`Added 'approved' label to issue #${issue.number}`);
+      - name: Handle access request
+        if: contains(github.event.issue.labels.*.name, 'access-request')
+        env:
+          GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
+        run: |
+          BODY="${{ github.event.issue.body }}"
+          USERNAME=$(echo "$BODY" | grep -A2 "GitHub Username" | tail -1 | xargs)
+
+          if [ -z "$USERNAME" ] || [ -z "$GH_TOKEN" ]; then
+            echo "Missing username or ORG_ADMIN_TOKEN secret"
+            echo "Username extracted: '$USERNAME'"
+            echo "Token present: $([ -n '${{ secrets.ORG_ADMIN_TOKEN }}' ] && echo 'yes' || echo 'no')"
+            exit 1
+          fi
+
+          echo "Inviting ${USERNAME} to plan-net-journey..."
+
+          USER_ID=$(gh api "users/${USERNAME}" --jq '.id' 2>/dev/null)
+          if [ -z "$USER_ID" ]; then
+            echo "Could not find GitHub user: ${USERNAME}"
+            exit 1
+          fi
+
+          gh api orgs/plan-net-journey/invitations \
+            -f "invitee_id=${USER_ID}" \
+            -f role=direct_member 2>&1 || echo "Note: User may already be a member"
+
+          echo "Done!"
+
+      - name: Handle repo request
+        if: contains(github.event.issue.labels.*.name, 'repo-request')
+        env:
+          GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
+        run: |
+          BODY="${{ github.event.issue.body }}"
+          REPO_NAME=$(echo "$BODY" | grep -A2 "Repository Name" | tail -1 | xargs | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+          VISIBILITY=$(echo "$BODY" | grep -A2 "Sichtbarkeit" | tail -1 | xargs)
+          DESCRIPTION=$(echo "$BODY" | grep -A2 "Beschreibung" | tail -1 | xargs)
+
+          if [ -z "$REPO_NAME" ] || [ -z "$GH_TOKEN" ]; then
+            echo "Missing repo name or ORG_ADMIN_TOKEN secret"
+            exit 1
+          fi
+
+          VIS_FLAG="--private"
+          if echo "$VISIBILITY" | grep -qi "public"; then
+            VIS_FLAG="--public"
+          fi
+
+          echo "Creating repo plan-net-journey/${REPO_NAME}..."
+          gh repo create "plan-net-journey/${REPO_NAME}" \
+            $VIS_FLAG \
+            --description "$DESCRIPTION" \
+            --add-readme 2>&1
+
+          MEMBERS=$(echo "$BODY" | grep -A2 "Team-Mitglieder" | tail -1 | xargs)
+          if [ -n "$MEMBERS" ]; then
+            IFS=',' read -ra MEMBER_ARRAY <<< "$MEMBERS"
+            for MEMBER in "${MEMBER_ARRAY[@]}"; do
+              MEMBER=$(echo "$MEMBER" | xargs | sed 's/@//g')
+              if [ -n "$MEMBER" ]; then
+                echo "Adding ${MEMBER}..."
+                gh api "repos/plan-net-journey/${REPO_NAME}/collaborators/${MEMBER}" \
+                  -X PUT -f permission=push 2>/dev/null || echo "Warning: Could not add ${MEMBER}"
+              fi
+            done
+          fi
+
+      - name: Comment and close
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const labels = issue.labels.map(l => l.name);
+            const body = issue.body;
+
+            let message = '';
+            if (labels.includes('access-request')) {
+              const match = body.match(/GitHub Username[\s\S]*?\n\n(.+)/);
+              const username = match ? match[1].trim() : 'unknown';
+              message = `Einladung an **@${username}** wurde gesendet! Bitte check deine E-Mail fuer die GitHub Einladung.`;
+            } else if (labels.includes('repo-request')) {
+              const match = body.match(/Repository Name[\s\S]*?\n\n(.+)/);
+              const repoName = match ? match[1].trim().toLowerCase().replace(/\s+/g, '-') : 'unknown';
+              message = `Repository **plan-net-journey/${repoName}** wurde erstellt! Clone: \`gh repo clone plan-net-journey/${repoName}\``;
+            }
+
+            if (message) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `✅ ${message}`
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+            }
