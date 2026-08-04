@@ -2,28 +2,45 @@
 
 Dieses Repository verwaltet organisationsweite Prozesse fuer [plan-net-journey](https://github.com/plan-net-journey).
 
-## Zugang beantragen
+## Onboarding — Neues Teammitglied
 
-Neuer Mitarbeiter? [Erstelle ein Access Request Issue](../../issues/new?template=access-request.yml), um Zugang zur Organisation zu beantragen.
+### Variante 1: Mit Claude Code (empfohlen)
 
-**Voraussetzung:** Ein GitHub Account mit deiner `@house-of-communication.com` E-Mail Adresse.
+1. [Claude Code installieren](https://claude.ai/download) (Desktop App oder CLI)
+2. Claude Code oeffnen und einfach sagen: *"Hilf mir beim PNJ GitHub Onboarding"* und die [ONBOARDING.md](ONBOARDING.md) als Datei mitgeben — oder diesen Link verwenden: https://claude.ai/claude-code/onboard/iCikgg3eQUXj
+3. Claude fuehrt dich automatisch durch alle Schritte
 
-## Neues Repository beantragen
+### Variante 2: Manuell
 
-Org-Mitglied? [Erstelle ein Repo Request Issue](../../issues/new?template=repo-request.yml), um ein neues Repository fuer einen Kunden oder ein Projekt anzulegen.
+Folge den Schritten in der [ONBOARDING.md](ONBOARDING.md) selbst.
 
-## Ablauf
+## Ticket-Workflows
 
-1. Issue erstellen
-2. Admin prueft und setzt das Label `approved`
-3. GitHub Action fuehrt die Aktion automatisch aus (Einladung / Repo-Erstellung)
-4. Issue wird automatisch geschlossen
+| Was | Link | Wer |
+|-----|------|-----|
+| **Zugang zur Org beantragen** | [Access Request](../../issues/new?template=access-request.yml) | Jeder mit GitHub Account |
+| **Neues Repo beantragen** | [Repo Request](../../issues/new?template=repo-request.yml) | Org-Mitglieder |
+| **Schreibzugang zu Repo** | [Repo Access](../../issues/new?template=repo-access-request.yml) | Org-Mitglieder |
+
+### Ablauf
+
+1. Issue erstellen (ueber die Links oben)
+2. Admin wird automatisch benachrichtigt
+3. Admin antwortet mit `/approve` (auch per E-Mail-Reply moeglich)
+4. GitHub Action fuehrt die Aktion automatisch aus
+5. Issue wird automatisch geschlossen
+
+### Regeln
+
+- **Alle Repos sind private** — es gibt keine Ausnahmen
+- Members koennen keine Repos direkt erstellen — alles ueber Tickets
+- GitHub Account muss mit `@house-of-communication.com` E-Mail registriert sein
+- SSH Keys sind Pflicht fuer git-Operationen
 
 ## Admin Setup
 
 Admins muessen einmalig einen Personal Access Token (classic) mit `admin:org` und `repo` Scope als Repository Secret `ORG_ADMIN_TOKEN` hinterlegen.
 
-Anleitung:
 1. [Token erstellen](https://github.com/settings/tokens/new?scopes=admin:org,repo&description=PNJ-Org-Admin)
 2. In diesem Repo: Settings → Secrets and variables → Actions → New repository secret
 3. Name: `ORG_ADMIN_TOKEN`, Value: der erstellte Token
