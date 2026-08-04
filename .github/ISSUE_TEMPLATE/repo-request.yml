@@ -19,16 +19,6 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: visibility
-    attributes:
-      label: Sichtbarkeit
-      options:
-        - Private (Standard)
-        - Public
-    validations:
-      required: true
-
   - type: input
     id: client
     attributes:

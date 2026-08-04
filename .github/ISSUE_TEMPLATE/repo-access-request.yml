@@ -1,0 +1,48 @@
+name: "Zugang zu Repository beantragen"
+description: "Beantrage Schreibzugang zu einem bestehenden Repository"
+title: "Repo Access: "
+labels: ["repo-access"]
+assignees: ["basteiz"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Zugang zu einem bestehenden Repository beantragen
+        Alle Org-Mitglieder haben automatisch Lesezugang. Fuer Schreibzugang fuell bitte dieses Formular aus.
+
+  - type: input
+    id: repo-name
+    attributes:
+      label: Repository Name
+      description: "Welches Repo? (z.B. Journey-Skills)"
+      placeholder: "Journey-Skills"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: permission
+    attributes:
+      label: Berechtigungsstufe
+      options:
+        - Write (Push, Branches erstellen)
+        - Maintain (Write + Settings verwalten)
+        - Admin (Vollzugriff)
+    validations:
+      required: true
+
+  - type: input
+    id: github-username
+    attributes:
+      label: GitHub Username
+      description: "Dein GitHub Benutzername"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Grund
+      description: "Warum brauchst du Schreibzugang?"
+      placeholder: "z.B. Muss Skills fuer Kunde XY entwickeln und committen"
+    validations:
+      required: true
