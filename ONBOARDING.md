@@ -391,14 +391,27 @@ Git Config:
 
 **Naechste Schritte:**
 
-1. **Projekte klonen:** `gh repo clone plan-net-journey/REPO-NAME`
-2. **Projektstruktur verstehen:**
+1. **Journey Skills Marketplace klonen:**
+   ```bash
+   gh repo clone plan-net-journey/Journey-Skills
+   ```
+   Der Marketplace enthaelt 50+ kundenuebergreifende Skills und das Soul System.
+   Siehe `MARKETPLACE.md` fuer den vollstaendigen Katalog.
+
+2. **Projekte klonen:** `gh repo clone plan-net-journey/REPO-NAME`
+
+3. **Projektstruktur verstehen:**
    - `CLAUDE.md` — Projektkontext und Anweisungen fuer Claude
    - `MEMORY.md` — Index der gespeicherten Erinnerungen
-   - `.claude/skills/` — Wiederverwendbare Skills
+   - `.claude/skills/` — Projektspezifische Skills (leben im Kunden-Repo)
    - `.claude/agents/` — Agent-Definitionen
-3. **Grosse Dateien:** Symbolische Links auf Box/OneDrive nutzen, oder git LFS
-4. **Neues Repo benoetigt?** Issue erstellen: https://github.com/plan-net-journey/.github/issues/new?template=repo-request.yml
+   - Kundenuebergreifende Skills → Journey-Skills Marketplace
+
+4. **Grosse Dateien einrichten:** `/setup-assets` Skill ausfuehren (im Kunden-Repo)
+
+5. **Neues Repo benoetigt?** Issue erstellen: https://github.com/plan-net-journey/.github/issues/new?template=repo-request.yml
+
+6. **Schreibzugang zu Repo?** Issue erstellen: https://github.com/plan-net-journey/.github/issues/new?template=repo-access-request.yml
 
 ---
 
