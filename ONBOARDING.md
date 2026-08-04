@@ -405,7 +405,7 @@ Git Config:
    - `.claude/agents/` — Agent-Definitionen
    - Kundenuebergreifende Skills → Journey-Skills Marketplace
 
-3. **Grosse Dateien einrichten:** `/setup-assets` Skill ausfuehren (im Kunden-Repo)
+3. **Grosse Dateien (Videos, PPTX, etc.)** gehoeren nicht ins Git Repo. Sie bleiben in eurem Cloud-Storage (Box, OneDrive, Google Drive) und werden im Projekt per Symlink referenziert. Das wird eingerichtet wenn ein konkretes Kunden-Repo genutzt wird — die CLAUDE.md im Projekt erklaert wie.
 
 **Alles weitere laeuft ueber Tickets:**
 
