@@ -2,7 +2,7 @@ name: "Zugang zur Organisation beantragen"
 description: "Beantrage Zugang zur plan-net-journey GitHub Organisation"
 title: "Access Request: "
 labels: ["access-request"]
-assignees: ["basteiz"]
+assignees: ["basteiz", "gklemm", "Luke2605"]
 body:
   - type: markdown
     attributes:

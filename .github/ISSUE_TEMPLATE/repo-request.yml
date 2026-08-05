@@ -2,7 +2,7 @@ name: "Neues Repository beantragen"
 description: "Beantrage ein neues Repository in der plan-net-journey Organisation"
 title: "Repo Request: "
 labels: ["repo-request"]
-assignees: ["basteiz"]
+assignees: ["basteiz", "gklemm", "Luke2605"]
 body:
   - type: markdown
     attributes:

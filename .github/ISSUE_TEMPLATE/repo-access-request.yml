@@ -2,7 +2,7 @@ name: "Zugang zu Repository beantragen"
 description: "Beantrage Schreibzugang zu einem bestehenden Repository"
 title: "Repo Access: "
 labels: ["repo-access"]
-assignees: ["basteiz"]
+assignees: ["basteiz", "gklemm", "Luke2605"]
 body:
   - type: markdown
     attributes:
