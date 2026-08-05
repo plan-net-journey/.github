@@ -370,20 +370,48 @@ gh api orgs/plan-net-journey/repos --jq '.[].name' 2>/dev/null && \
 echo "======================"
 ```
 
-Teste ob ein Projekt heruntergeladen werden kann:
+Lade die Projekte herunter und installiere die PNJ-Skills:
+
 ```bash
 mkdir -p ~/clients && cd ~/clients && \
-gh repo clone plan-net-journey/Journey-Skills -- --depth 1 2>&1
-```
-
-Verifiziere und raeume auf:
-```bash
-ls -la ~/clients/Journey-Skills/ && echo "Herunterladen hat funktioniert!" && rm -rf ~/clients/Journey-Skills
+gh repo clone plan-net-journey/Journey-Skills 2>&1 && \
+gh repo clone plan-net-journey/admin-ops 2>&1
 ```
 
 ---
 
-## Phase 9: Zusammenfassung
+## Phase 9: PNJ-Skills global installieren
+
+Die organisatorischen PNJ-Skills (Hilfe, Ticket-Erstellung, etc.) sollen in JEDEM Projekt verfuegbar sein — nicht nur im Journey-Skills Ordner. Dafuer erstellen wir Verknuepfungen im globalen Skills-Ordner.
+
+Sag dem User:
+> Ich installiere jetzt die PNJ-Hilfe-Skills auf deinem Rechner. Die sind danach in jedem Projekt verfuegbar — du kannst zum Beispiel jederzeit `/pnj-hilfe` eingeben wenn du nicht weiterweisst.
+
+```bash
+mkdir -p ~/.claude/skills
+for skill in ~/clients/Journey-Skills/.claude/skills/pnj-*/; do
+  name=$(basename "$skill")
+  if [ -L ~/.claude/skills/$name ]; then
+    echo "$name: bereits installiert"
+  else
+    ln -s "$skill" ~/.claude/skills/$name
+    echo "$name: installiert"
+  fi
+done
+```
+
+Zeige was installiert wurde:
+```bash
+echo "=== Deine PNJ-Skills (ueberall verfuegbar) ==="
+for skill in ~/.claude/skills/pnj-*/; do
+  echo "  /$(basename $skill)"
+done
+echo "================================================"
+```
+
+---
+
+## Phase 10: Zusammenfassung
 
 Zeige eine Zusammenfassung aller Ergebnisse:
 
@@ -395,14 +423,16 @@ GitHub User:  [username]
 SSH Key:      eingerichtet
 Verbindung:   [erfolgreich / fehlgeschlagen]
 Team-Zugang:  [Mitglied / beantragt]
+PNJ-Skills:   global installiert
 
 =========================================
 ```
 
 **Was du jetzt hast:**
 
-- **Journey-Skills Marketplace** — 50+ fertige Skills die du sofort nutzen kannst. Herunterladen mit: `gh repo clone plan-net-journey/Journey-Skills`
-- **admin-ops** — Dokumentation, Admin-Skills und Tickets. Herunterladen mit: `gh repo clone plan-net-journey/admin-ops`
+- **PNJ-Skills** — ueberall verfuegbar. Tippe `/pnj-hilfe` wenn du nicht weiterweisst.
+- **Journey-Skills Marketplace** (~/clients/Journey-Skills) — 50+ fertige Skills fuer Kampagnen, Content, Strategie
+- **admin-ops** (~/clients/admin-ops) — Dokumentation und Tickets
 
 **Wie Projekte funktionieren:**
 
@@ -411,13 +441,14 @@ Jedes Projekt ist ein Ordner mit:
 - `.claude/skills/` — Skills die nur fuer dieses Projekt relevant sind
 - Grosse Dateien (Videos, PPTX, etc.) bleiben in eurem Cloud-Storage (Box, OneDrive) und werden per Verweis eingebunden
 
-**Alles was du brauchst, bekommst du ueber Tickets:**
+**Alles was du brauchst, bekommst du ueber Tickets — oder tippe `/pnj-hilfe`:**
 
 | Was du brauchst | Wie |
 |-----------------|-----|
-| Ein neues Projekt-Repo | [Ticket erstellen](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-request.yml) |
-| Schreibzugang zu einem Projekt | [Ticket erstellen](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-access-request.yml) |
-| Etwas funktioniert nicht / fehlt | [Feedback geben](https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml) |
+| Hilfe / Fragen | `/pnj-hilfe` eingeben |
+| Ein neues Projekt | [Ticket erstellen](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-request.yml) |
+| Zugang zu einem Projekt | [Ticket erstellen](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-access-request.yml) |
+| Etwas funktioniert nicht | [Feedback geben](https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml) |
 
 ---
 
