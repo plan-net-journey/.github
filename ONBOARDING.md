@@ -81,33 +81,7 @@ echo "==================="
 
 Alle drei muessen installiert sein bevor es weitergeht. Falls etwas fehlt und du es nicht installieren kannst, erklaere dem User was er tun muss — in einfacher Sprache, ohne Fachbegriffe.
 
-Falls `brew` nicht verfuegbar oder es Probleme gibt:
-```
-! npm install -g @anthropic-ai/claude-code
-```
-
-Falls npm auch nicht verfuegbar:
-```
-! brew install node
-! npm install -g @anthropic-ai/claude-code
-```
-
-**Hinweis:** Claude Code CLI und Claude Code Desktop App teilen sich das gleiche Shell-Environment. Alle hier installierten Tools funktionieren in beiden.
-
-### 1.5 Verifikations-Check
-
-Fuehre diesen Sammel-Check aus und zeige dem User das Ergebnis:
-
-```bash
-echo "=== Tool-Verifikation ===" && \
-echo -n "Homebrew: " && (brew --version 2>&1 | head -1 || echo "FEHLT") && \
-echo -n "Git:      " && (git --version 2>&1 || echo "FEHLT") && \
-echo -n "GitHub CLI:" && (gh --version 2>&1 | head -1 || echo "FEHLT") && \
-echo -n "Claude:   " && (claude --version 2>/dev/null || echo "FEHLT") && \
-echo "========================="
-```
-
-Alle vier muessen installiert sein bevor es weitergeht.
+Falls du unsicher bist, sag dem User: *"Beschreibe mir was du siehst und ich helfe dir weiter."*
 
 ---
 
@@ -327,7 +301,7 @@ Frag den User nach Team/Rolle und erstelle ein Access Request Issue:
 ```bash
 gh issue create --repo plan-net-journey/.github \
   --title "Access Request: USERNAME" \
-  --assignee basteiz \
+  --assignee basteiz,gklemm,Luke2605 \
   --body "### GitHub Username
 
 USERNAME
@@ -388,8 +362,6 @@ Gehe NICHT weiter zu Phase 8. Die Session kann hier enden.
 ## Phase 8: Zugang pruefen (nach Org-Beitritt)
 
 Diese Phase laeuft erst wenn der User sagt "Ich habe die Einladung angenommen" oder aehnliches. Oder wenn er in Phase 7 bereits Mitglied war.
-
-Pruefe ob der Zugang funktioniert:
 
 Pruefe welche Projekte sichtbar sind:
 ```bash
