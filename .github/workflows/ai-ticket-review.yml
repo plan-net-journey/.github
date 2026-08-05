@@ -45,6 +45,8 @@ jobs:
             }
 
             const username = getField('GitHub Username');
+            const email = getField('E-Mail Adresse');
+            const fullName = getField('Voller Name');
             const repoName = getField('Repository Name');
             const description = getField('Beschreibung');
 
@@ -90,6 +92,8 @@ jobs:
             let comment = `### ${typeLabel} — Ticket #${number}\n\n`;
             comment += `| Feld | Wert |\n|---|---|\n`;
             comment += `| **Von** | @${author} |\n`;
+            if (fullName) comment += `| **Name** | ${fullName} |\n`;
+            if (email) comment += `| **E-Mail** | ${email} |\n`;
             if (username) comment += `| **GitHub User** | ${username} |\n`;
             if (repoName) comment += `| **Repo** | ${repoName} |\n`;
             if (description) comment += `| **Beschreibung** | ${description} |\n`;
@@ -116,7 +120,8 @@ jobs:
             core.setOutput('url', issueUrl);
             core.setOutput('title', title);
             core.setOutput('ai_result', aiResult);
-            core.setOutput('repo_name', repoName || username || '');
+            const detail = [fullName, email, repoName].filter(Boolean).join(' | ') || username;
+            core.setOutput('detail', detail);
 
       - name: Notify Teams
         if: steps.analyze.outputs.type != ''
@@ -128,7 +133,7 @@ jobs:
           URL: ${{ steps.analyze.outputs.url }}
           TITLE: ${{ steps.analyze.outputs.title }}
           AI_RESULT: ${{ steps.analyze.outputs.ai_result }}
-          DETAIL: ${{ steps.analyze.outputs.repo_name }}
+          DETAIL: ${{ steps.analyze.outputs.detail }}
         run: |
           if [ -z "$TEAMS_WEBHOOK_URL" ]; then exit 0; fi
 
