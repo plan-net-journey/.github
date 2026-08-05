@@ -25,7 +25,10 @@ jobs:
             else return;
 
             let message = `**${type}** von @${author}\n\n`;
-            message += `@plan-net-journey/maintainers — bitte pruefen und mit \`/approve\` freigeben oder mit Kommentar ablehnen.`;
+            message += `@plan-net-journey/maintainers — bitte pruefen:\n\n`;
+            message += `1. Oeffne **admin-ops** in Claude Code\n`;
+            message += `2. Sage \`/ticket-bearbeiten\`\n`;
+            message += `3. Freigeben mit \`/approve\` oder ablehnen mit Kommentar`;
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
