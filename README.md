@@ -6,27 +6,24 @@
 
 ## Neues Teammitglied?
 
-### Variante 1: Mit Claude Code (empfohlen)
+### So startest du (Schritt fuer Schritt)
 
-1. [Claude Code installieren](https://claude.ai/download) (Desktop App oder CLI)
-2. Dieses Repo klonen: `git clone https://github.com/plan-net-journey/.github.git`
-3. Claude Code im Repo-Ordner oeffnen und sagen: *"Lies die ONBOARDING.md und fuehre mich durch das Setup"*
+1. **Claude Code Desktop App herunterladen** unter [claude.ai/download](https://claude.ai/download) — das ist eine App die du installierst wie jede andere (nicht verwechseln mit der normalen Claude Chat-App)
+2. **Dieses Repo herunterladen:** Oeffne Claude Code und sage: *"Lade das Repo plan-net-journey/.github herunter und fuehre mich durch das Onboarding"*
+3. **Claude fuehrt dich durch alle Schritte** — GitHub Account erstellen, Zugang einrichten, Tools installieren. Alles auf Deutsch oder Englisch.
 
-### Variante 2: Manuell
-
-Folge den Schritten in der [ONBOARDING.md](ONBOARDING.md).
+Falls du Claude Code noch nicht hast, kannst du die [ONBOARDING.md](ONBOARDING.md) auch manuell durchlesen.
 
 ## Zugang beantragen
 
-[Access Request erstellen](../../issues/new?template=access-request.yml) — fuer neue Teammitglieder die Zugang zur Organisation brauchen.
+Noch kein Mitglied? [Access Request erstellen](../../issues/new?template=access-request.yml)
 
 ## Bereits Mitglied?
 
-Alle weiteren Tickets (neues Repo, Repo-Zugang, Feedback) werden intern im **admin-ops** Repo erstellt — nicht hier.
+Alle weiteren Anfragen (neues Projekt, Zugang zu einem Projekt, Feedback) laufen ueber Tickets im **admin-ops** Repo.
 
 ## Regeln
 
-- Alle Repos sind **private**
-- SSH Keys sind Pflicht
-- Neue Accounts: `@house-of-communication.com` empfohlen
-- Bestehende GitHub Accounts sind ok
+- Alle Projekte sind **privat** — nur Teammitglieder sehen sie
+- Jeder bekommt automatisch Zugang zum Skills-Marketplace und zur Dokumentation
+- Weitere Zugaenge und neue Projekte immer per Ticket
