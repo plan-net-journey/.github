@@ -347,21 +347,44 @@ TEAM_ROLLE" \
 ```
 
 Sag dem User:
-> Dein Antrag wurde erstellt! Ein Admin wird automatisch benachrichtigt und prueft ihn. Nach Freigabe bekommst du eine E-Mail von GitHub mit einer Einladung — klicke dort auf "Einladung annehmen". Das kann einige Minuten bis Stunden dauern.
-> 
-> Nach der Annahme hast du automatisch Zugang zum **Journey-Skills Marketplace** (50+ fertige Skills) und zum **admin-ops** Repo (Dokumentation und Tickets).
+> Dein Antrag wurde erstellt! Ein Admin wird automatisch benachrichtigt.
+>
+> **Jetzt heisst es warten.** Du bekommst eine E-Mail von GitHub mit einer Einladung — klicke dort auf "Einladung annehmen". Das kann einige Minuten bis Stunden dauern.
+>
+> **Sobald du die Einladung angenommen hast:** Oeffne Claude Code nochmal und sage einfach: *"Ich habe die GitHub-Einladung angenommen."* — Dann machen wir hier weiter.
+>
+> Fuer heute sind wir erstmal fertig. Gut gemacht!
 
 Falls das `.github` Repo nicht erreichbar ist:
 - Kontaktiere **@basteiz** auf GitHub oder schreib an b.zimmermann@house-of-communication.com
+
+**STOPP HIER** — wenn der User noch auf die Einladung wartet, gehe NICHT weiter zu Phase 8. Zeige stattdessen eine Zwischenzusammenfassung:
+
+```
+=== Onboarding — Zwischenstand ===
+
+Tools:        alle installiert
+GitHub User:  [username]
+SSH Key:      eingerichtet
+Verbindung:   erfolgreich
+Team-Zugang:  beantragt — warte auf Freigabe
+
+Naechster Schritt: Einladungs-E-Mail annehmen,
+dann Claude Code oeffnen und sagen:
+"Ich habe die GitHub-Einladung angenommen."
+
+======================================
+```
+
+Beende die Session hier. NICHT weitermachen.
 
 ---
 
 ## Phase 8: Zugang pruefen (nach Org-Beitritt)
 
-Falls der User bereits Mitglied ist oder die Einladung gerade angenommen hat — teste ob der Zugang funktioniert.
+Diese Phase laeuft erst wenn der User sagt "Ich habe die Einladung angenommen" oder aehnliches. Oder wenn er in Phase 7 bereits Mitglied war.
 
-Falls der User noch auf die Einladung wartet, ueberspringe diesen Schritt und sage:
-> Sobald du die Einladungs-E-Mail bekommst und annimmst, oeffne Claude Code nochmal und sage "Ich habe die Einladung angenommen, teste meinen Zugang."
+Pruefe ob der Zugang funktioniert:
 
 Pruefe welche Projekte sichtbar sind:
 ```bash
