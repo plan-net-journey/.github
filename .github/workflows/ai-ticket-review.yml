@@ -1,4 +1,4 @@
-name: AI Ticket Review
+name: Ticket Review
 
 on:
   issues:
@@ -6,62 +6,170 @@ on:
 
 jobs:
   review:
-    if: startsWith(github.event.issue.title, 'Repo Request')
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
-      - name: List existing repos
-        id: repos
-        uses: actions/github-script@v7
+      - name: Checkout prompts
+        uses: actions/checkout@v4
         with:
-          script: |
-            const repos = await github.paginate(github.rest.repos.listForOrg, {
-              org: 'plan-net-journey',
-              type: 'all',
-              per_page: 100
-            });
-            const list = repos.map(r => r.name + ' - ' + (r.description || 'keine Beschreibung')).join('\n');
-            core.setOutput('list', list);
+          sparse-checkout: prompts
 
-      - name: AI duplicate check
-        id: ai
+      - name: Analyze ticket
+        id: analyze
+        uses: actions/github-script@v7
         env:
           AI_GATEWAY_KEY: ${{ secrets.AI_GATEWAY_KEY }}
-          REPO_LIST: ${{ steps.repos.outputs.list }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-        run: |
-          RESPONSE=$(curl -s "https://ai.kodosumi.io/claude-sweden/openai/deployments/DeepSeek-V4-Flash/chat/completions?api-version=2024-10-21" \
-            -H "Content-Type: application/json" \
-            -H "x-api-key: ${AI_GATEWAY_KEY}" \
-            -d "$(jq -n \
-              --arg repos "$REPO_LIST" \
-              --arg title "$ISSUE_TITLE" \
-              --arg body "$ISSUE_BODY" \
-              '{
-                messages: [
-                  {role: "system", content: ("Du pruefst ob ein angefragtes Repo schon existiert.\n\nBestehende Repos:\n" + $repos + "\n\nPruefe: 1) Gleiches/aehnliches Repo? 2) User hat vielleicht nur keinen Zugang?\n\nAntworte kurz auf Deutsch:\n**Aehnlich:** Ja/Nein\n**Details:** ...\n**Empfehlung:** Neues Repo anlegen / Zugang zu bestehendem Repo pruefen")},
-                  {role: "user", content: ("Titel: " + $title + "\n\n" + $body)}
-                ],
-                max_tokens: 300
-              }')" 2>&1)
-
-          REVIEW=$(echo "$RESPONSE" | jq -r '.choices[0].message.content // empty')
-          echo "review<<EOF" >> $GITHUB_OUTPUT
-          echo "$REVIEW" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Post comment
-        if: steps.ai.outputs.review != ''
-        uses: actions/github-script@v7
-        env:
-          REVIEW: ${{ steps.ai.outputs.review }}
         with:
           script: |
+            const title = context.payload.issue.title || '';
+            const body = context.payload.issue.body || '';
+            const author = context.payload.issue.user.login;
+            const number = context.payload.issue.number;
+            const issueUrl = context.payload.issue.html_url;
+
+            // Determine type
+            let type = '';
+            if (title.toLowerCase().startsWith('access request')) type = 'access';
+            else if (title.toLowerCase().startsWith('repo request')) type = 'repo';
+            else if (title.toLowerCase().startsWith('repo access')) type = 'repo-access';
+            else if (title.toLowerCase().startsWith('feedback')) type = 'feedback';
+            else return;
+
+            const typeLabel = {access: 'Org-Zugang', repo: 'Neues Repo', 'repo-access': 'Repo-Zugang', feedback: 'Feedback'}[type];
+
+            // Parse key fields from body
+            function getField(name) {
+              const m = body.match(new RegExp('###\\s*' + name + '[\\s]*\\n+([^#\\n][^\\n]*)', 'i'));
+              return m ? m[1].trim() : '';
+            }
+
+            const username = getField('GitHub Username');
+            const repoName = getField('Repository Name');
+            const description = getField('Beschreibung');
+
+            // AI duplicate check for repo requests
+            let aiResult = '';
+            if (type === 'repo' && process.env.AI_GATEWAY_KEY) {
+              try {
+                const repos = await github.paginate(github.rest.repos.listForOrg, {
+                  org: 'plan-net-journey', type: 'all', per_page: 100
+                });
+                const repoTable = repos.map(r => `- ${r.name}: ${r.description || 'keine Beschreibung'}`).join('\n');
+
+                const fs = require('fs');
+                let promptTemplate = '';
+                try {
+                  promptTemplate = fs.readFileSync('prompts/duplikat-check.md', 'utf8');
+                } catch (e) {
+                  promptTemplate = 'Pruefe ob das Repo "{{REPO_NAME}}" ({{DESCRIPTION}}) schon unter diesen existiert:\n{{REPO_LIST}}\nAntwort: DUPLIKAT: JA/NEIN, MATCH: Reponame/KEINS, GRUND: ein Satz.';
+                }
+                const prompt = promptTemplate
+                  .replace('{{REPO_LIST}}', repoTable)
+                  .replace('{{REPO_NAME}}', repoName)
+                  .replace('{{DESCRIPTION}}', description);
+
+                const url = 'https://ai.kodosumi.io/claude-sweden/openai/deployments/DeepSeek-V4-Flash/chat/completions?api-version=2024-10-21';
+                const resp = await fetch(url, {
+                  method: 'POST',
+                  headers: {'Content-Type': 'application/json', 'x-api-key': process.env.AI_GATEWAY_KEY},
+                  body: JSON.stringify({
+                    messages: [{role: 'user', content: prompt}],
+                    max_tokens: 150,
+                    temperature: 0
+                  })
+                });
+                const data = await resp.json();
+                aiResult = data.choices?.[0]?.message?.content || '';
+              } catch (e) {
+                core.warning('AI check failed: ' + e.message);
+              }
+            }
+
+            // Build one combined comment
+            let comment = `### ${typeLabel} — Ticket #${number}\n\n`;
+            comment += `| Feld | Wert |\n|---|---|\n`;
+            comment += `| **Von** | @${author} |\n`;
+            if (username) comment += `| **GitHub User** | ${username} |\n`;
+            if (repoName) comment += `| **Repo** | ${repoName} |\n`;
+            if (description) comment += `| **Beschreibung** | ${description} |\n`;
+
+            if (aiResult) {
+              comment += `\n**Duplikat-Check (AI):**\n\`\`\`\n${aiResult}\n\`\`\`\n`;
+            }
+
+            comment += `\n---\n`;
+            comment += `**Freigeben:** \`/approve\` kommentieren\n`;
+            comment += `**Oder:** admin-ops in Claude Code oeffnen → \`/ticket-bearbeiten\``;
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: '**Duplikat-Check** (AI)\n\n' + process.env.REVIEW + '\n\n---\n*Automatische Pruefung — Maintainer entscheidet.*'
+              issue_number: number,
+              body: comment
             });
+
+            // Pass data for Teams
+            core.setOutput('type', typeLabel);
+            core.setOutput('author', author);
+            core.setOutput('number', String(number));
+            core.setOutput('url', issueUrl);
+            core.setOutput('title', title);
+            core.setOutput('ai_result', aiResult);
+            core.setOutput('repo_name', repoName || username || '');
+
+      - name: Notify Teams
+        if: steps.analyze.outputs.type != ''
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          TYPE: ${{ steps.analyze.outputs.type }}
+          AUTHOR: ${{ steps.analyze.outputs.author }}
+          NUMBER: ${{ steps.analyze.outputs.number }}
+          URL: ${{ steps.analyze.outputs.url }}
+          TITLE: ${{ steps.analyze.outputs.title }}
+          AI_RESULT: ${{ steps.analyze.outputs.ai_result }}
+          DETAIL: ${{ steps.analyze.outputs.repo_name }}
+        run: |
+          if [ -z "$TEAMS_WEBHOOK_URL" ]; then exit 0; fi
+
+          AI_SECTION=""
+          if [ -n "$AI_RESULT" ]; then
+            AI_SECTION=$(jq -n --arg ai "$AI_RESULT" '[
+              {"type": "TextBlock", "text": "AI Duplikat-Check:", "weight": "Bolder", "spacing": "Medium"},
+              {"type": "TextBlock", "text": $ai, "wrap": true, "fontType": "Monospace", "size": "Small"}
+            ]')
+          else
+            AI_SECTION="[]"
+          fi
+
+          CARD=$(jq -n \
+            --arg type "$TYPE" \
+            --arg author "$AUTHOR" \
+            --arg number "$NUMBER" \
+            --arg url "$URL" \
+            --arg detail "$DETAIL" \
+            --argjson ai "$AI_SECTION" \
+            '{
+              type: "message",
+              attachments: [{
+                contentType: "application/vnd.microsoft.card.adaptive",
+                content: {
+                  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                  type: "AdaptiveCard",
+                  version: "1.4",
+                  body: [
+                    {type: "TextBlock", text: ($type + " #" + $number), weight: "Bolder", size: "Medium"},
+                    {type: "FactSet", facts: [
+                      {title: "Von", value: $author},
+                      {title: "Details", value: $detail}
+                    ]},
+                    {type: "TextBlock", text: "Freigeben: `/approve` auf GitHub kommentieren", wrap: true, spacing: "Medium"}
+                  ] + $ai,
+                  actions: [{type: "Action.OpenUrl", title: "Issue oeffnen", url: $url}]
+                }
+              }]
+            }')
+
+          curl -s -X POST "$TEAMS_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d "$CARD" || echo "Teams notification failed"
