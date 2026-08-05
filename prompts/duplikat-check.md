@@ -7,12 +7,15 @@ ANGEFRAGTES REPO:
 Name: {{REPO_NAME}}
 Beschreibung: {{DESCRIPTION}}
 
-PRUEFE DREI DINGE:
-1. NAMENS-AEHNLICHKEIT: Enthaelt ein bestehendes Repo aehnliche Woerter im Namen? (z.B. "library" und "the-library", "skills" und "journey-skills")
-2. ZWECK-UEBERSCHNEIDUNG: Koennte ein bestehendes Repo bereits den gleichen oder aehnlichen Zweck erfuellen, auch wenn der Name anders ist?
-3. FEHLENDER ZUGANG: Ist es wahrscheinlich dass der User das passende Repo einfach nicht sieht weil er keinen Zugang hat?
+PRUEFE DREI DINGE — sei STRENG, lieber einmal zu viel warnen:
 
-Sei STRENG — lieber einmal zu viel warnen als ein Duplikat durchlassen. Schon eine teilweise Ueberschneidung im Zweck ist relevant.
+1. NAMENS-AEHNLICHKEIT: Teilen Repos Woerter oder Wortstaemme? Beispiele: "library" matched "the-library", "skills" matched "journey-skills", "knowledge" koennte zu "library" passen.
+
+2. ZWECK-UEBERSCHNEIDUNG: Koennte ein bestehendes Repo den gleichen Zweck erfuellen? "Wissensdatenbank" und "Library" sind aehnlich. "Skills Sammlung" und "Journey-Skills" sind aehnlich.
+
+3. FEHLENDER ZUGANG: Der User sieht moeglicherweise nicht alle Repos. Wenn ein aehnliches Repo existiert, ist es wahrscheinlich dass er nur keinen Zugang hat.
+
+WICHTIG: Auch wenn die Beschreibung eines bestehenden Repos leer ist, pruefe trotzdem den NAMEN auf Aehnlichkeit.
 
 ANTWORT (exakt dieses Format):
 
