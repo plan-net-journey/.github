@@ -10,45 +10,44 @@ jobs:
     permissions:
       issues: write
     steps:
-      - name: AI reviews the ticket
+      - name: Check for similar repos on repo requests
+        if: startsWith(github.event.issue.title, 'Repo Request')
         uses: actions/github-script@v7
         env:
           AI_GATEWAY_KEY: ${{ secrets.AI_GATEWAY_KEY }}
+          GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
         with:
           script: |
             const title = context.payload.issue.title || '';
             const body = context.payload.issue.body || '';
-            const author = context.payload.issue.user.login;
 
-            // Skip if no AI key or if it's a feedback ticket
             if (!process.env.AI_GATEWAY_KEY) return;
-            if (title.toLowerCase().startsWith('feedback')) return;
 
-            let type = 'unbekannt';
-            if (title.toLowerCase().startsWith('access request')) type = 'Org-Zugang';
-            else if (title.toLowerCase().startsWith('repo request')) type = 'Neues Repo';
-            else if (title.toLowerCase().startsWith('repo access')) type = 'Repo-Zugang';
+            // Get all existing repos
+            const repos = await github.paginate(github.rest.repos.listForOrg, {
+              org: 'plan-net-journey',
+              type: 'all',
+              per_page: 100
+            });
 
-            const systemPrompt = `Du bist ein Admin-Assistent fuer die GitHub Organisation "plan-net-journey" (Plan Net Journey).
-Deine Aufgabe: Tickets pruefen und dem Maintainer eine kurze Empfehlung geben.
+            const repoList = repos.map(r => `${r.name} — ${r.description || '(keine Beschreibung)'}`).join('\n');
 
-Regeln der Organisation:
-- Alle Repos muessen private sein
-- GitHub Account sollte @house-of-communication.com E-Mail haben (fuer neue Accounts empfohlen, bestehende Accounts sind ok)
-- SSH Keys sind Pflicht
-- Neue User bekommen automatisch Lesezugang zum Journey-Skills Marketplace
+            const systemPrompt = `Du pruefst ob ein angefragtes neues Repository moeglicherweise schon existiert.
 
-Antworte kurz und auf Deutsch. Format:
-**Zusammenfassung:** [was der User will, 1 Satz]
-**Pruefung:** [sind die Angaben vollstaendig und plausibel?]
-**Empfehlung:** [Freigeben / Nachfragen / Ablehnen — mit kurzer Begruendung]`;
+Bestehende Repos in der Organisation:
+${repoList}
 
-            const userPrompt = `Ticket-Typ: ${type}
-Titel: ${title}
-Erstellt von: ${author}
+Pruefe:
+1. Gibt es ein Repo mit gleichem oder aehnlichem Namen?
+2. Gibt es ein Repo das laut Beschreibung den gleichen Zweck hat?
+3. Koennte es sein dass der User einfach keinen Zugang zu einem bestehenden Repo hat?
 
-Inhalt:
-${body}`;
+Antworte kurz auf Deutsch. Format:
+**Aehnliche Repos gefunden:** Ja/Nein
+**Details:** [welche Repos aehnlich sind und warum, oder "Kein aehnliches Repo gefunden"]
+**Empfehlung:** [Neues Repo anlegen / Erst pruefen ob Zugang zu bestehendem Repo reicht]`;
+
+            const userPrompt = `Angefragtes Repo:\n${title}\n\n${body}`;
 
             try {
               const url = 'https://ai.kodosumi.io/claude-sweden/openai/deployments/DeepSeek-V4-Flash/chat/completions?api-version=2024-10-21';
@@ -75,7 +74,7 @@ ${body}`;
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: context.issue.number,
-                  body: `**AI Review** (DeepSeek-V4-Flash)\n\n${review}\n\n---\n*Automatische Vorpruefung — Maintainer entscheidet.*`
+                  body: `**Duplikat-Check** (AI)\n\n${review}\n\n---\n*Automatische Pruefung — Maintainer entscheidet.*`
                 });
               }
             } catch (err) {
