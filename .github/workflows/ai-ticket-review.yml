@@ -6,77 +6,62 @@ on:
 
 jobs:
   review:
+    if: startsWith(github.event.issue.title, 'Repo Request')
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
-      - name: Check for similar repos on repo requests
-        if: startsWith(github.event.issue.title, 'Repo Request')
+      - name: List existing repos
+        id: repos
         uses: actions/github-script@v7
-        env:
-          AI_GATEWAY_KEY: ${{ secrets.AI_GATEWAY_KEY }}
-          GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
         with:
           script: |
-            const title = context.payload.issue.title || '';
-            const body = context.payload.issue.body || '';
-
-            if (!process.env.AI_GATEWAY_KEY) return;
-
-            // Get all existing repos
             const repos = await github.paginate(github.rest.repos.listForOrg, {
               org: 'plan-net-journey',
               type: 'all',
               per_page: 100
             });
+            const list = repos.map(r => r.name + ' - ' + (r.description || 'keine Beschreibung')).join('\n');
+            core.setOutput('list', list);
 
-            const repoList = repos.map(r => `${r.name} — ${r.description || '(keine Beschreibung)'}`).join('\n');
+      - name: AI duplicate check
+        id: ai
+        env:
+          AI_GATEWAY_KEY: ${{ secrets.AI_GATEWAY_KEY }}
+          REPO_LIST: ${{ steps.repos.outputs.list }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          RESPONSE=$(curl -s "https://ai.kodosumi.io/claude-sweden/openai/deployments/DeepSeek-V4-Flash/chat/completions?api-version=2024-10-21" \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: ${AI_GATEWAY_KEY}" \
+            -d "$(jq -n \
+              --arg repos "$REPO_LIST" \
+              --arg title "$ISSUE_TITLE" \
+              --arg body "$ISSUE_BODY" \
+              '{
+                messages: [
+                  {role: "system", content: ("Du pruefst ob ein angefragtes Repo schon existiert.\n\nBestehende Repos:\n" + $repos + "\n\nPruefe: 1) Gleiches/aehnliches Repo? 2) User hat vielleicht nur keinen Zugang?\n\nAntworte kurz auf Deutsch:\n**Aehnlich:** Ja/Nein\n**Details:** ...\n**Empfehlung:** Neues Repo anlegen / Zugang zu bestehendem Repo pruefen")},
+                  {role: "user", content: ("Titel: " + $title + "\n\n" + $body)}
+                ],
+                max_tokens: 300
+              }')" 2>&1)
 
-            const systemPrompt = `Du pruefst ob ein angefragtes neues Repository moeglicherweise schon existiert.
+          REVIEW=$(echo "$RESPONSE" | jq -r '.choices[0].message.content // empty')
+          echo "review<<EOF" >> $GITHUB_OUTPUT
+          echo "$REVIEW" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
-Bestehende Repos in der Organisation:
-${repoList}
-
-Pruefe:
-1. Gibt es ein Repo mit gleichem oder aehnlichem Namen?
-2. Gibt es ein Repo das laut Beschreibung den gleichen Zweck hat?
-3. Koennte es sein dass der User einfach keinen Zugang zu einem bestehenden Repo hat?
-
-Antworte kurz auf Deutsch. Format:
-**Aehnliche Repos gefunden:** Ja/Nein
-**Details:** [welche Repos aehnlich sind und warum, oder "Kein aehnliches Repo gefunden"]
-**Empfehlung:** [Neues Repo anlegen / Erst pruefen ob Zugang zu bestehendem Repo reicht]`;
-
-            const userPrompt = `Angefragtes Repo:\n${title}\n\n${body}`;
-
-            try {
-              const url = 'https://ai.kodosumi.io/claude-sweden/openai/deployments/DeepSeek-V4-Flash/chat/completions?api-version=2024-10-21';
-              const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'x-api-key': process.env.AI_GATEWAY_KEY
-                },
-                body: JSON.stringify({
-                  messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: userPrompt }
-                  ],
-                  max_tokens: 300
-                })
-              });
-
-              const data = await response.json();
-              const review = data.choices?.[0]?.message?.content;
-
-              if (review) {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: context.issue.number,
-                  body: `**Duplikat-Check** (AI)\n\n${review}\n\n---\n*Automatische Pruefung — Maintainer entscheidet.*`
-                });
-              }
-            } catch (err) {
-              core.warning(`AI review failed: ${err.message}`);
-            }
+      - name: Post comment
+        if: steps.ai.outputs.review != ''
+        uses: actions/github-script@v7
+        env:
+          REVIEW: ${{ steps.ai.outputs.review }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '**Duplikat-Check** (AI)\n\n' + process.env.REVIEW + '\n\n---\n*Automatische Pruefung — Maintainer entscheidet.*'
+            });
