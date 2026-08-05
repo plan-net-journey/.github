@@ -108,9 +108,9 @@ jobs:
             -f "invitee_id=${USER_ID}" \
             -f role=direct_member 2>&1 || echo "Note: User may already be a member"
 
-          echo "Adding ${USERNAME} to Journey-Skills (Marketplace) with read access..."
-          gh api "repos/plan-net-journey/Journey-Skills/collaborators/${USERNAME}" \
-            -X PUT -f permission=pull 2>/dev/null || echo "Note: Will get access after accepting org invite"
+          echo "Adding ${USERNAME} to skill-users team..."
+          gh api "orgs/plan-net-journey/teams/skill-users/memberships/${USERNAME}" \
+            -X PUT -f role=member 2>/dev/null || echo "Note: Will be added after accepting org invite"
 
           echo "Done!"
 
@@ -133,14 +133,29 @@ jobs:
             --description "$DESCRIPTION" \
             --template plan-net-journey/project-template 2>&1
 
+          echo "Creating team '${REPO_NAME}' for repo access..."
+          gh api orgs/plan-net-journey/teams -X POST --input - <<TEAMEOF || echo "Team may already exist"
+          {"name": "${REPO_NAME}", "description": "Zugang zu ${REPO_NAME}", "privacy": "closed"}
+          TEAMEOF
+
+          TEAM_SLUG=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')
+
+          echo "Giving team push access to repo..."
+          gh api "orgs/plan-net-journey/teams/${TEAM_SLUG}/repos/plan-net-journey/${REPO_NAME}" \
+            -X PUT -f permission=push 2>/dev/null || true
+
+          echo "Giving maintainers admin access..."
+          gh api "orgs/plan-net-journey/teams/maintainers/repos/plan-net-journey/${REPO_NAME}" \
+            -X PUT -f permission=admin 2>/dev/null || true
+
           if [ -n "$MEMBERS" ]; then
             IFS=',' read -ra MEMBER_ARRAY <<< "$MEMBERS"
             for MEMBER in "${MEMBER_ARRAY[@]}"; do
               MEMBER=$(echo "$MEMBER" | xargs | sed 's/@//g')
               if [ -n "$MEMBER" ]; then
-                echo "Adding ${MEMBER} with push access..."
-                gh api "repos/plan-net-journey/${REPO_NAME}/collaborators/${MEMBER}" \
-                  -X PUT -f permission=push 2>/dev/null || echo "Warning: Could not add ${MEMBER}"
+                echo "Adding ${MEMBER} to team ${TEAM_SLUG}..."
+                gh api "orgs/plan-net-journey/teams/${TEAM_SLUG}/memberships/${MEMBER}" \
+                  -X PUT -f role=member 2>/dev/null || echo "Warning: Could not add ${MEMBER} (maybe not an org member — add as collaborator instead)"
               fi
             done
           fi
@@ -165,9 +180,15 @@ jobs:
             exit 1
           fi
 
-          echo "Adding ${USERNAME} to ${REPO_NAME} with ${PERMISSION} access..."
-          gh api "repos/plan-net-journey/${REPO_NAME}/collaborators/${USERNAME}" \
-            -X PUT -f permission="${PERMISSION}" 2>&1
+          TEAM_SLUG=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')
+
+          echo "Adding ${USERNAME} to team ${TEAM_SLUG}..."
+          gh api "orgs/plan-net-journey/teams/${TEAM_SLUG}/memberships/${USERNAME}" \
+            -X PUT -f role=member 2>&1 || {
+            echo "Team not found or user not an org member — adding as direct collaborator..."
+            gh api "repos/plan-net-journey/${REPO_NAME}/collaborators/${USERNAME}" \
+              -X PUT -f permission="${PERMISSION}" 2>&1
+          }
 
       - name: Comment and close
         uses: actions/github-script@v7
