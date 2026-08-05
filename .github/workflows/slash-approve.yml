@@ -17,16 +17,18 @@ jobs:
     permissions:
       issues: write
     steps:
-      - name: Add approved label
+      - name: Parse issue and approve
+        id: parse
         uses: actions/github-script@v7
         with:
           script: |
             const issue = context.payload.issue;
+            const body = issue.body || '';
+            const title = issue.title || '';
             const labels = issue.labels.map(l => l.name);
 
-            if (labels.includes('approved')) {
-              core.info('Issue already has approved label');
-            } else {
+            // Add approved label
+            if (!labels.includes('approved')) {
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -35,6 +37,7 @@ jobs:
               });
             }
 
+            // React to comment
             await github.rest.reactions.createForIssueComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -42,23 +45,59 @@ jobs:
               content: '+1'
             });
 
+            // Determine issue type from labels OR title
+            let type = 'unknown';
+            if (labels.includes('access-request') || title.toLowerCase().startsWith('access request')) {
+              type = 'access';
+            } else if (labels.includes('repo-request') || title.toLowerCase().startsWith('repo request')) {
+              type = 'repo';
+            } else if (labels.includes('repo-access') || title.toLowerCase().startsWith('repo access')) {
+              type = 'repo-access';
+            } else if (labels.includes('feedback') || title.toLowerCase().startsWith('feedback')) {
+              type = 'feedback';
+            }
+
+            // Parse body fields — handles both formats:
+            // "### Header\nvalue" and "### Header\n\nvalue"
+            function getField(fieldName) {
+              const regex = new RegExp(`###\\s*${fieldName}[\\s]*\\n+([^#\\n][^\\n]*)`, 'i');
+              const match = body.match(regex);
+              return match ? match[1].trim() : '';
+            }
+
+            const username = getField('GitHub Username').replace('@', '');
+            const email = getField('E-Mail Adresse');
+            const fullName = getField('Voller Name');
+            const repoName = getField('Repository Name').toLowerCase().replace(/\s+/g, '-');
+            const description = getField('Beschreibung');
+            const permission = getField('Berechtigungsstufe');
+            const members = getField('Team-Mitglieder');
+
+            core.setOutput('type', type);
+            core.setOutput('username', username);
+            core.setOutput('email', email);
+            core.setOutput('full_name', fullName);
+            core.setOutput('repo_name', repoName);
+            core.setOutput('description', description);
+            core.setOutput('permission', permission);
+            core.setOutput('members', members);
+
+            core.info(`Type: ${type}`);
+            core.info(`Username: ${username}`);
+            core.info(`Repo: ${repoName}`);
+
       - name: Handle access request
-        if: contains(github.event.issue.labels.*.name, 'access-request')
+        if: steps.parse.outputs.type == 'access'
         env:
           GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
+          USERNAME: ${{ steps.parse.outputs.username }}
         run: |
-          BODY="${{ github.event.issue.body }}"
-          USERNAME=$(echo "$BODY" | grep -A2 "GitHub Username" | tail -1 | xargs)
-
           if [ -z "$USERNAME" ] || [ -z "$GH_TOKEN" ]; then
-            echo "Missing username or ORG_ADMIN_TOKEN secret"
-            echo "Username extracted: '$USERNAME'"
-            echo "Token present: $([ -n '${{ secrets.ORG_ADMIN_TOKEN }}' ] && echo 'yes' || echo 'no')"
+            echo "Missing username ('$USERNAME') or ORG_ADMIN_TOKEN"
             exit 1
           fi
 
           echo "Inviting ${USERNAME} to plan-net-journey..."
-
           USER_ID=$(gh api "users/${USERNAME}" --jq '.id' 2>/dev/null)
           if [ -z "$USER_ID" ]; then
             echo "Could not find GitHub user: ${USERNAME}"
@@ -76,16 +115,15 @@ jobs:
           echo "Done!"
 
       - name: Handle repo request
-        if: contains(github.event.issue.labels.*.name, 'repo-request')
+        if: steps.parse.outputs.type == 'repo'
         env:
           GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
+          REPO_NAME: ${{ steps.parse.outputs.repo_name }}
+          DESCRIPTION: ${{ steps.parse.outputs.description }}
+          MEMBERS: ${{ steps.parse.outputs.members }}
         run: |
-          BODY="${{ github.event.issue.body }}"
-          REPO_NAME=$(echo "$BODY" | grep -A2 "Repository Name" | tail -1 | xargs | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
-          DESCRIPTION=$(echo "$BODY" | grep -A2 "Beschreibung" | tail -1 | xargs)
-
           if [ -z "$REPO_NAME" ] || [ -z "$GH_TOKEN" ]; then
-            echo "Missing repo name or ORG_ADMIN_TOKEN secret"
+            echo "Missing repo name or ORG_ADMIN_TOKEN"
             exit 1
           fi
 
@@ -95,7 +133,6 @@ jobs:
             --description "$DESCRIPTION" \
             --template plan-net-journey/project-template 2>&1
 
-          MEMBERS=$(echo "$BODY" | grep -A2 "Team-Mitglieder" | tail -1 | xargs)
           if [ -n "$MEMBERS" ]; then
             IFS=',' read -ra MEMBER_ARRAY <<< "$MEMBERS"
             for MEMBER in "${MEMBER_ARRAY[@]}"; do
@@ -109,15 +146,13 @@ jobs:
           fi
 
       - name: Handle repo access request
-        if: contains(github.event.issue.labels.*.name, 'repo-access')
+        if: steps.parse.outputs.type == 'repo-access'
         env:
           GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
+          REPO_NAME: ${{ steps.parse.outputs.repo_name }}
+          USERNAME: ${{ steps.parse.outputs.username }}
+          PERMISSION_RAW: ${{ steps.parse.outputs.permission }}
         run: |
-          BODY="${{ github.event.issue.body }}"
-          REPO_NAME=$(echo "$BODY" | grep -A2 "Repository Name" | tail -1 | xargs)
-          USERNAME=$(echo "$BODY" | grep -A2 "GitHub Username" | tail -1 | xargs | sed 's/@//g')
-          PERMISSION_RAW=$(echo "$BODY" | grep -A2 "Berechtigungsstufe" | tail -1 | xargs)
-
           PERMISSION="push"
           if echo "$PERMISSION_RAW" | grep -qi "maintain"; then
             PERMISSION="maintain"
@@ -134,46 +169,42 @@ jobs:
           gh api "repos/plan-net-journey/${REPO_NAME}/collaborators/${USERNAME}" \
             -X PUT -f permission="${PERMISSION}" 2>&1
 
-          echo "Done!"
-
       - name: Comment and close
         uses: actions/github-script@v7
+        env:
+          ISSUE_TYPE: ${{ steps.parse.outputs.type }}
+          USERNAME: ${{ steps.parse.outputs.username }}
+          REPO_NAME: ${{ steps.parse.outputs.repo_name }}
         with:
           script: |
-            const issue = context.payload.issue;
-            const labels = issue.labels.map(l => l.name);
-            const body = issue.body;
+            const type = process.env.ISSUE_TYPE;
+            const username = process.env.USERNAME;
+            const repoName = process.env.REPO_NAME;
 
-            let message = '';
             const ticketHint = `\n\n---\n**Weitere Berechtigungen?** Alles laeuft ueber Tickets:\n- [Repo-Zugang beantragen](https://github.com/plan-net-journey/.github/issues/new?template=repo-access-request.yml)\n- [Neues Repo beantragen](https://github.com/plan-net-journey/.github/issues/new?template=repo-request.yml)\n- [Feedback geben](https://github.com/plan-net-journey/.github/issues/new?template=feedback.yml)`;
 
-            if (labels.includes('access-request')) {
-              const match = body.match(/GitHub Username[\s\S]*?\n\n(.+)/);
-              const username = match ? match[1].trim() : 'unknown';
-              message = `Einladung an **@${username}** wurde gesendet!\n\nBitte check deine E-Mail fuer die GitHub Einladung. Nach Annahme hast du:\n- Zugang zur Organisation\n- Lesezugang zum [Journey-Skills Marketplace](https://github.com/plan-net-journey/Journey-Skills)` + ticketHint;
-            } else if (labels.includes('repo-request')) {
-              const match = body.match(/Repository Name[\s\S]*?\n\n(.+)/);
-              const repoName = match ? match[1].trim().toLowerCase().replace(/\s+/g, '-') : 'unknown';
+            let message = '';
+            if (type === 'access') {
+              message = `Einladung an **@${username}** wurde gesendet!\n\nBitte check deine E-Mail fuer die GitHub Einladung. Nach Annahme hast du:\n- Zugang zur Organisation\n- Lesezugang zum Journey-Skills Marketplace` + ticketHint;
+            } else if (type === 'repo') {
               message = `Repository **plan-net-journey/${repoName}** wurde erstellt (private)!\n\nClone: \`gh repo clone plan-net-journey/${repoName}\`` + ticketHint;
-            } else if (labels.includes('repo-access')) {
-              const repoMatch = body.match(/Repository Name[\s\S]*?\n\n(.+)/);
-              const userMatch = body.match(/GitHub Username[\s\S]*?\n\n(.+)/);
-              const repoName = repoMatch ? repoMatch[1].trim() : 'unknown';
-              const username = userMatch ? userMatch[1].trim() : 'unknown';
+            } else if (type === 'repo-access') {
               message = `**@${username}** hat jetzt Zugang zu **plan-net-journey/${repoName}**!` + ticketHint;
+            } else if (type === 'feedback') {
+              message = `Danke fuer das Feedback! Wir schauen uns das an.`;
             }
 
             if (message) {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: issue.number,
+                issue_number: context.payload.issue.number,
                 body: `✅ ${message}`
               });
               await github.rest.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: issue.number,
+                issue_number: context.payload.issue.number,
                 state: 'closed'
               });
             }
