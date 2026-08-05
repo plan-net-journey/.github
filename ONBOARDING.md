@@ -358,7 +358,7 @@ Sag dem User:
 Falls das `.github` Repo nicht erreichbar ist:
 - Kontaktiere **@basteiz** auf GitHub oder schreib an b.zimmermann@house-of-communication.com
 
-**STOPP HIER** — wenn der User noch auf die Einladung wartet, gehe NICHT weiter zu Phase 8. Zeige stattdessen eine Zwischenzusammenfassung:
+**STOPP HIER** — wenn der User noch auf die Einladung wartet, gehe NICHT weiter zu Phase 8. Zeige die Zwischenzusammenfassung und erklaere wie es weitergeht:
 
 ```
 === Onboarding — Zwischenstand ===
@@ -369,14 +369,19 @@ SSH Key:      eingerichtet
 Verbindung:   erfolgreich
 Team-Zugang:  beantragt — warte auf Freigabe
 
-Naechster Schritt: Einladungs-E-Mail annehmen,
-dann Claude Code oeffnen und sagen:
-"Ich habe die GitHub-Einladung angenommen."
-
 ======================================
 ```
 
-Beende die Session hier. NICHT weitermachen.
+Sag dem User:
+> **So geht es weiter:**
+> 1. Du bekommst eine E-Mail von GitHub — klicke auf "Einladung annehmen"
+> 2. Oeffne danach Claude Code und sage einfach:
+>    *"Lies die ONBOARDING.md und mach weiter mit dem Setup"*
+> 3. Claude prueft automatisch was schon erledigt ist und macht dort weiter wo wir aufgehoert haben
+>
+> Du musst dir nichts merken — Claude erkennt den Stand automatisch.
+
+Gehe NICHT weiter zu Phase 8. Die Session kann hier enden.
 
 ---
 
