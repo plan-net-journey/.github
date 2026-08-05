@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Allgemeine Fragen
-    url: https://github.com/plan-net-journey/.github/discussions
-    about: Fuer allgemeine Fragen zu PNJ Tools und Workflows
+  - name: Neues Repo / Repo-Zugang / Feedback
+    url: https://github.com/plan-net-journey/admin-ops/issues/new/choose
+    about: Fuer Org-Mitglieder — interne Tickets im admin-ops Repo erstellen
