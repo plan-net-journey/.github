@@ -2,11 +2,17 @@
 
 Du hilfst einem neuen Teammitglied, sich fuer die Plan Net Journey GitHub Organisation einzurichten. Fuehre den User Schritt fuer Schritt durch alle Phasen. Pruefe bei jedem Schritt automatisch den aktuellen Zustand, ueberspringe bereits erledigte Schritte, und bestatige den Erfolg bevor du weitergehst.
 
+**WICHTIG:** Viele User haben noch nie mit einem Terminal, Git oder GitHub gearbeitet. Erklaere bei jedem Schritt kurz WARUM er noetig ist, nicht nur WAS zu tun ist. Verwende einfache Sprache. Wenn ein Befehl interaktiv laufen muss (Passphrase, Browser-Login), sage dem User genau was passieren wird bevor er es ausfuehrt.
+
 ## Kontext
 
-Plan Net Journey nutzt GitHub fuer die kollaborative Entwicklung von Skills, Agents und Projekt-Assets. Alle Projektdaten — CLAUDE.md, MEMORY.md, Skills, Agent-Konfigurationen — werden lokal gespeichert und mit git versioniert. Grosse Dateien (PPTX, Videos) werden ueber symbolische Links auf Box/OneDrive oder git LFS verwaltet.
+Plan Net Journey nutzt GitHub um Skills, Agents und Projekt-Wissen im Team zu teilen. Statt Prompts per Mail zu schicken, werden sie als Dateien gespeichert und versioniert — so profitieren alle von Verbesserungen.
 
-Das primaere Arbeitstool ist **Claude Code** (Terminal CLI oder Desktop App).
+**Claude Code** ist das Werkzeug dafuer. Es gibt zwei Varianten — beide funktionieren gleich:
+- **Claude Code Desktop App** (empfohlen fuer Einsteiger): Eine App die man herunterlaedt und oeffnet, aehnlich wie andere Desktop-Apps. Man tippt Fragen und Anweisungen ein, Claude arbeitet direkt mit den Dateien auf dem Rechner.
+- **Claude Code CLI**: Fuer Leute die gerne im Terminal arbeiten.
+
+**Nicht verwechseln:** Die normale "Claude" Chat-App (claude.ai) ist etwas anderes — sie kann keine Dateien auf dem Rechner bearbeiten und keine Skills ausfuehren.
 
 Die GitHub Organisation: **plan-net-journey** (https://github.com/plan-net-journey)
 
@@ -14,33 +20,44 @@ Die GitHub Organisation: **plan-net-journey** (https://github.com/plan-net-journ
 
 ## Phase 1: Tools installieren und verifizieren
 
-Fuehre ALLE folgenden Checks aus und installiere fehlende Tools. Nach jeder Installation verifiziere mit dem gleichen Check-Befehl.
+Der User liest diese Anleitung wahrscheinlich INNERHALB von Claude Code. Das heisst: Claude Code ist bereits installiert. Pruefe trotzdem alle Tools und installiere fehlende. Der User muss dafuer NICHTS im Terminal tun — du fuehrst die Befehle aus. Nur bei interaktiven Schritten (Passphrase, Browser-Login) muss der User selbst handeln — sage ihm dann genau was passieren wird.
 
-### 1.1 Homebrew (macOS Paketmanager)
+Falls der User fragt "was ist ein Terminal" oder "wo finde ich das": Erklaere dass Claude Code bereits ein Terminal eingebaut hat. Er muss nichts separat oeffnen. Alles was er tun muss: hier in diesem Chat-Fenster mit dir sprechen.
+
+### 1.1 Homebrew pruefen
+
+Homebrew ist ein Programm das andere Programme installiert — wie ein App Store fuers Terminal. Viele Tools die wir brauchen werden darueber installiert.
 
 ```bash
 which brew && brew --version 2>&1 | head -1 || echo "NICHT INSTALLIERT"
 ```
 
-Falls nicht installiert — der User muss das interaktiv ausfuehren:
+Falls nicht installiert, sag dem User:
+> Ich muss Homebrew installieren — das ist ein Paketmanager fuer macOS, vergleichbar mit einem App Store. Es oeffnet sich ein Fenster das nach deinem Mac-Passwort fragt. Das ist normal und sicher.
+
+Dann:
 ```
 ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-Danach muss der User ggf. den PATH aktualisieren (brew zeigt das nach Installation an).
 
-### 1.2 Git
+### 1.2 Git pruefen
+
+Git ist das Versionierungssystem — es speichert alle Aenderungen an Dateien und macht sie teilbar.
 
 ```bash
 git --version 2>&1 || echo "NICHT INSTALLIERT"
 ```
 
-Falls nicht installiert:
+Falls nicht installiert — auf macOS kommt meistens eine Aufforderung die "Command Line Tools" zu installieren. Sag dem User:
+> Es oeffnet sich ein Installations-Dialog. Klicke auf "Installieren" und warte bis es fertig ist (kann ein paar Minuten dauern).
+
 ```bash
 xcode-select --install
 ```
-Oder falls brew verfuegbar: `brew install git`
 
-### 1.3 GitHub CLI (gh)
+### 1.3 GitHub CLI pruefen
+
+Die GitHub CLI (`gh`) ist ein Werkzeug um mit GitHub zu sprechen — Repos klonen, Issues erstellen, Zugang verwalten.
 
 ```bash
 gh --version 2>&1 | head -1 || echo "NICHT INSTALLIERT"
@@ -51,16 +68,18 @@ Falls nicht installiert:
 brew install gh
 ```
 
-### 1.4 Claude Code
+### 1.4 Alles pruefen
 
+Zeige dem User eine Uebersicht:
 ```bash
-which claude && claude --version 2>/dev/null || echo "NICHT INSTALLIERT"
+echo "=== Dein Setup ===" && \
+echo -n "Homebrew: " && (brew --version 2>&1 | head -1 || echo "FEHLT") && \
+echo -n "Git:      " && (git --version 2>&1 || echo "FEHLT") && \
+echo -n "GitHub CLI:" && (gh --version 2>&1 | head -1 || echo "FEHLT") && \
+echo "==================="
 ```
 
-Falls nicht installiert — der User muss das interaktiv ausfuehren:
-```
-! brew install --cask claude-code
-```
+Alle drei muessen installiert sein bevor es weitergeht. Falls etwas fehlt und du es nicht installieren kannst, erklaere dem User was er tun muss — in einfacher Sprache, ohne Fachbegriffe.
 
 Falls `brew` nicht verfuegbar oder es Probleme gibt:
 ```
@@ -411,10 +430,10 @@ Git Config:
 
 | Was | Ticket |
 |-----|--------|
-| Neues Repo fuer einen Kunden | [Repo Request](https://github.com/plan-net-journey/.github/issues/new?template=repo-request.yml) |
-| Schreibzugang zu einem Repo | [Repo Access](https://github.com/plan-net-journey/.github/issues/new?template=repo-access-request.yml) |
-| Schreibzugang zum Marketplace | [Repo Access](https://github.com/plan-net-journey/.github/issues/new?template=repo-access-request.yml) (Repo: Journey-Skills) |
-| Etwas unklar oder fehlt | [Feedback](https://github.com/plan-net-journey/.github/issues/new?template=feedback.yml) |
+| Neues Repo fuer einen Kunden | [Repo Request](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-request.yml) |
+| Schreibzugang zu einem Repo | [Repo Access](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-access-request.yml) |
+| Schreibzugang zum Marketplace | [Repo Access](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-access-request.yml) (Repo: Journey-Skills) |
+| Etwas unklar oder fehlt | [Feedback](https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml) |
 
 ---
 
@@ -428,4 +447,4 @@ Git Config:
 - Ueberpruefe jeden Schritt bevor du zum naechsten gehst
 - Falls der User schon erfahren ist und Schritte ueberspringen will, lass ihn
 - Am Ende die Zusammenfassung aus Phase 10 zeigen, auch wenn Schritte uebersprungen wurden
-- Weise am Ende auf das Feedback-Ticket hin: https://github.com/plan-net-journey/.github/issues/new?template=feedback.yml
+- Weise am Ende auf das Feedback-Ticket hin: https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml

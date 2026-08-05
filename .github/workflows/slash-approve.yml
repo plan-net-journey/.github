@@ -202,7 +202,7 @@ jobs:
             const username = process.env.USERNAME;
             const repoName = process.env.REPO_NAME;
 
-            const ticketHint = `\n\n---\n**Weitere Berechtigungen?** Alles laeuft ueber Tickets:\n- [Repo-Zugang beantragen](https://github.com/plan-net-journey/.github/issues/new?template=repo-access-request.yml)\n- [Neues Repo beantragen](https://github.com/plan-net-journey/.github/issues/new?template=repo-request.yml)\n- [Feedback geben](https://github.com/plan-net-journey/.github/issues/new?template=feedback.yml)`;
+            const ticketHint = `\n\n---\n**Weitere Berechtigungen?** Alles laeuft ueber Tickets im [admin-ops Repo](https://github.com/plan-net-journey/admin-ops/issues/new/choose):\n- Repo-Zugang, neues Repo, Feedback — alles dort.`;
 
             let message = '';
             if (type === 'access') {
