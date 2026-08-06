@@ -1,0 +1,363 @@
+<title>PNJ — Maintainer Handbuch</title>
+<style>
+  @font-face { font-family: 'Display'; src: local('.AppleSystemUIFontRounded-Bold'), local('system-ui'); }
+
+  :root {
+    --bg: #f8f9fa; --canvas: #ffffff; --text: #1a1b1e; --text2: #495057; --text3: #868e96;
+    --border: #dee2e6; --shadow: rgba(0,0,0,.06);
+    --yellow: #fff3bf; --yellow-border: #ffd43b; --yellow-text: #664d03;
+    --teal: #c3fae8; --teal-border: #38d9a9; --teal-text: #0b5e3f;
+    --purple: #e5dbff; --purple-border: #9775fa; --purple-text: #3b1f8e;
+    --coral: #ffe3e3; --coral-border: #ff8787; --coral-text: #862e2e;
+    --green: #d3f9d8; --green-border: #51cf66; --green-text: #1b5e20;
+    --blue: #d0ebff; --blue-border: #4dabf7; --blue-text: #1864ab;
+    --draft-bg: #fff3bf; --draft-text: #664d03; --draft-border: #fcc419;
+    --arrow: #adb5bd;
+  }
+  @media (prefers-color-scheme: dark) { :root {
+    --bg: #141517; --canvas: #1a1b1e; --text: #e9ecef; --text2: #adb5bd; --text3: #868e96;
+    --border: #343a40; --shadow: rgba(0,0,0,.3);
+    --yellow: #3d3400; --yellow-border: #fcc419; --yellow-text: #ffe066;
+    --teal: #0a2e22; --teal-border: #20c997; --teal-text: #96f2d7;
+    --purple: #241845; --purple-border: #845ef7; --purple-text: #d0bfff;
+    --coral: #350f0f; --coral-border: #fa5252; --coral-text: #ffc9c9;
+    --green: #0d2e12; --green-border: #40c057; --green-text: #b2f2bb;
+    --blue: #0d2137; --blue-border: #339af0; --blue-text: #a5d8ff;
+    --draft-bg: #3d3400; --draft-text: #ffe066; --draft-border: #e6a700;
+    --arrow: #495057;
+  }}
+  :root[data-theme="light"] {
+    --bg: #f8f9fa; --canvas: #ffffff; --text: #1a1b1e; --text2: #495057; --text3: #868e96;
+    --border: #dee2e6; --shadow: rgba(0,0,0,.06);
+    --yellow: #fff3bf; --yellow-border: #ffd43b; --yellow-text: #664d03;
+    --teal: #c3fae8; --teal-border: #38d9a9; --teal-text: #0b5e3f;
+    --purple: #e5dbff; --purple-border: #9775fa; --purple-text: #3b1f8e;
+    --coral: #ffe3e3; --coral-border: #ff8787; --coral-text: #862e2e;
+    --green: #d3f9d8; --green-border: #51cf66; --green-text: #1b5e20;
+    --blue: #d0ebff; --blue-border: #4dabf7; --blue-text: #1864ab;
+    --draft-bg: #fff3bf; --draft-text: #664d03; --draft-border: #fcc419;
+    --arrow: #adb5bd;
+  }
+  :root[data-theme="dark"] {
+    --bg: #141517; --canvas: #1a1b1e; --text: #e9ecef; --text2: #adb5bd; --text3: #868e96;
+    --border: #343a40; --shadow: rgba(0,0,0,.3);
+    --yellow: #3d3400; --yellow-border: #fcc419; --yellow-text: #ffe066;
+    --teal: #0a2e22; --teal-border: #20c997; --teal-text: #96f2d7;
+    --purple: #241845; --purple-border: #845ef7; --purple-text: #d0bfff;
+    --coral: #350f0f; --coral-border: #fa5252; --coral-text: #ffc9c9;
+    --green: #0d2e12; --green-border: #40c057; --green-text: #b2f2bb;
+    --blue: #0d2137; --blue-border: #339af0; --blue-text: #a5d8ff;
+    --draft-bg: #3d3400; --draft-text: #ffe066; --draft-border: #e6a700;
+    --arrow: #495057;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  .draft-banner { background: var(--draft-bg); border-bottom: 2px solid var(--draft-border); color: var(--draft-text); text-align: center; padding: .6rem 1rem; font-size: .85rem; font-weight: 600; letter-spacing: .03em; }
+  .draft-banner a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+  .page { max-width: 920px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+  .nav { display: flex; gap: .5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .nav a { display: inline-block; padding: .35rem .85rem; background: var(--canvas); border: 1px solid var(--border); border-radius: .35rem; font-size: .8rem; color: var(--text2); text-decoration: none; }
+  .nav a:hover { border-color: var(--blue-border); color: var(--blue-text); }
+  .nav a.active { background: var(--blue); border-color: var(--blue-border); color: var(--blue-text); font-weight: 600; }
+
+  .hero { text-align: center; margin-bottom: 3rem; padding-top: .5rem; }
+  .hero h1 { font-size: 2rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.15; margin-bottom: .5rem; text-wrap: balance; }
+  .hero h1 span { background: linear-gradient(135deg, var(--coral-border), var(--purple-border)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { font-size: 1rem; color: var(--text2); max-width: 560px; margin: 0 auto; text-wrap: balance; }
+
+  .section { margin-bottom: 3rem; }
+  .section-label { display: inline-block; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: .2rem .65rem; border-radius: .25rem; margin-bottom: .75rem; }
+  .section h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: .35rem; }
+  .section > p { color: var(--text2); font-size: .95rem; margin-bottom: 1.25rem; }
+
+  .label-yellow { background: var(--yellow); color: var(--yellow-text); border: 1px solid var(--yellow-border); }
+  .label-teal { background: var(--teal); color: var(--teal-text); border: 1px solid var(--teal-border); }
+  .label-purple { background: var(--purple); color: var(--purple-text); border: 1px solid var(--purple-border); }
+  .label-coral { background: var(--coral); color: var(--coral-text); border: 1px solid var(--coral-border); }
+  .label-green { background: var(--green); color: var(--green-text); border: 1px solid var(--green-border); }
+  .label-blue { background: var(--blue); color: var(--blue-text); border: 1px solid var(--blue-border); }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+
+  .card { background: var(--canvas); border: 1px solid var(--border); border-radius: .65rem; padding: 1.15rem 1.25rem; box-shadow: 0 2px 8px var(--shadow); }
+  .card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; }
+  .card p { font-size: .85rem; color: var(--text2); }
+  .card-accent { border-left: 3px solid; }
+  .card-yellow { border-left-color: var(--yellow-border); }
+  .card-teal { border-left-color: var(--teal-border); }
+  .card-purple { border-left-color: var(--purple-border); }
+  .card-coral { border-left-color: var(--coral-border); }
+  .card-green { border-left-color: var(--green-border); }
+  .card-blue { border-left-color: var(--blue-border); }
+
+  .flow { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 1.25rem 0; }
+  .flow-step { background: var(--canvas); border: 1px solid var(--border); border-radius: .65rem; padding: .85rem 1.25rem; width: 100%; max-width: 600px; box-shadow: 0 2px 8px var(--shadow); }
+  .flow-step h4 { font-size: .85rem; font-weight: 700; margin-bottom: .15rem; display: flex; align-items: center; gap: .4rem; }
+  .flow-step p { font-size: .8rem; color: var(--text2); }
+  .flow-arrow { color: var(--arrow); font-size: 1.2rem; padding: .15rem 0; }
+  .flow-num { display: inline-flex; align-items: center; justify-content: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; font-size: .7rem; font-weight: 700; flex-shrink: 0; }
+  .num-yellow { background: var(--yellow); color: var(--yellow-text); border: 1px solid var(--yellow-border); }
+  .num-teal { background: var(--teal); color: var(--teal-text); border: 1px solid var(--teal-border); }
+  .num-purple { background: var(--purple); color: var(--purple-text); border: 1px solid var(--purple-border); }
+  .num-green { background: var(--green); color: var(--green-text); border: 1px solid var(--green-border); }
+  .num-blue { background: var(--blue); color: var(--blue-text); border: 1px solid var(--blue-border); }
+  .num-coral { background: var(--coral); color: var(--coral-text); border: 1px solid var(--coral-border); }
+
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; margin: 1rem 0; }
+  th, td { text-align: left; padding: .55rem .75rem; border-bottom: 1px solid var(--border); }
+  th { font-weight: 700; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--text3); }
+  td { color: var(--text2); }
+  td:first-child { color: var(--text); font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  .tbl { background: var(--canvas); border: 1px solid var(--border); border-radius: .65rem; overflow: hidden; box-shadow: 0 2px 8px var(--shadow); overflow-x: auto; }
+
+  code { font-family: 'SF Mono', 'Fira Code', Menlo, monospace; font-size: .82em; background: var(--canvas); border: 1px solid var(--border); padding: .1rem .35rem; border-radius: .25rem; }
+
+  .cta { background: var(--blue); border: 1px solid var(--blue-border); border-radius: .65rem; padding: 1.5rem; text-align: center; margin-top: 2rem; }
+  .cta h3 { font-size: 1.1rem; font-weight: 700; color: var(--blue-text); margin-bottom: .35rem; }
+  .cta p { font-size: .9rem; color: var(--blue-text); opacity: .85; margin-bottom: .75rem; }
+  .cta-links { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+  .cta-link { display: inline-block; padding: .45rem 1.1rem; background: var(--blue-border); color: #fff; text-decoration: none; border-radius: .35rem; font-size: .85rem; font-weight: 600; }
+  .cta-link:hover { opacity: .9; }
+  .cta-link-secondary { background: transparent; border: 1px solid var(--blue-border); color: var(--blue-text); }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+</style>
+
+<div class="draft-banner">
+  DRAFT VERSION — Wird aktiv weiterentwickelt. <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml">Feedback geben</a>
+</div>
+
+<div class="page">
+
+  <nav class="nav">
+    <a href="ERKLAERUNG.html">Erklaerung (Alle)</a>
+    <a class="active" href="GUIDE-MAINTAINER.html">Maintainer Handbuch</a>
+    <a href="GUIDE-USER.html">User Guide</a>
+  </nav>
+
+  <div class="hero">
+    <h1><span>Maintainer</span> Handbuch</h1>
+    <p>Wie das PNJ GitHub Setup intern funktioniert — Architektur, Workflows, Regeln.</p>
+  </div>
+
+  <!-- 1. ARCHITEKTUR -->
+  <div class="section">
+    <span class="section-label label-purple">Architektur</span>
+    <h2>Repos und ihre Aufgaben</h2>
+    <p>Jedes Repo hat eine klare Rolle. Kein Repo macht alles.</p>
+
+    <div class="cards">
+      <div class="card card-accent card-coral">
+        <h3>.github <code>PUBLIC</code></h3>
+        <p>Onboarding, Access Requests, ERKLAERUNG.html, GitHub Pages. Einziges oeffentliches Repo — nur fuer den Einstieg neuer User.</p>
+      </div>
+      <div class="card card-accent card-blue">
+        <h3>admin-ops <code>PRIVAT</code></h3>
+        <p>Admin-Skills, Tickets (Repo-Request, Zugang, Feedback, Verbesserung), Tests, Memory, Entscheidungen.</p>
+      </div>
+      <div class="card card-accent card-purple">
+        <h3>Journey-Skills <code>PRIVAT</code></h3>
+        <p>Plugin Marketplace. Enthaelt das pnj Plugin und kuenftig weitere fachliche Plugins.</p>
+      </div>
+      <div class="card card-accent card-teal">
+        <h3>project-template <code>PRIVAT</code></h3>
+        <p>Vorlage fuer neue Repos. CLAUDE.md, .gitignore, MEMORY.md, .cursorrules, AGENTS.md. Wird per Ticket automatisch angewendet.</p>
+      </div>
+    </div>
+    <div class="cards" style="margin-top: 1rem;">
+      <div class="card card-accent card-green" style="grid-column: 1 / -1;">
+        <h3>Kunden-Repos <code>PRIVAT</code></h3>
+        <p>Pro Kunde/Projekt ein Repo. Wird aus dem Template erstellt. Projektspezifische Skills leben dort, nicht im Marketplace.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 2. ZUGANGSSTUFEN -->
+  <div class="section">
+    <span class="section-label label-teal">Zugangsstufen</span>
+    <h2>Wer sieht was</h2>
+    <p>Org-Default ist <code>none</code> — niemand sieht etwas ohne explizite Zuweisung.</p>
+
+    <div class="tbl">
+      <table>
+        <tr><th>Stufe</th><th>Wer</th><th>Sieht</th></tr>
+        <tr><td>Org-Default</td><td>Alle Members</td><td>Nichts (none)</td></tr>
+        <tr><td>skill-users Team</td><td>Alle Members (automatisch bei Onboarding)</td><td>Journey-Skills + admin-ops (read)</td></tr>
+        <tr><td>Per-Repo Teams</td><td>Zugewiesene Members</td><td>Einzelnes Repo (push) — Team wird automatisch bei Repo-Request erstellt</td></tr>
+        <tr><td>maintainers Team</td><td>basteiz, gklemm, Luke2605</td><td>Alle Repos (admin)</td></tr>
+        <tr><td>Collaborators</td><td>Externe (Freelancer, Partner)</td><td>Nur explizit zugewiesene Repos — kein Org-Mitglied, kein Team</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 3. TICKET-FLOW -->
+  <div class="section">
+    <span class="section-label label-yellow">Ticket-Flow</span>
+    <h2>Was passiert wenn ein Ticket erstellt wird</h2>
+    <p>Zwei Workflows: <strong>Ticket Review</strong> (bei Erstellung) und <strong>Slash Approve</strong> (bei /approve).</p>
+
+    <h3 style="font-size: .95rem; margin: 1.5rem 0 .5rem;">Phase 1: Ticket wird erstellt</h3>
+    <div class="flow">
+      <div class="flow-step" style="border-left: 3px solid var(--yellow-border);">
+        <h4><span class="flow-num num-yellow">1</span> Issue erstellt</h4>
+        <p>User fuellt Formular aus. Label wird automatisch gesetzt (access-request, repo-request, etc.).</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step" style="border-left: 3px solid var(--blue-border);">
+        <h4><span class="flow-num num-blue">2</span> Ticket Review Workflow</h4>
+        <p>Parst den Issue-Body, erstellt eine Zusammenfassung als Kommentar. Bei Repo-Requests: AI Duplikat-Check via DeepSeek (Prompt liegt in <code>prompts/duplikat-check.md</code>).</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step" style="border-left: 3px solid var(--teal-border);">
+        <h4><span class="flow-num num-teal">3</span> Teams-Notification</h4>
+        <p>Adaptive Card im privaten Teams-Channel. Zeigt Typ, Autor, Details, AI-Ergebnis, Link zum Issue.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size: .95rem; margin: 1.5rem 0 .5rem;">Phase 2: Maintainer gibt frei</h3>
+    <div class="flow">
+      <div class="flow-step" style="border-left: 3px solid var(--green-border);">
+        <h4><span class="flow-num num-green">4</span> /approve Comment</h4>
+        <p>Maintainer kommentiert <code>/approve</code>. Nur OWNER, MEMBER oder COLLABORATOR koennen das.</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step" style="border-left: 3px solid var(--purple-border);">
+        <h4><span class="flow-num num-purple">5</span> Slash Approve Workflow</h4>
+        <p>Erkennt Ticket-Typ (Label oder Titel). Fuehrt die Aktion aus: Org-Einladung, Repo-Erstellung (aus Template + Auto-Team), oder Berechtigungen setzen. Nutzt <code>ORG_ADMIN_TOKEN</code>.</p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step" style="border-left: 3px solid var(--coral-border);">
+        <h4><span class="flow-num num-coral">6</span> Issue geschlossen</h4>
+        <p>Bestaetigungskommentar mit Zusammenfassung + Links zu weiteren Ticket-Typen. Issue wird automatisch geschlossen.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 4. ADMIN SKILLS -->
+  <div class="section">
+    <span class="section-label label-blue">Admin-Skills</span>
+    <h2>Dein Werkzeugkasten</h2>
+    <p>Klone <code>admin-ops</code>, oeffne Claude Code dort, und nutze diese Skills:</p>
+
+    <div class="tbl">
+      <table>
+        <tr><th>Skill</th><th>Was er tut</th></tr>
+        <tr><td><code>/ticket-bearbeiten</code></td><td>Offene Tickets anzeigen und mit /approve freigeben</td></tr>
+        <tr><td><code>/user-verwalten</code></td><td>Members, Collaborators und Teams verwalten</td></tr>
+        <tr><td><code>/repo-verwalten</code></td><td>Repos erstellen, loeschen, Berechtigungen setzen</td></tr>
+        <tr><td><code>/token-verwalten</code></td><td>ORG_ADMIN_TOKEN pruefen und erneuern</td></tr>
+        <tr><td><code>/org-status</code></td><td>Gesamtueberblick: Members, Teams, Repos, offene Tickets</td></tr>
+      </table>
+    </div>
+
+    <div class="card card-accent card-blue" style="margin-top: 1rem;">
+      <h3>So startest du</h3>
+      <p><code>gh repo clone plan-net-journey/admin-ops</code> — dann Claude Code im Ordner oeffnen. Claude holt sich automatisch die neueste Version und zeigt offene Tickets.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 5. PLUGIN MARKETPLACE -->
+  <div class="section">
+    <span class="section-label label-purple">Plugin Marketplace</span>
+    <h2>Skills verwalten und verteilen</h2>
+    <p>Journey-Skills ist ein nativer Claude Code Marketplace. Plugins werden per <code>/plugin install</code> installiert.</p>
+
+    <div class="cards">
+      <div class="card card-accent card-purple">
+        <h3>Neues Plugin erstellen</h3>
+        <p>1. Feature Branch: <code>git checkout -b plugin/name</code><br>
+        2. Verzeichnis: <code>plugins/name/.claude-plugin/plugin.json</code> + <code>skills/</code><br>
+        3. In <code>marketplace.json</code> eintragen<br>
+        4. Validieren: <code>claude plugin validate</code><br>
+        5. PR auf main erstellen</p>
+      </div>
+      <div class="card card-accent card-green">
+        <h3>Versionierung (Semver)</h3>
+        <p><strong>Patch</strong> (1.0.1): Bugfix, Formulierung<br>
+        <strong>Minor</strong> (1.1.0): Neuer Skill<br>
+        <strong>Major</strong> (2.0.0): Breaking Change<br><br>
+        Version in <code>plugin.json</code> UND <code>marketplace.json</code> synchron bumpen.</p>
+      </div>
+    </div>
+
+    <div class="card card-accent card-coral" style="margin-top: 1rem;">
+      <h3>Deprecation</h3>
+      <p>Nie loeschen — immer behalten als Referenz. Major Bump, "DEPRECATED" in Description, Migration-Hinweis in README.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 6. TESTS -->
+  <div class="section">
+    <span class="section-label label-green">Tests</span>
+    <h2>39 automatische Checks</h2>
+    <p><code>bash tests/verify-setup.sh</code> im admin-ops Repo. Prueft alles: Repos, Templates, Labels, Secrets, Teams, Workflow-Syntax.</p>
+
+    <div class="card card-accent card-green">
+      <h3>Regeln bei Aenderungen</h3>
+      <p>1. Bestehende Tests ausfuehren: <code>bash tests/verify-setup.sh</code><br>
+      2. Tests ergaenzen falls die Aenderung neue pruefbare Bedingungen einfuehrt<br>
+      3. Nicht committen wenn Tests fehlschlagen<br>
+      4. <strong>Jeden Ticket-Typ testen</strong> — nicht nur den der geaendert wurde</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 7. LEARNINGS -->
+  <div class="section">
+    <span class="section-label label-coral">Learnings</span>
+    <h2>Aus Fehlern gelernt</h2>
+    <p>Fuenf Regeln die aus Produktions-Bugs abgeleitet wurden.</p>
+
+    <div class="cards" style="grid-template-columns: 1fr;">
+      <div class="card card-accent card-coral">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div>
+            <h3 style="margin-bottom: .75rem;">Immer</h3>
+            <p style="font-size: .85rem;">
+              &#10003; Automatische Daten statt User-Eingaben verwenden (Issue-Autor statt Formularfeld)<br><br>
+              &#10003; Jeden Ticket-Typ testen, nicht nur den Sonnenschein-Fall<br><br>
+              &#10003; JavaScript fuer JSON, kein Bash/jq
+            </p>
+          </div>
+          <div>
+            <h3 style="margin-bottom: .75rem;">Nach Refactoring</h3>
+            <p style="font-size: .85rem;">
+              &#10003; Alle <code>process.env.*</code> vorhanden im <code>env:</code> Block?<br><br>
+              &#10003; Alle <code>steps.*.outputs.*</code> existieren?<br><br>
+              &#10003; Workflow fuer JEDEN Ticket-Typ getestet?<br><br>
+              &#10003; Vor Shipping: Nicht-Techniker testen lassen
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h3>Loslegen</h3>
+    <p>Admin-Ops klonen, Claude Code oeffnen, /ticket-bearbeiten sagen.</p>
+    <div class="cta-links">
+      <a href="https://github.com/plan-net-journey/admin-ops" class="cta-link">admin-ops oeffnen</a>
+      <a href="https://github.com/plan-net-journey/admin-ops/issues" class="cta-link cta-link-secondary">Offene Tickets</a>
+    </div>
+  </div>
+
+</div>

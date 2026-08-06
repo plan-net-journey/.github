@@ -428,14 +428,16 @@ Jedes Projekt ist ein Ordner mit:
 - `.claude/skills/` — Skills die nur fuer dieses Projekt relevant sind
 - Grosse Dateien (Videos, PPTX, etc.) bleiben in eurem Cloud-Storage (Box, OneDrive) und werden per Verweis eingebunden
 
-**Alles was du brauchst, bekommst du ueber Tickets — oder tippe `/pnj-hilfe`:**
+**Alles was du brauchst, bekommst du ueber Tickets — oder tippe `/pnj:hilfe`:**
 
 | Was du brauchst | Wie |
 |-----------------|-----|
-| Hilfe / Fragen | `/pnj-hilfe` eingeben |
-| Ein neues Projekt | [Ticket erstellen](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-request.yml) |
-| Zugang zu einem Projekt | [Ticket erstellen](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-access-request.yml) |
+| Hilfe / Fragen | `/pnj:hilfe` eingeben |
+| Ein neues Projekt | `/pnj:ticket` oder [Ticket erstellen](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-request.yml) |
+| Zugang zu einem Projekt | `/pnj:ticket` oder [Ticket erstellen](https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-access-request.yml) |
 | Etwas funktioniert nicht | [Feedback geben](https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml) |
+
+**Naechster Schritt:** Lies die [Anleitung fuer Teammitglieder](https://plan-net-journey.github.io/.github/GUIDE-USER.html) — dort steht alles was du im Alltag brauchst.
 
 ---
 
