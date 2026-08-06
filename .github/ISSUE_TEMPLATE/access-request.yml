@@ -14,9 +14,9 @@ body:
   - type: input
     id: github-username
     attributes:
-      label: GitHub Username
-      description: "Dein GitHub Benutzername"
-      placeholder: "z.B. max-mustermann"
+      label: Dein GitHub Benutzername
+      description: "Das ist der Name den du bei der Registrierung gewaehlt hast — er steht oben rechts auf github.com wenn du eingeloggt bist. NICHT deine E-Mail-Adresse."
+      placeholder: "Steht oben rechts auf github.com wenn du eingeloggt bist"
     validations:
       required: true
 

@@ -91,9 +91,25 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
           USERNAME: ${{ steps.parse.outputs.username }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
         run: |
-          if [ -z "$USERNAME" ] || [ -z "$GH_TOKEN" ]; then
-            echo "Missing username ('$USERNAME') or ORG_ADMIN_TOKEN"
+          # Verify username — fall back to issue author if given username is wrong
+          if [ -n "$USERNAME" ]; then
+            USER_ID=$(gh api "users/${USERNAME}" --jq '.id' 2>/dev/null)
+            if [ -z "$USER_ID" ]; then
+              echo "WARNING: Username '${USERNAME}' not found — using issue author '${ISSUE_AUTHOR}' instead"
+              USERNAME="$ISSUE_AUTHOR"
+            elif [ "$USERNAME" != "$ISSUE_AUTHOR" ]; then
+              echo "NOTE: Angegebener Username '${USERNAME}' weicht vom Issue-Autor '${ISSUE_AUTHOR}' ab — pruefe ob korrekt"
+              # Use the stated username but warn
+            fi
+          else
+            echo "No username in body — using issue author '${ISSUE_AUTHOR}'"
+            USERNAME="$ISSUE_AUTHOR"
+          fi
+
+          if [ -z "$GH_TOKEN" ]; then
+            echo "Missing ORG_ADMIN_TOKEN"
             exit 1
           fi
 
