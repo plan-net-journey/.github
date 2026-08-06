@@ -113,68 +113,47 @@ jobs:
               body: comment
             });
 
-            // Pass data for Teams
-            core.setOutput('type', typeLabel);
-            core.setOutput('author', author);
-            core.setOutput('number', String(number));
-            core.setOutput('url', issueUrl);
-            core.setOutput('title', title);
-            core.setOutput('ai_result', aiResult);
-            const detail = [fullName, email, repoName].filter(Boolean).join(' | ') || username;
-            core.setOutput('detail', detail);
+            // Teams Notification
+            const webhookUrl = process.env.TEAMS_WEBHOOK_URL;
+            if (webhookUrl) {
+              const detail = [fullName, email, repoName].filter(Boolean).join(' | ') || username;
+              const bodyItems = [
+                {type: "TextBlock", text: `${typeLabel} #${number}`, weight: "Bolder", size: "Medium"},
+                {type: "FactSet", facts: [
+                  {title: "Von", value: author},
+                  {title: "Details", value: detail}
+                ]},
+                {type: "TextBlock", text: "Freigeben: `/approve` auf GitHub kommentieren", wrap: true, spacing: "Medium"}
+              ];
 
-      - name: Notify Teams
-        if: steps.analyze.outputs.type != ''
-        env:
-          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          TYPE: ${{ steps.analyze.outputs.type }}
-          AUTHOR: ${{ steps.analyze.outputs.author }}
-          NUMBER: ${{ steps.analyze.outputs.number }}
-          URL: ${{ steps.analyze.outputs.url }}
-          TITLE: ${{ steps.analyze.outputs.title }}
-          AI_RESULT: ${{ steps.analyze.outputs.ai_result }}
-          DETAIL: ${{ steps.analyze.outputs.detail }}
-        run: |
-          if [ -z "$TEAMS_WEBHOOK_URL" ]; then exit 0; fi
+              if (aiResult) {
+                bodyItems.push(
+                  {type: "TextBlock", text: "AI Duplikat-Check:", weight: "Bolder", spacing: "Medium"},
+                  {type: "TextBlock", text: aiResult, wrap: true, fontType: "Monospace", size: "Small"}
+                );
+              }
 
-          AI_SECTION=""
-          if [ -n "$AI_RESULT" ]; then
-            AI_SECTION=$(jq -n --arg ai "$AI_RESULT" '[
-              {"type": "TextBlock", "text": "AI Duplikat-Check:", "weight": "Bolder", "spacing": "Medium"},
-              {"type": "TextBlock", "text": $ai, "wrap": true, "fontType": "Monospace", "size": "Small"}
-            ]')
-          else
-            AI_SECTION="[]"
-          fi
+              const card = {
+                type: "message",
+                attachments: [{
+                  contentType: "application/vnd.microsoft.card.adaptive",
+                  content: {
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                    type: "AdaptiveCard",
+                    version: "1.4",
+                    body: bodyItems,
+                    actions: [{type: "Action.OpenUrl", title: "Issue oeffnen", url: issueUrl}]
+                  }
+                }]
+              };
 
-          CARD=$(jq -n \
-            --arg type "$TYPE" \
-            --arg author "$AUTHOR" \
-            --arg number "$NUMBER" \
-            --arg url "$URL" \
-            --arg detail "$DETAIL" \
-            --argjson ai "$AI_SECTION" \
-            '{
-              type: "message",
-              attachments: [{
-                contentType: "application/vnd.microsoft.card.adaptive",
-                content: {
-                  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                  type: "AdaptiveCard",
-                  version: "1.4",
-                  body: [
-                    {type: "TextBlock", text: ($type + " #" + $number), weight: "Bolder", size: "Medium"},
-                    {type: "FactSet", facts: [
-                      {title: "Von", value: $author},
-                      {title: "Details", value: $detail}
-                    ]},
-                    {type: "TextBlock", text: "Freigeben: `/approve` auf GitHub kommentieren", wrap: true, spacing: "Medium"}
-                  ] + $ai,
-                  actions: [{type: "Action.OpenUrl", title: "Issue oeffnen", url: $url}]
-                }
-              }]
-            }')
-
-          curl -s -X POST "$TEAMS_WEBHOOK_URL" \
-            -H "Content-Type: application/json" \
-            -d "$CARD" || echo "Teams notification failed"
+              try {
+                await fetch(webhookUrl, {
+                  method: 'POST',
+                  headers: {'Content-Type': 'application/json'},
+                  body: JSON.stringify(card)
+                });
+              } catch (e) {
+                core.warning('Teams notification failed: ' + e.message);
+              }
+            }
