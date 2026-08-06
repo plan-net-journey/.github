@@ -2,17 +2,21 @@
 
 > **DRAFT** — Wird aktiv weiterentwickelt.
 
-**Warum das alles?** Lies die [Erklaerung](https://plan-net-journey.github.io/.github/ERKLAERUNG.html) — warum GitHub, warum Claude Code, warum dieses Setup.
+## Neues Teammitglied? So startest du:
 
-## Neues Teammitglied?
+### 1. Verstehen was wir hier machen (fuer dich)
 
-### So startest du (Schritt fuer Schritt)
+Lies die [Erklaerung](https://plan-net-journey.github.io/.github/ERKLAERUNG.html) — eine Seite die beschreibt warum wir GitHub nutzen, wie Skills funktionieren, und wie der Workflow aussieht. Das ist fuer dich zum Lesen, nicht fuer ein Tool.
 
-1. **Claude Code Desktop App herunterladen** unter [claude.ai/download](https://claude.ai/download) — das ist eine App die du installierst wie jede andere (nicht verwechseln mit der normalen Claude Chat-App)
-2. **Dieses Repo herunterladen:** Oeffne Claude Code und sage: *"Lade das Repo plan-net-journey/.github herunter und fuehre mich durch das Onboarding"*
-3. **Claude fuehrt dich durch alle Schritte** — GitHub Account erstellen, Zugang einrichten, Tools installieren. Alles auf Deutsch oder Englisch.
+### 2. Setup durchfuehren (mit Claude Code)
 
-Falls du Claude Code noch nicht hast, kannst du die [ONBOARDING.md](ONBOARDING.md) auch manuell durchlesen.
+Die [ONBOARDING.md](ONBOARDING.md) ist eine Anleitung die **Claude Code fuer dich ausfuehrt** — du musst sie nicht selbst lesen. So gehts:
+
+1. **Claude Code Desktop App herunterladen:** [claude.ai/download](https://claude.ai/download) — installieren wie jede andere App *(nicht verwechseln mit der normalen Claude Chat-App)*
+2. **Claude Code oeffnen** und sagen: *"Lade das Repo plan-net-journey/.github herunter und fuehre mich durch das Onboarding"*
+3. **Claude fuehrt dich Schritt fuer Schritt durch** — Account erstellen, Zugang einrichten, Tools installieren. Auf Deutsch oder Englisch.
+
+Du brauchst kein Vorwissen. Claude erklaert dir alles und macht die technischen Schritte fuer dich.
 
 ## Zugang beantragen
 
@@ -20,7 +24,7 @@ Noch kein Mitglied? [Access Request erstellen](../../issues/new?template=access-
 
 ## Bereits Mitglied?
 
-Alle weiteren Anfragen (neues Projekt, Zugang zu einem Projekt, Feedback) laufen ueber Tickets im **admin-ops** Repo.
+Alle weiteren Anfragen (neues Projekt, Zugang, Feedback) laufen ueber Tickets im **admin-ops** Repo. Oder tippe `/pnj-hilfe` in Claude Code.
 
 ## Regeln
 
