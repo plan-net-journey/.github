@@ -19,6 +19,13 @@
   .banner{background:var(--red);color:var(--white);text-align:center;padding:.55rem 1rem;font-size:.8rem;font-weight:600;letter-spacing:.03em}
   .banner a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 
+  .nav{display:flex;gap:1px;background:var(--line-grid);font-size:.8rem;font-weight:600}
+  .nav a{background:var(--cell);color:var(--text);text-decoration:none;padding:.6rem 1.25rem;flex:1;text-align:center}
+  .nav a:hover{opacity:.8}
+  .nav a.active{background:var(--dblack);color:var(--white)}
+  @media(prefers-color-scheme:dark){.nav a.active{background:var(--red)}}
+  :root[data-theme="dark"] .nav a.active{background:var(--red)}
+
   .wrap{max-width:1080px;margin:0 auto;padding:0 1.5rem}
 
   /* ---- GRID SYSTEM ---- */
@@ -89,6 +96,13 @@
 
 <!-- BANNER -->
 <div class="banner">DRAFT — Wird aktiv weiterentwickelt. <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml">Feedback geben</a></div>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="ERKLAERUNG.html" class="active">Warum GitHub?</a>
+  <a href="GUIDE-USER.html">Fuer Teammitglieder</a>
+  <a href="GUIDE-MAINTAINER.html">Fuer Maintainer</a>
+</div>
 
 <!-- HERO -->
 <div class="wrap">
@@ -314,6 +328,7 @@
       <p style="margin-bottom:1.25rem">Starte mit dem Onboarding oder gib Feedback zu diesem Setup.</p>
       <div style="display:flex;gap:.75rem;flex-wrap:wrap">
         <a href="https://github.com/plan-net-journey/.github" class="btn btn-white">Onboarding starten</a>
+        <a href="GUIDE-USER.html" class="btn btn-outline" style="border-color:var(--white);color:var(--white)">Anleitung fuer Teammitglieder</a>
         <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml" class="btn btn-outline" style="border-color:var(--white);color:var(--white)">Feedback geben</a>
       </div>
     </div>

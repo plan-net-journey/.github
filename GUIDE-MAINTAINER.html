@@ -19,10 +19,12 @@
   .banner{background:var(--red);color:var(--white);text-align:center;padding:.55rem 1rem;font-size:.8rem;font-weight:600;letter-spacing:.03em}
   .banner a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 
-  nav{background:var(--black);padding:.6rem 1.5rem;display:flex;gap:1.5rem;align-items:center;font-size:.8rem}
-  nav a{color:var(--sand);text-decoration:none;font-weight:400}
-  nav a:hover{color:var(--white)}
-  nav a.active{color:var(--white);font-weight:700}
+  .nav{display:flex;gap:1px;background:var(--line-grid);font-size:.8rem;font-weight:600}
+  .nav a{background:var(--cell);color:var(--text);text-decoration:none;padding:.6rem 1.25rem;flex:1;text-align:center}
+  .nav a:hover{opacity:.8}
+  .nav a.active{background:var(--dblack);color:var(--white)}
+  @media(prefers-color-scheme:dark){.nav a.active{background:var(--red)}}
+  :root[data-theme="dark"] .nav a.active{background:var(--red)}
 
   .wrap{max-width:1080px;margin:0 auto;padding:0 1.5rem}
 
@@ -79,11 +81,12 @@
 
 <div class="banner">DRAFT — Maintainer Handbuch. <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml">Feedback</a></div>
 
-<nav>
-  <a href="ERKLAERUNG.html">Erklaerung</a>
-  <a href="GUIDE-USER.html">User Guide</a>
-  <a href="GUIDE-MAINTAINER.html" class="active">Maintainer</a>
-</nav>
+<!-- NAV -->
+<div class="nav">
+  <a href="ERKLAERUNG.html">Warum GitHub?</a>
+  <a href="GUIDE-USER.html">Fuer Teammitglieder</a>
+  <a href="GUIDE-MAINTAINER.html" class="active">Fuer Maintainer</a>
+</div>
 
 <div class="wrap">
   <div class="spacer" style="padding-top:4rem;padding-bottom:2rem">

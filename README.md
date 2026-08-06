@@ -18,6 +18,16 @@ Die [ONBOARDING.md](ONBOARDING.md) ist eine Anleitung die **Claude Code fuer dic
 
 Du brauchst kein Vorwissen. Claude erklaert dir alles und macht die technischen Schritte fuer dich.
 
+## Dokumentation
+
+Drei Seiten, je nach dem wo du stehst:
+
+| Seite | Fuer wen | Inhalt |
+|---|---|---|
+| [Warum GitHub?](https://plan-net-journey.github.io/.github/ERKLAERUNG.html) | Alle | Warum wir GitHub nutzen, wie Skills funktionieren, wie der Workflow aussieht |
+| [Fuer Teammitglieder](https://plan-net-journey.github.io/.github/GUIDE-USER.html) | Nach dem Onboarding | Plugin installieren, Tickets erstellen, taegliche Arbeit |
+| [Fuer Maintainer](https://plan-net-journey.github.io/.github/GUIDE-MAINTAINER.html) | Admins | Organisation verwalten, Repos anlegen, Zugaenge freigeben |
+
 ## Zugang beantragen
 
 Noch kein Mitglied? [Access Request erstellen](../../issues/new?template=access-request.yml)
