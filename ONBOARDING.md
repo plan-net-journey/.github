@@ -380,34 +380,21 @@ gh repo clone plan-net-journey/admin-ops 2>&1
 
 ---
 
-## Phase 9: PNJ-Skills global installieren
+## Phase 9: PNJ-Plugin installieren
 
-Die organisatorischen PNJ-Skills (Hilfe, Ticket-Erstellung, etc.) sollen in JEDEM Projekt verfuegbar sein — nicht nur im Journey-Skills Ordner. Dafuer erstellen wir Verknuepfungen im globalen Skills-Ordner.
+Jetzt installieren wir das PNJ-Plugin — damit hat der User in jedem Projekt Zugriff auf Hilfe und Ticket-Erstellung.
 
 Sag dem User:
-> Ich installiere jetzt die PNJ-Hilfe-Skills auf deinem Rechner. Die sind danach in jedem Projekt verfuegbar — du kannst zum Beispiel jederzeit `/pnj-hilfe` eingeben wenn du nicht weiterweisst.
+> Ich richte jetzt den Skills-Marketplace ein. Danach hast du in jedem Projekt Zugriff auf `/pnj:hilfe` wenn du nicht weiterweisst, und `/pnj:ticket` wenn du etwas beantragen willst.
 
-```bash
-mkdir -p ~/.claude/skills
-for skill in ~/clients/Journey-Skills/.claude/skills/pnj-*/; do
-  name=$(basename "$skill")
-  if [ -L ~/.claude/skills/$name ]; then
-    echo "$name: bereits installiert"
-  else
-    ln -s "$skill" ~/.claude/skills/$name
-    echo "$name: installiert"
-  fi
-done
+Der User muss diese Befehle in Claude Code ausfuehren:
+```
+! claude plugin marketplace add plan-net-journey/Journey-Skills
+! claude plugin install pnj --scope user
 ```
 
-Zeige was installiert wurde:
-```bash
-echo "=== Deine PNJ-Skills (ueberall verfuegbar) ==="
-for skill in ~/.claude/skills/pnj-*/; do
-  echo "  /$(basename $skill)"
-done
-echo "================================================"
-```
+Erklaere dem User:
+> Der Marketplace ist jetzt eingerichtet. Du bekommst automatisch Updates wenn neue Skills dazukommen. Einfach ab und zu `/plugin marketplace update` ausfuehren.
 
 ---
 
@@ -430,9 +417,9 @@ PNJ-Skills:   global installiert
 
 **Was du jetzt hast:**
 
-- **PNJ-Skills** — ueberall verfuegbar. Tippe `/pnj-hilfe` wenn du nicht weiterweisst.
-- **Journey-Skills Marketplace** (~/clients/Journey-Skills) — 50+ fertige Skills fuer Kampagnen, Content, Strategie
-- **admin-ops** (~/clients/admin-ops) — Dokumentation und Tickets
+- **PNJ-Plugin** — ueberall verfuegbar. Tippe `/pnj:hilfe` wenn du nicht weiterweisst.
+- **Journey-Skills Marketplace** — weitere Plugins installierbar mit `/plugin install NAME`
+- **admin-ops** — Dokumentation und Tickets (https://github.com/plan-net-journey/admin-ops)
 
 **Wie Projekte funktionieren:**
 
