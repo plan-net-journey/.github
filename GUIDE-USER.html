@@ -1,0 +1,291 @@
+<title>PNJ — Anleitung fuer Teammitglieder</title>
+<style>
+  @font-face {
+    font-family: 'Display';
+    src: local('.AppleSystemUIFontRounded-Bold'), local('system-ui');
+  }
+
+  :root {
+    --bg: #f8f9fa; --canvas: #ffffff; --text: #1a1b1e; --text2: #495057; --text3: #868e96;
+    --border: #dee2e6; --shadow: rgba(0,0,0,.06);
+    --yellow: #fff3bf; --yellow-border: #ffd43b; --yellow-text: #664d03;
+    --teal: #c3fae8; --teal-border: #38d9a9; --teal-text: #0b5e3f;
+    --purple: #e5dbff; --purple-border: #9775fa; --purple-text: #3b1f8e;
+    --coral: #ffe3e3; --coral-border: #ff8787; --coral-text: #862e2e;
+    --green: #d3f9d8; --green-border: #51cf66; --green-text: #1b5e20;
+    --blue: #d0ebff; --blue-border: #4dabf7; --blue-text: #1864ab;
+    --draft-bg: #fff3bf; --draft-text: #664d03; --draft-border: #fcc419;
+    --arrow: #adb5bd;
+  }
+  @media (prefers-color-scheme: dark) { :root {
+    --bg: #141517; --canvas: #1a1b1e; --text: #e9ecef; --text2: #adb5bd; --text3: #868e96;
+    --border: #343a40; --shadow: rgba(0,0,0,.3);
+    --yellow: #3d3400; --yellow-border: #fcc419; --yellow-text: #ffe066;
+    --teal: #0a2e22; --teal-border: #20c997; --teal-text: #96f2d7;
+    --purple: #241845; --purple-border: #845ef7; --purple-text: #d0bfff;
+    --coral: #350f0f; --coral-border: #fa5252; --coral-text: #ffc9c9;
+    --green: #0d2e12; --green-border: #40c057; --green-text: #b2f2bb;
+    --blue: #0d2137; --blue-border: #339af0; --blue-text: #a5d8ff;
+    --draft-bg: #3d3400; --draft-text: #ffe066; --draft-border: #e6a700;
+    --arrow: #495057;
+  }}
+  :root[data-theme="light"] {
+    --bg: #f8f9fa; --canvas: #ffffff; --text: #1a1b1e; --text2: #495057; --text3: #868e96;
+    --border: #dee2e6; --shadow: rgba(0,0,0,.06);
+    --yellow: #fff3bf; --yellow-border: #ffd43b; --yellow-text: #664d03;
+    --teal: #c3fae8; --teal-border: #38d9a9; --teal-text: #0b5e3f;
+    --purple: #e5dbff; --purple-border: #9775fa; --purple-text: #3b1f8e;
+    --coral: #ffe3e3; --coral-border: #ff8787; --coral-text: #862e2e;
+    --green: #d3f9d8; --green-border: #51cf66; --green-text: #1b5e20;
+    --blue: #d0ebff; --blue-border: #4dabf7; --blue-text: #1864ab;
+    --draft-bg: #fff3bf; --draft-text: #664d03; --draft-border: #fcc419;
+    --arrow: #adb5bd;
+  }
+  :root[data-theme="dark"] {
+    --bg: #141517; --canvas: #1a1b1e; --text: #e9ecef; --text2: #adb5bd; --text3: #868e96;
+    --border: #343a40; --shadow: rgba(0,0,0,.3);
+    --yellow: #3d3400; --yellow-border: #fcc419; --yellow-text: #ffe066;
+    --teal: #0a2e22; --teal-border: #20c997; --teal-text: #96f2d7;
+    --purple: #241845; --purple-border: #845ef7; --purple-text: #d0bfff;
+    --coral: #350f0f; --coral-border: #fa5252; --coral-text: #ffc9c9;
+    --green: #0d2e12; --green-border: #40c057; --green-text: #b2f2bb;
+    --blue: #0d2137; --blue-border: #339af0; --blue-text: #a5d8ff;
+    --draft-bg: #3d3400; --draft-text: #ffe066; --draft-border: #e6a700;
+    --arrow: #495057;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  .draft-banner { background: var(--draft-bg); border-bottom: 2px solid var(--draft-border); color: var(--draft-text); text-align: center; padding: .6rem 1rem; font-size: .85rem; font-weight: 600; letter-spacing: .03em; }
+  .draft-banner a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+  .nav { display: flex; gap: 1.5rem; justify-content: center; padding: .6rem 1rem; background: var(--canvas); border-bottom: 1px solid var(--border); font-size: .8rem; }
+  .nav a { color: var(--text2); text-decoration: none; }
+  .nav a:hover { color: var(--text); }
+  .nav a.active { color: var(--text); font-weight: 600; border-bottom: 2px solid var(--purple-border); padding-bottom: .15rem; }
+
+  .page { max-width: 920px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+  .hero { text-align: center; margin-bottom: 3.5rem; padding-top: 1rem; }
+  .hero h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.15; margin-bottom: .5rem; text-wrap: balance; }
+  .hero h1 span { background: linear-gradient(135deg, var(--teal-border), var(--blue-border)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { font-size: 1.1rem; color: var(--text2); max-width: 560px; margin: 0 auto; text-wrap: balance; }
+
+  .section { margin-bottom: 3rem; }
+  .section-label { display: inline-block; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: .2rem .65rem; border-radius: .25rem; margin-bottom: .75rem; }
+  .section h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: .35rem; }
+  .section > p { color: var(--text2); font-size: .95rem; margin-bottom: 1.25rem; }
+
+  .label-yellow { background: var(--yellow); color: var(--yellow-text); border: 1px solid var(--yellow-border); }
+  .label-teal { background: var(--teal); color: var(--teal-text); border: 1px solid var(--teal-border); }
+  .label-purple { background: var(--purple); color: var(--purple-text); border: 1px solid var(--purple-border); }
+  .label-coral { background: var(--coral); color: var(--coral-text); border: 1px solid var(--coral-border); }
+  .label-green { background: var(--green); color: var(--green-text); border: 1px solid var(--green-border); }
+  .label-blue { background: var(--blue); color: var(--blue-text); border: 1px solid var(--blue-border); }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+
+  .card { background: var(--canvas); border: 1px solid var(--border); border-radius: .65rem; padding: 1.15rem 1.25rem; box-shadow: 0 2px 8px var(--shadow); position: relative; }
+  .card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; }
+  .card p { font-size: .85rem; color: var(--text2); }
+  .card-accent { border-left: 3px solid; }
+  .card-yellow { border-left-color: var(--yellow-border); }
+  .card-teal { border-left-color: var(--teal-border); }
+  .card-purple { border-left-color: var(--purple-border); }
+  .card-coral { border-left-color: var(--coral-border); }
+  .card-green { border-left-color: var(--green-border); }
+  .card-blue { border-left-color: var(--blue-border); }
+
+  a.card { text-decoration: none; color: inherit; display: block; transition: box-shadow .15s; }
+  a.card:hover { box-shadow: 0 4px 16px var(--shadow); }
+
+  .flow { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 1.25rem 0; }
+  .flow-step { background: var(--canvas); border: 1px solid var(--border); border-radius: .65rem; padding: .85rem 1.25rem; width: 100%; max-width: 600px; box-shadow: 0 2px 8px var(--shadow); }
+  .flow-step h4 { font-size: .85rem; font-weight: 700; margin-bottom: .15rem; display: flex; align-items: center; gap: .4rem; }
+  .flow-step p { font-size: .8rem; color: var(--text2); }
+  .flow-arrow { color: var(--arrow); font-size: 1.2rem; padding: .15rem 0; }
+  .flow-num { display: inline-flex; align-items: center; justify-content: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; font-size: .7rem; font-weight: 700; flex-shrink: 0; }
+  .num-yellow { background: var(--yellow); color: var(--yellow-text); border: 1px solid var(--yellow-border); }
+  .num-teal { background: var(--teal); color: var(--teal-text); border: 1px solid var(--teal-border); }
+  .num-purple { background: var(--purple); color: var(--purple-text); border: 1px solid var(--purple-border); }
+  .num-green { background: var(--green); color: var(--green-text); border: 1px solid var(--green-border); }
+  .num-blue { background: var(--blue); color: var(--blue-text); border: 1px solid var(--blue-border); }
+
+  code { background: var(--canvas); border: 1px solid var(--border); padding: .15rem .4rem; border-radius: .25rem; font-size: .82rem; font-family: 'SF Mono', 'Fira Code', Menlo, monospace; }
+  .cmd { background: var(--canvas); border: 1px solid var(--border); border-radius: .5rem; padding: .75rem 1rem; font-family: 'SF Mono', 'Fira Code', Menlo, monospace; font-size: .82rem; line-height: 1.6; overflow-x: auto; margin: .75rem 0; }
+
+  .cta { background: var(--blue); border: 1px solid var(--blue-border); border-radius: .65rem; padding: 1.5rem; text-align: center; margin-top: 2rem; }
+  .cta h3 { font-size: 1.1rem; font-weight: 700; color: var(--blue-text); margin-bottom: .35rem; }
+  .cta p { font-size: .9rem; color: var(--blue-text); opacity: .85; margin-bottom: .75rem; }
+  .cta-links { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+  .cta-link { display: inline-block; padding: .45rem 1.1rem; background: var(--blue-border); color: #fff; text-decoration: none; border-radius: .35rem; font-size: .85rem; font-weight: 600; }
+  .cta-link:hover { opacity: .9; }
+  .cta-link-secondary { background: transparent; border: 1px solid var(--blue-border); color: var(--blue-text); }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+</style>
+
+<div class="draft-banner">
+  DRAFT VERSION — Wird aktiv weiterentwickelt. <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml">Feedback geben</a>
+</div>
+
+<nav class="nav">
+  <a href="ERKLAERUNG.html">Warum GitHub?</a>
+  <a href="GUIDE-USER.html" class="active">Anleitung Teammitglieder</a>
+  <a href="GUIDE-MAINTAINER.html">Anleitung Maintainer</a>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <h1>Anleitung fuer <span>Teammitglieder</span></h1>
+    <p>Alles was du brauchst um mit den PNJ Skills und Projekten zu arbeiten.</p>
+  </div>
+
+  <!-- ERSTE SCHRITTE -->
+  <div class="section">
+    <span class="section-label label-teal">Erste Schritte</span>
+    <h2>So richtest du dich ein</h2>
+    <p>Zwei Schritte — danach bist du startklar.</p>
+
+    <div class="flow">
+      <div class="flow-step" style="border-left: 3px solid var(--teal-border);">
+        <h4><span class="flow-num num-teal">1</span> Claude Code installieren</h4>
+        <p>Lade die <strong>Claude Code Desktop App</strong> herunter und installiere sie wie jede andere App. Nicht verwechseln mit der normalen Claude Chat-App — Claude Code kann mit Dateien auf deinem Rechner arbeiten.</p>
+        <p style="margin-top: .5rem;"><a href="https://claude.ai/download" style="color: var(--teal-border); font-weight: 600;">Download: claude.ai/download</a></p>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-step" style="border-left: 3px solid var(--blue-border);">
+        <h4><span class="flow-num num-blue">2</span> Onboarding durchlaufen</h4>
+        <p>Oeffne Claude Code und sage: <em>"Lade das Repo plan-net-journey/.github herunter und fuehre mich durch das Onboarding"</em> — Claude macht den Rest: GitHub Account, SSH Key, Zugang beantragen.</p>
+        <p style="margin-top: .5rem;"><a href="https://github.com/plan-net-journey/.github" style="color: var(--blue-border); font-weight: 600;">Onboarding-Seite auf GitHub</a></p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- PLUGIN INSTALLIEREN -->
+  <div class="section">
+    <span class="section-label label-purple">Nach dem Onboarding</span>
+    <h2>PNJ Plugin installieren</h2>
+    <p>Sobald du Zugang zur Organisation hast, installiere das PNJ Plugin. Damit hast du in jedem Projekt Zugriff auf Hilfe und Ticket-Erstellung.</p>
+
+    <div class="card card-accent card-purple" style="max-width: 600px;">
+      <h3>In Claude Code eingeben:</h3>
+      <div class="cmd">/plugin marketplace add plan-net-journey/Journey-Skills<br>/plugin install pnj --scope user</div>
+      <p style="margin-top: .5rem;">Danach verfuegbar:</p>
+      <p><code>/pnj:hilfe</code> — Hilfe und Erklaerungen</p>
+      <p><code>/pnj:ticket</code> — Tickets erstellen (Projekt, Zugang, Feedback)</p>
+    </div>
+
+    <div class="card" style="margin-top: 1rem; max-width: 600px;">
+      <h3>Updates holen</h3>
+      <p>Wenn neue Skills dazukommen, einmal ausfuehren:</p>
+      <div class="cmd">/plugin marketplace update</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- WAS DU TUN KANNST -->
+  <div class="section">
+    <span class="section-label label-yellow">Im Alltag</span>
+    <h2>Was du tun kannst</h2>
+    <p>Alles laeuft ueber Tickets — oder tippe <code>/pnj:hilfe</code> in Claude Code.</p>
+
+    <div class="cards">
+      <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-request.yml" class="card card-accent card-yellow">
+        <h3>Neues Projekt beantragen &rarr;</h3>
+        <p>Du brauchst einen Projektordner fuer einen Kunden? Ticket erstellen — wird automatisch angelegt.</p>
+        <p style="margin-top: .35rem; font-size: .78rem; color: var(--text3);">Oder: <code>/pnj:ticket</code> in Claude Code</p>
+      </a>
+      <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-access-request.yml" class="card card-accent card-blue">
+        <h3>Zugang zu Projekt &rarr;</h3>
+        <p>Du brauchst Schreibzugang zu einem bestehenden Projekt? Ticket erstellen.</p>
+        <p style="margin-top: .35rem; font-size: .78rem; color: var(--text3);">Oder: <code>/pnj:ticket</code> in Claude Code</p>
+      </a>
+      <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml" class="card card-accent card-green">
+        <h3>Feedback geben &rarr;</h3>
+        <p>Etwas unklar, fehlt, oder funktioniert nicht? Wir entwickeln das Setup aktiv weiter.</p>
+      </a>
+      <div class="card card-accent card-purple">
+        <h3>Hilfe</h3>
+        <p>Tippe <code>/pnj:hilfe</code> in Claude Code — egal in welchem Projekt. Claude erklaert dir alles und fuehrt dich durch.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- WIE PROJEKTE FUNKTIONIEREN -->
+  <div class="section">
+    <span class="section-label label-green">Projektstruktur</span>
+    <h2>Wie Projekte aufgebaut sind</h2>
+    <p>Jedes Projekt hat die gleiche Grundstruktur. Claude liest diese Dateien automatisch und versteht den Kontext.</p>
+
+    <div class="cards" style="grid-template-columns: 1fr;">
+      <div class="card card-accent card-green">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div>
+            <h3 style="margin-bottom: .5rem;">Im Projektordner</h3>
+            <p><strong><code>CLAUDE.md</code></strong> — Beschreibt das Projekt fuer Claude. Wer ist der Kunde, welche Regeln gelten, wo liegen Dateien.</p>
+            <p style="margin-top: .4rem;"><strong><code>MEMORY.md</code></strong> — Was Claude sich ueber Sessions hinweg merkt: Entscheidungen, Learnings, Kontext.</p>
+            <p style="margin-top: .4rem;"><strong><code>.claude/skills/</code></strong> — Skills die nur fuer dieses Projekt relevant sind.</p>
+          </div>
+          <div>
+            <h3 style="margin-bottom: .5rem;">Grosse Dateien</h3>
+            <p>Videos, Praesentationen und andere grosse Dateien gehoeren <strong>nicht</strong> in den Projektordner.</p>
+            <p style="margin-top: .4rem;">Sie bleiben in eurem Cloud-Storage (Box, OneDrive) und werden per Symlink verknuepft:</p>
+            <div class="cmd">ln -s /pfad/zum/cloud/ordner kontext</div>
+            <p>Die <code>CLAUDE.md</code> im Projekt beschreibt wo die Dateien liegen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- REGELN -->
+  <div class="section">
+    <span class="section-label label-coral">Regeln</span>
+    <h2>Das gilt fuer alle</h2>
+
+    <div class="cards" style="grid-template-columns: 1fr;">
+      <div class="card card-accent card-coral">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div>
+            <h3 style="margin-bottom: .5rem;">So machen wir es</h3>
+            <p style="font-size: .85rem;">&#10003; Alle Projekte sind <strong>privat</strong><br>
+            &#10003; Neue Projekte und Zugaenge immer per Ticket<br>
+            &#10003; SSH Keys fuer die Verbindung zu GitHub<br>
+            &#10003; Aenderungen per Pull Request<br>
+            &#10003; Grosse Dateien per Symlink auf Cloud-Storage</p>
+          </div>
+          <div>
+            <h3 style="margin-bottom: .5rem;">Das machen wir nicht</h3>
+            <p style="font-size: .85rem;">&#10007; Oeffentliche Projekte erstellen<br>
+            &#10007; Passwoerter oder Tokens committen<br>
+            &#10007; Videos oder PPTX in den Projektordner<br>
+            &#10007; Kundendaten in den Skills-Marketplace<br>
+            &#10007; Direkt auf <code>main</code> pushen</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h3>Brauchst du Hilfe?</h3>
+    <p>Tippe <code>/pnj:hilfe</code> in Claude Code oder erstelle ein Feedback-Ticket.</p>
+    <div class="cta-links">
+      <a href="https://github.com/plan-net-journey/.github" class="cta-link">Onboarding starten</a>
+      <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml" class="cta-link cta-link-secondary">Feedback geben</a>
+    </div>
+  </div>
+
+</div>
