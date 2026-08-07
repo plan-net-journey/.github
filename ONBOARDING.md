@@ -394,7 +394,14 @@ Der User muss diese Befehle in Claude Code ausfuehren:
 ```
 
 Erklaere dem User:
-> Der Marketplace ist jetzt eingerichtet. Du bekommst automatisch Updates wenn neue Skills dazukommen. Einfach ab und zu `/plugin marketplace update` ausfuehren.
+> Der Marketplace ist eingerichtet. **Updates kommen nicht von selbst** — neue Skills und neue Versionen holst du dir mit `/plugin marketplace update`. Einmal die Woche reicht. Woran du merkst dass du es zu lange nicht gemacht hast: jemand spricht von einem Skill, den es bei dir nicht gibt.
+
+Wichtig fuer dein Verstaendnis, falls der User nachfragt: Der Klon in
+`~/clients/Journey-Skills` ist zum Reinschauen und Weiterentwickeln da — er ist
+**nicht** die Quelle deiner installierten Skills. Die liegen separat unter
+`~/.claude/plugins/` und kommen direkt von GitHub. Aenderungen im Klon wirken
+sich also nicht auf deine Skills aus; die gehen ueber einen Pull Request und
+kommen dann beim naechsten `/plugin marketplace update` bei allen an.
 
 ---
 
