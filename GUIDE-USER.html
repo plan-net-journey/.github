@@ -1,4 +1,9 @@
-<title>PNJ — Anleitung fuer Teammitglieder</title>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PNJ — Anleitung für Teammitglieder</title>
 <style>
   :root {
     --red: #FF4B4F; --dblack: #363636; --black: #000; --white: #fff;
@@ -75,6 +80,7 @@
   .step-num-red{background:var(--red);color:var(--white)}
   .step-num-black{background:var(--dblack);color:var(--white)}
   .step-num-emerald{background:var(--emerald);color:var(--white)}
+  .card-ic{width:2rem;height:2rem;display:block;margin-bottom:.9rem;color:var(--red)}
 
   .spacer{padding:3rem 1.5rem}
   .spacer-sm{padding:1.5rem 1.5rem}
@@ -83,7 +89,6 @@
     background:var(--line-grid);border:1px solid var(--line-grid);margin-bottom:3rem}
   .foot>*{background:var(--cell);padding:1.15rem 1.5rem;display:flex;align-items:center}
   .foot-logo{background:var(--black);padding:1rem 1.5rem}
-  .foot-logo img{display:block;width:100%;max-width:270px;height:auto}
   .foot-made{flex-direction:column;align-items:flex-start;gap:.12rem}
   .foot-made strong{color:var(--text);font-weight:700;font-size:.88rem;
     letter-spacing:-.01em;display:flex;align-items:center;gap:.35rem}
@@ -106,6 +111,8 @@
   @media(max-width:820px){.foot{grid-template-columns:1fr}
     .foot-links{gap:1.1rem;flex-wrap:wrap}}
 </style>
+</head>
+<body>
 
 <!-- BANNER -->
 <div class="banner">DRAFT — Wird aktiv weiterentwickelt. <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml">Feedback geben</a></div>
@@ -113,14 +120,14 @@
 <!-- NAV -->
 <div class="nav">
   <a href="ERKLAERUNG.html">Warum GitHub?</a>
-  <a href="GUIDE-USER.html" class="active">Fuer Teammitglieder</a>
-  <a href="GUIDE-MAINTAINER.html">Fuer Maintainer</a>
+  <a href="GUIDE-USER.html" class="active">Für Teammitglieder</a>
+  <a href="GUIDE-MAINTAINER.html">Für Maintainer</a>
 </div>
 
 <!-- HERO -->
 <div class="wrap">
   <div class="spacer" style="padding-top:3.5rem;padding-bottom:1.5rem">
-    <h1>Anleitung fuer<br><span style="color:var(--red)">Teammitglieder</span></h1>
+    <h1>Anleitung für<br><span style="color:var(--red)">Teammitglieder</span></h1>
     <p style="max-width:520px;margin-top:.75rem;font-size:1.05rem">Alles was du brauchst um mit Skills, Projekten und dem Team zu arbeiten.</p>
   </div>
 </div>
@@ -135,14 +142,14 @@
       <p>Lade die <strong>Claude Code Desktop App</strong> unter <strong>claude.ai/download</strong> herunter. Installieren wie jede andere App.</p>
       <p style="margin-top:.5rem">Nicht verwechseln mit der normalen Claude Chat-App — das ist etwas anderes.</p>
     </div>
-    <div>
-      <div class="step-num step-num-black">2</div>
+    <div class="c-dblack">
+      <div class="step-num" style="background:var(--white);color:var(--dblack)">2</div>
       <h3>Onboarding durchlaufen</h3>
-      <p>Oeffne Claude Code und sage: <em>"Lade das Repo plan-net-journey/.github herunter und fuehre mich durch das Onboarding."</em></p>
-      <p style="margin-top:.5rem">Claude richtet alles fuer dich ein — Account, SSH Key, Zugang.</p>
+      <p>Öffne Claude Code und sage: <em>"Lade das Repo plan-net-journey/.github herunter und führe mich durch das Onboarding."</em></p>
+      <p style="margin-top:.5rem">Claude richtet alles für dich ein — Account, SSH Key, Zugang.</p>
     </div>
-    <div class="c-warm">
-      <div class="step-num step-num-emerald">3</div>
+    <div class="c-dblack">
+      <div class="step-num" style="background:var(--white);color:var(--dblack)">3</div>
       <h3>Plugin installieren</h3>
       <p>Nachdem du Org-Zugang hast, installiere das PNJ Plugin. Tippe in Claude Code:</p>
       <p style="margin-top:.5rem"><code>/plugin marketplace add plan-net-journey/Journey-Skills</code></p>
@@ -153,21 +160,25 @@
 
 <!-- WAS DU TUN KANNST -->
 <div class="wrap">
-  <div class="spacer"><div class="eyebrow">Im Alltag</div><h2>Was du tun kannst</h2><p>Alles laeuft ueber Tickets oder den <code>/pnj:hilfe</code> Skill.</p></div>
+  <div class="spacer"><div class="eyebrow">Im Alltag</div><h2>Was du tun kannst</h2><p>Alles läuft über Tickets oder den <code>/pnj:hilfe</code> Skill.</p></div>
   <div class="g" style="grid-template-columns:repeat(4,1fr)">
-    <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-request.yml" class="cell-link c-dblack">
+    <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-request.yml" class="cell-link">
+      <svg class="card-ic" viewBox="0 0 24 24" fill="none"><path d="M 17.19 9.30 C 18.18 9.30 18.99 8.49 18.99 7.49 C 18.99 6.50 18.18 5.69 17.19 5.69 C 16.19 5.69 15.38 6.50 15.38 7.49 C 15.38 8.49 16.19 9.30 17.19 9.30 Z M 17.19 6.46 C 17.76 6.46 18.22 6.92 18.22 7.49 C 18.22 8.07 17.76 8.53 17.19 8.53 C 16.62 8.53 16.15 8.07 16.15 7.49 C 16.15 6.92 16.62 6.46 17.19 6.46 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 0.89 18.75 L 7.58 18.75 L 7.58 19.53 L 0.89 19.53 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 5.01 18.95 L 9.14 18.95 L 9.14 19.72 L 5.01 19.72 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 5.16 21.70 L 10.25 21.70 L 10.25 22.47 L 5.16 22.47 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 23.11 6.84 L 21.99 1.86 L 16.92 1.53 L 12.25 6.99 L 5.96 6.69 L 3.43 9.65 L 7.21 12.89 L 7.21 12.89 C 7.21 12.89 8.22 13.76 8.22 13.76 L 6.98 15.21 L 11.15 18.78 L 12.39 17.34 L 12.98 17.84 L 12.98 18.71 L 13.40 18.21 L 17.18 21.45 L 19.70 18.49 L 18.44 12.31 L 23.11 6.85 Z M 17.26 2.32 L 21.37 2.59 L 22.28 6.63 L 13.32 17.11 L 12.89 16.75 L 12.89 16.75 C 12.89 16.75 8.72 13.17 8.72 13.17 L 8.72 13.17 C 8.72 13.17 8.30 12.80 8.30 12.80 L 17.25 2.32 Z M 4.52 9.56 L 6.30 7.48 L 11.62 7.73 L 7.71 12.30 L 4.52 9.56 Z M 11.07 17.69 L 8.07 15.12 L 8.81 14.26 L 11.22 16.32 L 11.81 16.83 L 11.07 17.69 Z M 18.87 18.28 L 17.10 20.36 L 13.91 17.62 L 17.81 13.05 L 18.88 18.28 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Neues Projekt &rarr;</h3>
-      <p>Projektordner fuer einen Kunden oder ein internes Projekt beantragen.</p>
+      <p>Projektordner für einen Kunden oder ein internes Projekt beantragen.</p>
     </a>
     <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-access-request.yml" class="cell-link">
+      <svg class="card-ic" viewBox="0 0 24 24" fill="none"><path d="M 10.04 21.30 L 10.04 15.61 L 11.31 14.23 L 10.04 12.85 L 10.04 10.46 C 8.27 9.73 7.00 7.92 7.00 5.89 C 7.00 3.12 9.27 0.89 12.00 0.89 C 14.73 0.89 17.00 3.12 17.00 5.89 C 17.00 7.96 15.69 9.73 13.92 10.46 L 13.92 21.30 L 12.00 23.11 L 10.04 21.30 Z M 10.81 10.00 L 10.81 12.57 L 12.27 14.23 L 10.81 15.88 L 10.81 20.99 L 12.00 22.11 L 13.15 20.99 L 13.15 10.00 C 15.11 9.27 16.23 7.73 16.23 5.89 C 16.23 3.54 14.34 1.62 12.00 1.62 C 9.66 1.62 7.77 3.54 7.77 5.89 C 7.77 7.69 8.89 9.23 10.81 10.00 Z M 12.00 3.00 C 12.85 3.00 13.50 3.65 13.50 4.46 C 13.50 5.27 12.85 5.92 12.00 5.92 C 11.15 5.92 10.50 5.27 10.50 4.46 C 10.50 3.65 11.15 3.00 12.00 3.00 Z M 12.00 5.23 C 12.42 5.23 12.77 4.92 12.77 4.46 C 12.77 4.04 12.42 3.69 12.00 3.69 C 11.58 3.69 11.23 4.04 11.23 4.46 C 11.23 4.92 11.58 5.23 12.00 5.23 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Projektzugang &rarr;</h3>
       <p>Schreibzugang zu einem bestehenden Projekt bekommen.</p>
     </a>
-    <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml" class="cell-link c-warm">
+    <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml" class="cell-link">
+      <svg class="card-ic" viewBox="0 0 24 24" fill="none"><path d="M 23.11 4.62 L 0.89 9.35 L 7.51 12.94 C 7.68 13.15 8.81 19.28 8.81 19.28 L 13.17 16.41 L 17.73 19.38 L 23.11 4.62 Z M 20.41 6.41 C 20.29 6.57 10.03 13.78 10.01 14.02 C 9.99 14.04 9.02 17.23 9.01 17.25 L 8.23 12.91 L 20.41 6.41 Z M 9.57 17.94 L 10.55 14.71 C 10.87 14.91 12.22 15.79 12.51 15.98 C 11.78 16.47 10.30 17.45 9.57 17.94 Z M 20.04 6.05 L 7.83 12.30 L 2.75 9.62 L 20.04 6.05 Z M 17.35 18.27 C 16.80 17.91 11.33 14.36 10.97 14.12 L 21.81 6.16 L 17.34 18.27 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Feedback &rarr;</h3>
       <p>Etwas unklar, fehlt oder funktioniert nicht? Sag Bescheid.</p>
     </a>
-    <div class="c-red">
+    <div>
+      <svg class="card-ic" viewBox="0 0 24 24" fill="none"><path d="M 17.99 18.73 L 19.36 18.73 C 19.51 18.73 19.64 18.61 19.65 18.45 L 19.65 11.05 C 19.64 10.89 19.51 10.77 19.36 10.77 L 17.99 10.77 C 17.84 10.77 17.71 10.89 17.70 11.05 L 17.70 11.89 L 16.92 11.89 L 16.92 11.05 C 16.92 10.90 16.79 10.78 16.64 10.77 L 15.03 10.77 L 15.03 9.85 L 16.64 9.85 C 16.80 9.85 16.92 9.72 16.92 9.56 L 16.92 3.70 C 16.92 2.86 16.24 2.18 15.40 2.17 L 12.29 2.17 L 12.29 1.18 C 12.29 1.02 12.16 0.89 12.00 0.89 C 11.84 0.89 11.71 1.02 11.71 1.18 L 11.71 2.17 L 8.60 2.17 C 7.76 2.18 7.08 2.86 7.08 3.70 L 7.08 9.56 C 7.08 9.72 7.20 9.85 7.36 9.85 L 8.97 9.85 L 8.97 10.77 L 7.36 10.77 C 7.21 10.78 7.09 10.90 7.08 11.05 L 7.08 11.89 L 6.30 11.89 L 6.30 11.05 C 6.29 10.89 6.16 10.77 6.01 10.77 L 4.64 10.77 C 4.49 10.77 4.36 10.89 4.35 11.05 L 4.35 18.45 C 4.36 18.61 4.49 18.73 4.64 18.73 L 6.01 18.73 C 6.16 18.73 6.29 18.61 6.30 18.45 L 6.30 13.99 L 7.08 13.99 L 7.08 17.04 C 7.08 17.20 7.20 17.33 7.36 17.33 L 8.09 17.33 L 8.09 20.79 L 7.55 20.79 C 7.39 20.79 7.26 20.92 7.26 21.08 C 7.26 21.08 7.26 21.08 7.26 21.09 L 7.26 22.82 C 7.26 22.98 7.39 23.11 7.54 23.11 C 7.55 23.11 7.55 23.11 7.55 23.11 L 10.65 23.11 C 10.81 23.10 10.93 22.97 10.93 22.82 L 10.93 21.09 C 10.93 20.93 10.81 20.80 10.65 20.79 L 10.11 20.79 L 10.11 17.33 L 13.89 17.33 L 13.89 20.79 L 13.35 20.79 C 13.19 20.80 13.07 20.93 13.06 21.09 L 13.06 22.82 C 13.07 22.98 13.19 23.11 13.35 23.11 L 16.45 23.11 C 16.61 23.11 16.74 22.98 16.74 22.83 C 16.74 22.82 16.74 22.82 16.74 22.82 L 16.74 21.09 C 16.74 20.93 16.61 20.80 16.46 20.79 C 16.45 20.79 16.45 20.79 16.45 20.79 L 15.91 20.79 L 15.91 17.33 L 16.64 17.33 C 16.80 17.33 16.92 17.20 16.92 17.04 L 16.92 13.99 L 17.70 13.99 L 17.70 18.45 C 17.71 18.61 17.84 18.73 17.99 18.73 Z M 18.28 11.34 L 19.06 11.34 L 19.06 18.16 L 18.28 18.16 Z M 5.72 18.16 L 4.94 18.16 L 4.94 11.34 L 5.72 11.34 Z M 7.08 13.41 L 6.30 13.41 L 6.30 12.47 L 7.08 12.47 Z M 7.65 9.27 L 7.65 3.70 C 7.65 3.18 8.08 2.75 8.60 2.75 L 15.40 2.75 C 15.92 2.75 16.35 3.18 16.35 3.70 L 16.35 9.27 Z M 14.47 9.85 L 14.47 10.77 L 9.53 10.77 L 9.53 9.85 Z M 10.36 21.38 L 10.36 22.53 L 7.84 22.53 L 7.84 21.38 Z M 8.67 20.79 L 8.67 17.33 L 9.53 17.33 L 9.53 20.79 Z M 16.16 21.38 L 16.16 22.53 L 13.64 22.53 L 13.64 21.38 Z M 14.47 20.79 L 14.47 17.33 L 15.33 17.33 L 15.33 20.79 Z M 16.35 16.75 L 7.65 16.75 L 7.65 11.34 L 16.35 11.34 Z M 16.92 13.41 L 16.92 12.47 L 17.70 12.47 L 17.70 13.41 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 9.73 4.59 C 8.87 4.60 8.17 5.30 8.17 6.17 C 8.17 7.04 8.88 7.74 9.75 7.73 C 10.61 7.73 11.31 7.03 11.31 6.16 C 11.31 5.30 10.61 4.59 9.74 4.59 C 9.74 4.59 9.74 4.59 9.73 4.59 Z M 9.73 7.15 C 9.19 7.15 8.74 6.71 8.75 6.16 C 8.75 5.61 9.19 5.17 9.74 5.17 C 10.29 5.17 10.73 5.62 10.73 6.16 C 10.73 6.71 10.28 7.15 9.73 7.15 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 14.27 4.59 C 13.40 4.59 12.69 5.29 12.69 6.16 C 12.69 7.02 13.39 7.73 14.26 7.73 C 15.12 7.74 15.83 7.04 15.83 6.17 C 15.83 6.17 15.83 6.16 15.83 6.16 C 15.83 5.30 15.13 4.60 14.27 4.59 Z M 14.27 7.15 C 13.72 7.15 13.28 6.71 13.28 6.16 C 13.28 5.61 13.73 5.17 14.27 5.17 C 14.82 5.17 15.26 5.62 15.26 6.16 C 15.26 6.71 14.82 7.15 14.27 7.15 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 12.02 12.74 C 10.73 12.74 9.69 13.77 9.69 15.04 C 9.69 15.20 9.82 15.33 9.97 15.33 C 9.98 15.33 9.98 15.33 9.98 15.33 L 14.06 15.33 C 14.22 15.33 14.35 15.21 14.35 15.05 C 14.35 15.05 14.35 15.04 14.35 15.04 C 14.35 13.77 13.30 12.74 12.02 12.74 Z M 13.74 14.76 L 10.29 14.76 L 10.31 14.66 C 10.49 13.88 11.21 13.32 12.02 13.32 C 12.83 13.32 13.55 13.88 13.72 14.66 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 15.09 12.22 C 14.94 12.22 14.80 12.35 14.80 12.49 C 14.81 12.65 14.94 12.77 15.09 12.77 C 15.24 12.78 15.38 12.67 15.39 12.52 C 15.40 12.37 15.29 12.24 15.14 12.22 C 15.12 12.22 15.11 12.22 15.09 12.22 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 8.91 12.22 C 8.75 12.22 8.61 12.35 8.61 12.49 C 8.61 12.65 8.74 12.78 8.91 12.78 C 9.07 12.78 9.20 12.65 9.20 12.49 C 9.19 12.34 9.06 12.22 8.91 12.22 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>/pnj:hilfe</h3>
       <p>Tippe <code>/pnj:hilfe</code> in Claude Code — egal wo du bist. Claude hilft dir weiter.</p>
     </div>
@@ -179,28 +190,33 @@
   <div class="spacer"><div class="eyebrow">Projekte</div><h2>Wie Projekte funktionieren</h2><p>Jedes Projekt ist ein Ordner mit einer klaren Struktur.</p></div>
   <div class="g g2" style="grid-template-columns:2fr 1fr">
     <div>
+      <svg class="card-ic" viewBox="0 0 24 24" fill="none"><path d="M 22.33 7.91 C 22.33 7.24 21.79 6.70 21.12 6.70 C 20.95 6.70 20.78 6.74 20.63 6.81 L 13.92 2.31 C 13.92 2.29 13.92 2.27 13.92 2.24 C 13.92 1.50 13.32 0.89 12.57 0.89 C 11.83 0.89 11.22 1.50 11.22 2.24 C 11.22 2.28 11.22 2.32 11.23 2.36 L 6.04 3.73 C 5.86 3.61 5.63 3.54 5.40 3.54 C 4.73 3.54 4.19 4.09 4.19 4.76 C 4.19 5.08 4.32 5.38 4.53 5.60 L 3.17 11.14 C 3.13 11.14 3.09 11.14 3.05 11.14 C 2.29 11.14 1.67 11.76 1.67 12.52 C 1.67 13.28 2.29 13.90 3.05 13.90 C 3.11 13.90 3.16 13.89 3.22 13.89 L 5.91 19.29 C 5.77 19.51 5.68 19.77 5.68 20.04 C 5.68 20.79 6.29 21.40 7.03 21.40 C 7.49 21.40 7.89 21.17 8.13 20.83 L 13.32 22.06 C 13.46 22.66 14.00 23.11 14.64 23.11 C 15.38 23.11 15.99 22.51 15.99 21.76 C 15.99 21.45 15.88 21.17 15.70 20.94 L 17.98 17.62 C 18.09 17.64 18.20 17.65 18.32 17.65 C 19.27 17.65 20.04 16.88 20.04 15.92 C 20.04 15.49 19.88 15.10 19.62 14.80 L 21.31 9.10 C 21.88 9.01 22.33 8.52 22.33 7.91 Z M 18.32 14.19 C 18.25 14.19 18.18 14.20 18.12 14.21 L 15.18 9.45 C 15.54 9.19 15.81 8.79 15.89 8.34 L 20.23 8.71 C 20.33 8.82 20.45 8.91 20.58 8.98 L 19.00 14.33 C 18.79 14.24 18.56 14.19 18.32 14.19 Z M 16.65 15.49 L 11.10 12.06 C 10.99 11.11 10.19 10.37 9.21 10.37 C 8.97 10.37 8.73 10.41 8.52 10.50 L 6.25 5.61 C 6.28 5.58 6.31 5.54 6.33 5.51 L 12.41 8.03 C 12.42 8.99 13.20 9.77 14.17 9.77 C 14.28 9.77 14.39 9.76 14.50 9.74 L 17.42 14.45 C 17.04 14.68 16.77 15.05 16.65 15.49 Z M 8.03 12.27 C 8.03 11.62 8.56 11.10 9.21 11.10 C 9.86 11.10 10.38 11.63 10.38 12.27 C 10.38 12.92 9.86 13.45 9.21 13.45 C 8.56 13.45 8.03 12.92 8.03 12.27 Z M 14.16 6.97 C 14.73 6.97 15.20 7.44 15.20 8.01 C 15.20 8.58 14.73 9.05 14.16 9.05 C 13.60 9.05 13.13 8.58 13.13 8.01 C 13.13 7.44 13.60 6.97 14.16 6.97 Z M 21.60 7.91 C 21.60 8.18 21.39 8.39 21.12 8.39 C 20.86 8.39 20.64 8.17 20.64 7.91 C 20.64 7.65 20.86 7.43 21.12 7.43 C 21.39 7.43 21.60 7.65 21.60 7.91 Z M 20.08 7.32 C 19.98 7.49 19.92 7.69 19.92 7.91 C 19.92 7.93 19.92 7.94 19.92 7.96 L 15.88 7.61 C 15.69 6.83 15.00 6.25 14.16 6.25 C 14.07 6.25 13.98 6.26 13.89 6.27 L 13.02 3.52 C 13.28 3.43 13.51 3.25 13.67 3.03 L 20.08 7.32 Z M 12.57 1.61 C 12.91 1.61 13.19 1.90 13.19 2.24 C 13.19 2.59 12.91 2.87 12.57 2.87 C 12.22 2.87 11.94 2.59 11.94 2.24 C 11.94 1.90 12.22 1.61 12.57 1.61 Z M 12.27 3.56 L 13.21 6.53 C 12.92 6.72 12.69 6.98 12.55 7.30 L 6.59 4.83 C 6.59 4.80 6.60 4.78 6.60 4.75 C 6.60 4.61 6.57 4.48 6.53 4.35 L 11.48 3.04 C 11.67 3.29 11.94 3.48 12.26 3.56 Z M 5.39 4.27 C 5.66 4.27 5.88 4.48 5.88 4.75 C 5.88 5.02 5.66 5.23 5.39 5.23 C 5.13 5.23 4.91 5.02 4.91 4.75 C 4.91 4.48 5.13 4.27 5.39 4.27 Z M 5.19 5.94 C 5.26 5.95 5.33 5.96 5.39 5.96 C 5.46 5.96 5.53 5.95 5.60 5.94 L 7.90 10.89 C 7.62 11.16 7.41 11.52 7.34 11.92 L 4.34 12.03 C 4.25 11.77 4.08 11.56 3.86 11.40 L 5.19 5.94 Z M 2.40 12.51 C 2.40 12.15 2.69 11.86 3.05 11.86 C 3.41 11.86 3.71 12.15 3.71 12.51 C 3.71 12.88 3.41 13.17 3.05 13.17 C 2.69 13.17 2.40 12.88 2.40 12.51 Z M 4.41 12.76 L 7.34 12.65 C 7.42 13.04 7.62 13.39 7.90 13.65 L 7.34 18.73 C 7.24 18.71 7.14 18.69 7.03 18.69 C 6.83 18.69 6.65 18.73 6.48 18.81 L 3.89 13.61 C 4.16 13.40 4.34 13.10 4.41 12.76 Z M 7.03 20.67 C 6.69 20.67 6.41 20.39 6.41 20.04 C 6.41 19.70 6.69 19.42 7.03 19.42 C 7.38 19.42 7.66 19.70 7.66 20.04 C 7.66 20.39 7.38 20.67 7.03 20.67 Z M 8.03 19.14 L 8.58 14.07 C 8.78 14.14 8.99 14.18 9.21 14.18 C 9.46 14.18 9.69 14.13 9.91 14.04 L 13.66 20.82 C 13.53 20.96 13.43 21.13 13.36 21.32 L 8.38 20.14 C 8.38 20.11 8.38 20.08 8.38 20.04 C 8.38 19.69 8.25 19.38 8.03 19.14 Z M 14.64 22.38 C 14.29 22.38 14.01 22.10 14.01 21.76 C 14.01 21.42 14.29 21.14 14.64 21.14 C 14.98 21.14 15.26 21.42 15.26 21.76 C 15.26 22.10 14.98 22.38 14.64 22.38 Z M 15.12 20.50 C 14.97 20.44 14.81 20.41 14.64 20.41 C 14.51 20.41 14.40 20.43 14.29 20.46 L 10.52 13.64 C 10.74 13.43 10.91 13.16 11.01 12.87 L 16.65 16.34 C 16.75 16.74 16.98 17.08 17.30 17.32 L 15.12 20.50 Z M 18.32 16.92 C 17.77 16.92 17.32 16.47 17.32 15.92 C 17.32 15.37 17.77 14.92 18.32 14.92 C 18.87 14.92 19.32 15.37 19.32 15.92 C 19.32 16.47 18.87 16.92 18.32 16.92 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Projektstruktur</h3>
-      <p style="margin-top:.5rem"><code>CLAUDE.md</code> — Beschreibt das Projekt fuer Claude. Kontext, Regeln, Struktur. Claude liest diese Datei automatisch.</p>
-      <p style="margin-top:.5rem"><code>MEMORY.md</code> — Index fuer gespeicherte Erinnerungen. Claude merkt sich Dinge zwischen Sessions.</p>
-      <p style="margin-top:.5rem"><code>.claude/skills/</code> — Skills die nur fuer dieses Projekt relevant sind.</p>
+      <p style="margin-top:.5rem"><code>CLAUDE.md</code> — Beschreibt das Projekt für Claude. Kontext, Regeln, Struktur. Claude liest diese Datei automatisch.</p>
+      <p style="margin-top:.5rem"><code>MEMORY.md</code> — Index für gespeicherte Erinnerungen. Claude merkt sich Dinge zwischen Sessions.</p>
+      <p style="margin-top:.5rem"><code>.claude/skills/</code> — Skills die nur für dieses Projekt relevant sind.</p>
     </div>
-    <div class="c-emerald">
-      <h3>Grosse Dateien</h3>
-      <p>Videos, Praesentationen und andere grosse Dateien bleiben in eurem Cloud-Storage (Box, OneDrive).</p>
+    <div>
+      <svg class="card-ic" viewBox="0 0 24 24" fill="none"><path d="M 8.55 7.16 C 6.66 7.17 5.03 8.50 4.65 10.35 L 4.65 10.41 L 4.59 10.41 C 2.44 10.81 0.89 12.70 0.91 14.89 C 0.90 17.41 2.93 19.47 5.45 19.49 L 5.59 19.49 L 5.59 19.46 L 18.54 19.46 C 21.19 19.19 23.11 16.82 22.84 14.18 C 22.68 12.66 21.82 11.32 20.52 10.54 L 20.45 10.50 L 20.48 10.43 C 20.52 10.27 20.54 10.10 20.53 9.94 C 20.60 7.03 18.29 4.62 15.39 4.56 C 13.29 4.51 11.36 5.72 10.49 7.63 L 10.44 7.72 L 10.36 7.67 C 9.81 7.34 9.19 7.16 8.55 7.16 Z M 10.47 8.67 C 10.61 8.70 10.75 8.68 10.87 8.61 C 10.95 8.57 11.01 8.50 11.03 8.41 C 11.83 6.08 14.37 4.85 16.69 5.65 C 18.51 6.28 19.72 8.00 19.69 9.92 C 19.70 10.14 19.68 10.36 19.63 10.58 C 19.60 10.79 19.71 10.99 19.90 11.07 C 21.85 12.13 22.57 14.57 21.51 16.51 C 20.82 17.78 19.50 18.58 18.06 18.60 L 5.46 18.60 C 3.41 18.58 1.76 16.91 1.77 14.86 C 1.78 12.99 3.15 11.41 5.00 11.12 C 5.18 11.14 5.35 11.01 5.37 10.82 C 5.59 9.23 6.94 8.03 8.55 7.99 C 9.21 7.99 9.86 8.20 10.40 8.60 C 10.42 8.63 10.44 8.66 10.47 8.67 Z" fill="currentColor" fill-rule="evenodd"/></svg>
+      <h3>Große Dateien</h3>
+      <p>Videos, Präsentationen und andere große Dateien bleiben in eurem Cloud-Storage (Box, OneDrive).</p>
       <p style="margin-top:.75rem">Im Projekt wird per Symlink darauf verwiesen:</p>
       <p style="margin-top:.25rem"><code>ln -s /pfad/cloud kontext</code></p>
     </div>
   </div>
-  <div class="g g3" style="margin-top:1px">
-    <div class="c-sand">
+  <div class="g g3" style="border-top:1px solid var(--line-grid)">
+    <div>
+      <svg class="card-ic" viewBox="0 0 24 24" fill="none"><path d="M 5.40 22.54 C 5.31 22.54 5.23 22.52 5.16 22.47 C 5.04 22.38 4.98 22.23 5.00 22.08 L 6.23 14.93 L 1.04 9.87 C 0.93 9.76 0.89 9.61 0.94 9.47 C 0.98 9.32 1.11 9.22 1.26 9.20 L 8.43 8.15 L 11.64 1.65 C 11.71 1.52 11.85 1.43 12.00 1.43 L 12.00 1.43 C 12.15 1.43 12.29 1.52 12.36 1.65 L 15.57 8.15 L 22.74 9.20 C 22.89 9.22 23.02 9.32 23.06 9.47 C 23.11 9.61 23.07 9.77 22.96 9.87 L 17.77 14.93 L 19.00 22.08 C 19.02 22.23 18.96 22.38 18.84 22.47 C 18.72 22.56 18.55 22.57 18.42 22.50 L 12.00 19.12 L 5.59 22.50 C 5.53 22.53 5.46 22.54 5.40 22.54 Z M 2.17 9.87 L 6.93 14.51 C 7.03 14.60 7.07 14.73 7.05 14.86 L 5.92 21.42 L 11.81 18.32 C 11.93 18.26 12.07 18.26 12.18 18.32 L 18.07 21.42 L 16.95 14.86 C 16.92 14.73 16.97 14.60 17.06 14.51 L 21.83 9.87 L 15.24 8.91 C 15.11 8.89 15.00 8.81 14.95 8.69 L 12.00 2.72 L 9.05 8.69 C 8.99 8.81 8.88 8.89 8.76 8.91 L 2.17 9.87 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Marketplace Skills</h3>
-      <p>50+ fertige Skills im <strong>Journey-Skills Marketplace</strong> — fuer alle Projekte nutzbar. Kampagnen, Content, Strategie und mehr.</p>
+      <p>50+ fertige Skills im <strong>Journey-Skills Marketplace</strong> — für alle Projekte nutzbar. Kampagnen, Content, Strategie und mehr.</p>
     </div>
     <div>
+      <svg class="card-ic" viewBox="0 0 24 24" fill="none"><path d="M 18.63 11.36 C 18.63 9.50 17.83 7.72 16.45 6.47 C 15.05 5.22 13.24 4.64 11.36 4.85 C 8.36 5.18 5.94 7.60 5.61 10.61 C 5.37 12.75 6.14 14.80 7.73 16.23 C 8.53 16.96 8.99 17.95 8.99 18.97 L 8.99 20.14 L 9.59 20.14 L 9.59 23.11 L 14.66 23.11 L 14.66 20.14 L 15.21 20.14 L 15.21 18.97 C 15.21 17.95 15.67 16.96 16.48 16.23 C 17.85 14.99 18.63 13.22 18.63 11.37 L 18.63 11.37 Z M 10.35 22.35 L 10.35 21.64 L 13.90 21.64 L 13.90 22.35 L 10.35 22.35 Z M 13.90 20.88 L 10.35 20.88 L 10.35 20.14 L 13.90 20.14 L 13.90 20.88 Z M 15.96 15.66 C 15.00 16.54 14.44 17.74 14.44 18.97 L 14.44 19.38 L 9.75 19.38 L 9.75 18.97 C 9.75 17.74 9.20 16.54 8.24 15.67 C 6.84 14.40 6.15 12.59 6.36 10.69 C 6.66 8.04 8.79 5.90 11.44 5.61 C 13.10 5.43 14.70 5.94 15.94 7.04 C 17.16 8.14 17.87 9.72 17.87 11.37 C 17.87 13.00 17.17 14.57 15.96 15.67 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 19.79 11.02 L 22.51 11.02 L 22.51 11.78 L 19.79 11.78 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 1.49 11.43 L 4.21 11.43 L 4.21 12.19 L 1.49 12.19 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 18.20 16.74 L 18.96 16.74 L 18.96 19.19 L 18.20 19.19 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 5.09 3.65 L 5.85 3.65 L 5.85 6.04 L 5.09 6.04 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 17.35 4.45 L 19.80 4.45 L 19.80 5.21 L 17.35 5.21 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.26 17.58 L 6.71 17.58 L 6.71 18.35 L 4.26 18.35 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 11.65 0.89 L 12.42 0.89 L 12.42 3.62 L 11.65 3.62 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Projekt-Skills</h3>
-      <p>Skills die nur fuer einen Kunden relevant sind, leben im Kunden-Repo unter <code>.claude/skills/</code>.</p>
+      <p>Skills die nur für einen Kunden relevant sind, leben im Kunden-Repo unter <code>.claude/skills/</code>.</p>
     </div>
-    <div class="c-warm">
+    <div>
+      <svg class="card-ic" viewBox="0 0 24 24" fill="none"><path d="M 17.54 6.47 L 6.46 6.47 L 3.29 10.30 L 12.15 21.63 L 20.71 10.30 L 17.54 6.47 Z M 14.84 10.65 L 12.13 19.90 L 9.19 10.65 L 14.84 10.65 Z M 9.48 9.97 L 12.00 7.31 L 14.53 9.97 L 9.48 9.97 Z M 12.80 7.15 L 16.77 7.15 L 15.22 9.70 L 12.80 7.15 Z M 8.78 9.71 L 7.23 7.15 L 11.21 7.15 L 8.78 9.71 Z M 8.15 9.97 L 4.46 9.97 L 6.58 7.40 L 8.15 9.97 Z M 8.47 10.65 L 11.24 19.36 L 4.43 10.65 L 8.47 10.65 Z M 15.55 10.65 L 19.59 10.65 L 13.00 19.37 L 15.55 10.65 Z M 15.86 9.97 L 17.43 7.40 L 19.55 9.97 L 15.86 9.97 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Design Tokens</h3>
       <p>Jedes neue Projekt bekommt automatisch eine <code>design.md</code> mit Serviceplan Brand-Farben, Fonts und Grid-Regeln.</p>
     </div>
@@ -215,34 +231,34 @@
       <h3>Einmal die Woche</h3>
       <p style="margin-top:.3rem">Neue Skills und neue Versionen landen nicht automatisch bei dir. Der Marketplace wird nur geholt, wenn du ihn holst:</p>
       <p style="margin-top:.75rem"><code>/plugin marketplace update</code></p>
-      <p style="margin-top:.75rem">Danach installierst du neu dazugekommene Plugins wie gewohnt. Bestehende werden beim naechsten Start von Claude Code auf die neue Version gehoben.</p>
+      <p style="margin-top:.75rem">Danach installierst du neu dazugekommene Plugins wie gewohnt. Bestehende werden beim nächsten Start von Claude Code auf die neue Version gehoben.</p>
     </div>
-    <div class="c-warm">
+    <div class="c-dblack">
       <h3>Woran du es merkst</h3>
-      <p style="margin-top:.3rem">Jemand spricht von einem Skill, den es bei dir nicht gibt. Oder ein Skill verhaelt sich anders als beschrieben.</p>
+      <p style="margin-top:.3rem">Jemand spricht von einem Skill, den es bei dir nicht gibt. Oder ein Skill verhält sich anders als beschrieben.</p>
       <p style="margin-top:.5rem">Dann hast du eine alte Version — einmal aktualisieren, Claude Code neu starten.</p>
-      <p style="margin-top:.5rem">In Projekten aus dem <strong>project-template</strong> passiert das automatisch beim Start. Ueberall sonst musst du selbst dran denken.</p>
+      <p style="margin-top:.5rem">In Projekten aus dem <strong>project-template</strong> passiert das automatisch beim Start. Überall sonst musst du selbst dran denken.</p>
     </div>
     <div class="s3">
       <h3>Der Klon ist nicht deine Installation</h3>
       <p style="margin-top:.3rem">Falls du <code>Journey-Skills</code> lokal geklont hast: das ist zum Reinschauen und Weiterentwickeln da. Deine installierten Skills liegen woanders und kommen direkt von GitHub.</p>
-      <p style="margin-top:.5rem">Aenderungen im Klon wirken sich also nicht auf deine Skills aus. Sie gehen ueber einen Pull Request und kommen dann beim naechsten Update bei allen an.</p>
+      <p style="margin-top:.5rem">Änderungen im Klon wirken sich also nicht auf deine Skills aus. Sie gehen über einen Pull Request und kommen dann beim nächsten Update bei allen an.</p>
     </div>
   </div>
 </div>
 
 <!-- REGELN -->
 <div class="wrap">
-  <div class="spacer"><div class="eyebrow">Regeln</div><h2>Das gilt fuer alle</h2></div>
+  <div class="spacer"><div class="eyebrow">Regeln</div><h2>Das gilt für alle</h2></div>
   <div class="g g2">
     <div>
       <h3 style="margin-bottom:.75rem">So arbeiten wir</h3>
       <ul class="check">
         <li>Alle Projekte sind <strong>privat</strong> — nur Teammitglieder sehen sie</li>
-        <li>Neue Projekte und Zugaenge immer per <strong>Ticket</strong></li>
-        <li><strong>SSH Keys</strong> fuer Git-Zugang (wird im Onboarding eingerichtet)</li>
-        <li>Aenderungen ueber <strong>Pull Requests</strong> — nicht direkt auf main</li>
-        <li>Grosse Dateien per <strong>Symlink</strong> auf Cloud-Storage, nie ins Repo</li>
+        <li>Neue Projekte und Zugänge immer per <strong>Ticket</strong></li>
+        <li><strong>SSH Keys</strong> für Git-Zugang (wird im Onboarding eingerichtet)</li>
+        <li>Änderungen über <strong>Pull Requests</strong> — nicht direkt auf main</li>
+        <li>Große Dateien per <strong>Symlink</strong> auf Cloud-Storage, nie ins Repo</li>
       </ul>
     </div>
     <div class="c-dblack">
@@ -256,7 +272,7 @@
 
 <!-- CTA -->
 <div class="wrap" style="padding-bottom:4rem">
-  <div class="g g2" style="margin-top:3rem">
+  <div class="g g2" style="border-top:1px solid var(--line-grid)">
     <div class="c-red" style="display:flex;flex-direction:column;justify-content:center;align-items:start;gap:1rem">
       <h2>Bereit loszulegen?</h2>
       <p>Starte mit dem Onboarding oder installiere das PNJ Plugin.</p>
@@ -289,8 +305,10 @@
     </div>
     <div class="foot-links">
       <a href="ERKLAERUNG.html">Warum GitHub?</a>
-      <a href="GUIDE-USER.html">Fuer Teammitglieder</a>
-      <a href="GUIDE-MAINTAINER.html">Fuer Maintainer</a>
+      <a href="GUIDE-USER.html">Für Teammitglieder</a>
+      <a href="GUIDE-MAINTAINER.html">Für Maintainer</a>
     </div>
   </footer>
 </div>
+</body>
+</html>
