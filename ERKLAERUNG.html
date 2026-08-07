@@ -1,16 +1,17 @@
-<title>PNJ GitHub Setup — Warum wir was machen</title>
+<title>Feel the Force — Deine KI Journey bei Plan.Net Journey</title>
 <style>
   :root {
     --red: #FF4B4F; --dblack: #363636; --black: #000; --white: #fff;
     --warm: #E8E5DE; --sand: #B9B09B; --emerald: #2A654A; --ygreen: #C1D850; --mgreen: #94C29D;
-    --bg: var(--warm); --cell: var(--white); --text: var(--dblack); --text2: #636360;
+    --lightgrey: #ECEAE4;
+    --bg: var(--white); --cell: var(--lightgrey); --text: var(--dblack); --text2: #636360;
     --line: #c8c5be; --line-grid: var(--dblack);
   }
   @media(prefers-color-scheme:dark){:root{
     --bg:#1e1e1c; --cell:#2a2a28; --text:var(--warm); --text2:var(--sand);
     --line:#3e3d39; --line-grid:#3e3d39;
   }}
-  :root[data-theme="light"]{--bg:var(--warm);--cell:var(--white);--text:var(--dblack);--text2:#636360;--line:#c8c5be;--line-grid:var(--dblack)}
+  :root[data-theme="light"]{--bg:var(--white);--cell:var(--lightgrey);--text:var(--dblack);--text2:#636360;--line:#c8c5be;--line-grid:var(--dblack)}
   :root[data-theme="dark"]{--bg:#1e1e1c;--cell:#2a2a28;--text:var(--warm);--text2:var(--sand);--line:#3e3d39;--line-grid:#3e3d39}
 
   *{margin:0;padding:0;box-sizing:border-box}
@@ -38,6 +39,12 @@
   .s3{grid-column:span 3}
   .sr2{grid-row:span 2}
   @media(max-width:700px){.s2,.s3{grid-column:span 1}}
+
+  /* ---- TILES: gleiche Kacheln mit echten Abstaenden (kein 1px-Gitter) ---- */
+  .tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+  @media(max-width:700px){.tiles{grid-template-columns:1fr}}
+  .tiles>*{background:var(--cell);padding:2.5rem}
+  .tiles .ic{width:2.4rem;height:2.4rem;flex:none;color:var(--red);display:block;margin-bottom:1rem}
 
   /* ---- CELLS ---- */
   .c-red{background:var(--red);color:var(--white)}
@@ -78,6 +85,8 @@
   /* ---- LINKS / CTA ---- */
   a.cell-link{text-decoration:none;color:inherit;display:block;transition:opacity .15s}
   a.cell-link:hover{opacity:.88}
+  .cell-link .ic{width:2rem;height:2rem;flex:none;color:var(--red);display:block;margin-bottom:.85rem}
+  .g3 .ic{width:2rem;height:2rem;flex:none;color:var(--red);display:block;margin-bottom:.85rem}
   .btn{display:inline-block;padding:.6rem 1.5rem;font-size:.85rem;font-weight:700;text-decoration:none;letter-spacing:.02em}
   .btn-red{background:var(--red);color:var(--white)}
   .btn-white{background:var(--white);color:var(--dblack)}
@@ -134,8 +143,8 @@
 <!-- HERO -->
 <div class="wrap">
   <div class="spacer" style="padding-top:4rem;padding-bottom:2rem">
-    <h1>Warum wir<br><span style="color:var(--red)">GitHub</span> nutzen</h1>
-    <p style="max-width:520px;margin-top:.75rem;font-size:1.05rem">Unser Setup fuer kollaborative Entwicklung von Skills, Agents und Projekt-Assets bei Plan Net Journey.</p>
+    <h1>Feel the <span style="color:var(--red)">Force</span><br>Deine KI Journey startet jetzt</h1>
+    <p style="max-width:520px;margin-top:.75rem;font-size:1.05rem">GitHub und Claude Code bringen Skills, Agents und Projekt-Assets zusammen — teilbar, versioniert, im ganzen Team. So startet deine KI Journey bei Plan Net Journey.</p>
   </div>
 </div>
 
@@ -169,20 +178,24 @@
 <!-- BAUSTEINE -->
 <div class="wrap">
   <div class="spacer"><div class="eyebrow">Die Bausteine</div><h2>Was wir nutzen und warum</h2><p>Vier Werkzeuge, jedes mit einem klaren Zweck.</p></div>
-  <div class="g g2" style="grid-template-columns:2fr 1fr">
+  <div class="tiles">
     <div>
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 22.33 7.91 C 22.33 7.24 21.79 6.70 21.12 6.70 C 20.95 6.70 20.78 6.74 20.63 6.81 L 13.92 2.31 C 13.92 2.29 13.92 2.27 13.92 2.24 C 13.92 1.50 13.32 0.89 12.57 0.89 C 11.83 0.89 11.22 1.50 11.22 2.24 C 11.22 2.28 11.22 2.32 11.23 2.36 L 6.04 3.73 C 5.86 3.61 5.63 3.54 5.40 3.54 C 4.73 3.54 4.19 4.09 4.19 4.76 C 4.19 5.08 4.32 5.38 4.53 5.60 L 3.17 11.14 C 3.13 11.14 3.09 11.14 3.05 11.14 C 2.29 11.14 1.67 11.76 1.67 12.52 C 1.67 13.28 2.29 13.90 3.05 13.90 C 3.11 13.90 3.16 13.89 3.22 13.89 L 5.91 19.29 C 5.77 19.51 5.68 19.77 5.68 20.04 C 5.68 20.79 6.29 21.40 7.03 21.40 C 7.49 21.40 7.89 21.17 8.13 20.83 L 13.32 22.06 C 13.46 22.66 14.00 23.11 14.64 23.11 C 15.38 23.11 15.99 22.51 15.99 21.76 C 15.99 21.45 15.88 21.17 15.70 20.94 L 17.98 17.62 C 18.09 17.64 18.20 17.65 18.32 17.65 C 19.27 17.65 20.04 16.88 20.04 15.92 C 20.04 15.49 19.88 15.10 19.62 14.80 L 21.31 9.10 C 21.88 9.01 22.33 8.52 22.33 7.91 Z M 18.32 14.19 C 18.25 14.19 18.18 14.20 18.12 14.21 L 15.18 9.45 C 15.54 9.19 15.81 8.79 15.89 8.34 L 20.23 8.71 C 20.33 8.82 20.45 8.91 20.58 8.98 L 19.00 14.33 C 18.79 14.24 18.56 14.19 18.32 14.19 Z M 16.65 15.49 L 11.10 12.06 C 10.99 11.11 10.19 10.37 9.21 10.37 C 8.97 10.37 8.73 10.41 8.52 10.50 L 6.25 5.61 C 6.28 5.58 6.31 5.54 6.33 5.51 L 12.41 8.03 C 12.42 8.99 13.20 9.77 14.17 9.77 C 14.28 9.77 14.39 9.76 14.50 9.74 L 17.42 14.45 C 17.04 14.68 16.77 15.05 16.65 15.49 Z M 8.03 12.27 C 8.03 11.62 8.56 11.10 9.21 11.10 C 9.86 11.10 10.38 11.63 10.38 12.27 C 10.38 12.92 9.86 13.45 9.21 13.45 C 8.56 13.45 8.03 12.92 8.03 12.27 Z M 14.16 6.97 C 14.73 6.97 15.20 7.44 15.20 8.01 C 15.20 8.58 14.73 9.05 14.16 9.05 C 13.60 9.05 13.13 8.58 13.13 8.01 C 13.13 7.44 13.60 6.97 14.16 6.97 Z M 21.60 7.91 C 21.60 8.18 21.39 8.39 21.12 8.39 C 20.86 8.39 20.64 8.17 20.64 7.91 C 20.64 7.65 20.86 7.43 21.12 7.43 C 21.39 7.43 21.60 7.65 21.60 7.91 Z M 20.08 7.32 C 19.98 7.49 19.92 7.69 19.92 7.91 C 19.92 7.93 19.92 7.94 19.92 7.96 L 15.88 7.61 C 15.69 6.83 15.00 6.25 14.16 6.25 C 14.07 6.25 13.98 6.26 13.89 6.27 L 13.02 3.52 C 13.28 3.43 13.51 3.25 13.67 3.03 L 20.08 7.32 Z M 12.57 1.61 C 12.91 1.61 13.19 1.90 13.19 2.24 C 13.19 2.59 12.91 2.87 12.57 2.87 C 12.22 2.87 11.94 2.59 11.94 2.24 C 11.94 1.90 12.22 1.61 12.57 1.61 Z M 12.27 3.56 L 13.21 6.53 C 12.92 6.72 12.69 6.98 12.55 7.30 L 6.59 4.83 C 6.59 4.80 6.60 4.78 6.60 4.75 C 6.60 4.61 6.57 4.48 6.53 4.35 L 11.48 3.04 C 11.67 3.29 11.94 3.48 12.26 3.56 Z M 5.39 4.27 C 5.66 4.27 5.88 4.48 5.88 4.75 C 5.88 5.02 5.66 5.23 5.39 5.23 C 5.13 5.23 4.91 5.02 4.91 4.75 C 4.91 4.48 5.13 4.27 5.39 4.27 Z M 5.19 5.94 C 5.26 5.95 5.33 5.96 5.39 5.96 C 5.46 5.96 5.53 5.95 5.60 5.94 L 7.90 10.89 C 7.62 11.16 7.41 11.52 7.34 11.92 L 4.34 12.03 C 4.25 11.77 4.08 11.56 3.86 11.40 L 5.19 5.94 Z M 2.40 12.51 C 2.40 12.15 2.69 11.86 3.05 11.86 C 3.41 11.86 3.71 12.15 3.71 12.51 C 3.71 12.88 3.41 13.17 3.05 13.17 C 2.69 13.17 2.40 12.88 2.40 12.51 Z M 4.41 12.76 L 7.34 12.65 C 7.42 13.04 7.62 13.39 7.90 13.65 L 7.34 18.73 C 7.24 18.71 7.14 18.69 7.03 18.69 C 6.83 18.69 6.65 18.73 6.48 18.81 L 3.89 13.61 C 4.16 13.40 4.34 13.10 4.41 12.76 Z M 7.03 20.67 C 6.69 20.67 6.41 20.39 6.41 20.04 C 6.41 19.70 6.69 19.42 7.03 19.42 C 7.38 19.42 7.66 19.70 7.66 20.04 C 7.66 20.39 7.38 20.67 7.03 20.67 Z M 8.03 19.14 L 8.58 14.07 C 8.78 14.14 8.99 14.18 9.21 14.18 C 9.46 14.18 9.69 14.13 9.91 14.04 L 13.66 20.82 C 13.53 20.96 13.43 21.13 13.36 21.32 L 8.38 20.14 C 8.38 20.11 8.38 20.08 8.38 20.04 C 8.38 19.69 8.25 19.38 8.03 19.14 Z M 14.64 22.38 C 14.29 22.38 14.01 22.10 14.01 21.76 C 14.01 21.42 14.29 21.14 14.64 21.14 C 14.98 21.14 15.26 21.42 15.26 21.76 C 15.26 22.10 14.98 22.38 14.64 22.38 Z M 15.12 20.50 C 14.97 20.44 14.81 20.41 14.64 20.41 C 14.51 20.41 14.40 20.43 14.29 20.46 L 10.52 13.64 C 10.74 13.43 10.91 13.16 11.01 12.87 L 16.65 16.34 C 16.75 16.74 16.98 17.08 17.30 17.32 L 15.12 20.50 Z M 18.32 16.92 C 17.77 16.92 17.32 16.47 17.32 15.92 C 17.32 15.37 17.77 14.92 18.32 14.92 C 18.87 14.92 19.32 15.37 19.32 15.92 C 19.32 16.47 18.87 16.92 18.32 16.92 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>GitHub</h3>
       <p><strong>Plattform</strong> auf der unser Code und unsere Skills leben. Industriestandard fuer Versionierung. Jede Aenderung ist nachvollziehbar, nichts geht verloren, und alle arbeiten auf dem gleichen Stand.</p>
     </div>
-    <div class="c-red">
+    <div>
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 17.99 18.73 L 19.36 18.73 C 19.51 18.73 19.64 18.61 19.65 18.45 L 19.65 11.05 C 19.64 10.89 19.51 10.77 19.36 10.77 L 17.99 10.77 C 17.84 10.77 17.71 10.89 17.70 11.05 L 17.70 11.89 L 16.92 11.89 L 16.92 11.05 C 16.92 10.90 16.79 10.78 16.64 10.77 L 15.03 10.77 L 15.03 9.85 L 16.64 9.85 C 16.80 9.85 16.92 9.72 16.92 9.56 L 16.92 3.70 C 16.92 2.86 16.24 2.18 15.40 2.17 L 12.29 2.17 L 12.29 1.18 C 12.29 1.02 12.16 0.89 12.00 0.89 C 11.84 0.89 11.71 1.02 11.71 1.18 L 11.71 2.17 L 8.60 2.17 C 7.76 2.18 7.08 2.86 7.08 3.70 L 7.08 9.56 C 7.08 9.72 7.20 9.85 7.36 9.85 L 8.97 9.85 L 8.97 10.77 L 7.36 10.77 C 7.21 10.78 7.09 10.90 7.08 11.05 L 7.08 11.89 L 6.30 11.89 L 6.30 11.05 C 6.29 10.89 6.16 10.77 6.01 10.77 L 4.64 10.77 C 4.49 10.77 4.36 10.89 4.35 11.05 L 4.35 18.45 C 4.36 18.61 4.49 18.73 4.64 18.73 L 6.01 18.73 C 6.16 18.73 6.29 18.61 6.30 18.45 L 6.30 13.99 L 7.08 13.99 L 7.08 17.04 C 7.08 17.20 7.20 17.33 7.36 17.33 L 8.09 17.33 L 8.09 20.79 L 7.55 20.79 C 7.39 20.79 7.26 20.92 7.26 21.08 C 7.26 21.08 7.26 21.08 7.26 21.09 L 7.26 22.82 C 7.26 22.98 7.39 23.11 7.54 23.11 C 7.55 23.11 7.55 23.11 7.55 23.11 L 10.65 23.11 C 10.81 23.10 10.93 22.97 10.93 22.82 L 10.93 21.09 C 10.93 20.93 10.81 20.80 10.65 20.79 L 10.11 20.79 L 10.11 17.33 L 13.89 17.33 L 13.89 20.79 L 13.35 20.79 C 13.19 20.80 13.07 20.93 13.06 21.09 L 13.06 22.82 C 13.07 22.98 13.19 23.11 13.35 23.11 L 16.45 23.11 C 16.61 23.11 16.74 22.98 16.74 22.83 C 16.74 22.82 16.74 22.82 16.74 22.82 L 16.74 21.09 C 16.74 20.93 16.61 20.80 16.46 20.79 C 16.45 20.79 16.45 20.79 16.45 20.79 L 15.91 20.79 L 15.91 17.33 L 16.64 17.33 C 16.80 17.33 16.92 17.20 16.92 17.04 L 16.92 13.99 L 17.70 13.99 L 17.70 18.45 C 17.71 18.61 17.84 18.73 17.99 18.73 Z M 18.28 11.34 L 19.06 11.34 L 19.06 18.16 L 18.28 18.16 Z M 5.72 18.16 L 4.94 18.16 L 4.94 11.34 L 5.72 11.34 Z M 7.08 13.41 L 6.30 13.41 L 6.30 12.47 L 7.08 12.47 Z M 7.65 9.27 L 7.65 3.70 C 7.65 3.18 8.08 2.75 8.60 2.75 L 15.40 2.75 C 15.92 2.75 16.35 3.18 16.35 3.70 L 16.35 9.27 Z M 14.47 9.85 L 14.47 10.77 L 9.53 10.77 L 9.53 9.85 Z M 10.36 21.38 L 10.36 22.53 L 7.84 22.53 L 7.84 21.38 Z M 8.67 20.79 L 8.67 17.33 L 9.53 17.33 L 9.53 20.79 Z M 16.16 21.38 L 16.16 22.53 L 13.64 22.53 L 13.64 21.38 Z M 14.47 20.79 L 14.47 17.33 L 15.33 17.33 L 15.33 20.79 Z M 16.35 16.75 L 7.65 16.75 L 7.65 11.34 L 16.35 11.34 Z M 16.92 13.41 L 16.92 12.47 L 17.70 12.47 L 17.70 13.41 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 9.73 4.59 C 8.87 4.60 8.17 5.30 8.17 6.17 C 8.17 7.04 8.88 7.74 9.75 7.73 C 10.61 7.73 11.31 7.03 11.31 6.16 C 11.31 5.30 10.61 4.59 9.74 4.59 C 9.74 4.59 9.74 4.59 9.73 4.59 Z M 9.73 7.15 C 9.19 7.15 8.74 6.71 8.75 6.16 C 8.75 5.61 9.19 5.17 9.74 5.17 C 10.29 5.17 10.73 5.62 10.73 6.16 C 10.73 6.71 10.28 7.15 9.73 7.15 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 14.27 4.59 C 13.40 4.59 12.69 5.29 12.69 6.16 C 12.69 7.02 13.39 7.73 14.26 7.73 C 15.12 7.74 15.83 7.04 15.83 6.17 C 15.83 6.17 15.83 6.16 15.83 6.16 C 15.83 5.30 15.13 4.60 14.27 4.59 Z M 14.27 7.15 C 13.72 7.15 13.28 6.71 13.28 6.16 C 13.28 5.61 13.73 5.17 14.27 5.17 C 14.82 5.17 15.26 5.62 15.26 6.16 C 15.26 6.71 14.82 7.15 14.27 7.15 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 12.02 12.74 C 10.73 12.74 9.69 13.77 9.69 15.04 C 9.69 15.20 9.82 15.33 9.97 15.33 C 9.98 15.33 9.98 15.33 9.98 15.33 L 14.06 15.33 C 14.22 15.33 14.35 15.21 14.35 15.05 C 14.35 15.05 14.35 15.04 14.35 15.04 C 14.35 13.77 13.30 12.74 12.02 12.74 Z M 13.74 14.76 L 10.29 14.76 L 10.31 14.66 C 10.49 13.88 11.21 13.32 12.02 13.32 C 12.83 13.32 13.55 13.88 13.72 14.66 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 15.09 12.22 C 14.94 12.22 14.80 12.35 14.80 12.49 C 14.81 12.65 14.94 12.77 15.09 12.77 C 15.24 12.78 15.38 12.67 15.39 12.52 C 15.40 12.37 15.29 12.24 15.14 12.22 C 15.12 12.22 15.11 12.22 15.09 12.22 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 8.91 12.22 C 8.75 12.22 8.61 12.35 8.61 12.49 C 8.61 12.65 8.74 12.78 8.91 12.78 C 9.07 12.78 9.20 12.65 9.20 12.49 C 9.19 12.34 9.06 12.22 8.91 12.22 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Claude Code</h3>
       <p>KI-Assistent der direkt mit deinen Dateien arbeitet. Anders als die normale Claude Chat-App kann Claude Code Dateien lesen, bearbeiten und Befehle ausfuehren.</p>
     </div>
-    <div class="c-warm">
+    <div>
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 10.04 21.30 L 10.04 15.61 L 11.31 14.23 L 10.04 12.85 L 10.04 10.46 C 8.27 9.73 7.00 7.92 7.00 5.89 C 7.00 3.12 9.27 0.89 12.00 0.89 C 14.73 0.89 17.00 3.12 17.00 5.89 C 17.00 7.96 15.69 9.73 13.92 10.46 L 13.92 21.30 L 12.00 23.11 L 10.04 21.30 Z M 10.81 10.00 L 10.81 12.57 L 12.27 14.23 L 10.81 15.88 L 10.81 20.99 L 12.00 22.11 L 13.15 20.99 L 13.15 10.00 C 15.11 9.27 16.23 7.73 16.23 5.89 C 16.23 3.54 14.34 1.62 12.00 1.62 C 9.66 1.62 7.77 3.54 7.77 5.89 C 7.77 7.69 8.89 9.23 10.81 10.00 Z M 12.00 3.00 C 12.85 3.00 13.50 3.65 13.50 4.46 C 13.50 5.27 12.85 5.92 12.00 5.92 C 11.15 5.92 10.50 5.27 10.50 4.46 C 10.50 3.65 11.15 3.00 12.00 3.00 Z M 12.00 5.23 C 12.42 5.23 12.77 4.92 12.77 4.46 C 12.77 4.04 12.42 3.69 12.00 3.69 C 11.58 3.69 11.23 4.04 11.23 4.46 C 11.23 4.92 11.58 5.23 12.00 5.23 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>SSH Keys</h3>
       <p>Verschluesselter Zugang zu GitHub ohne Passwort. Sicherer als Passwoerter, funktioniert automatisch, wird einmal eingerichtet und laeuft dann.</p>
     </div>
     <div>
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 8.55 7.16 C 6.66 7.17 5.03 8.50 4.65 10.35 L 4.65 10.41 L 4.59 10.41 C 2.44 10.81 0.89 12.70 0.91 14.89 C 0.90 17.41 2.93 19.47 5.45 19.49 L 5.59 19.49 L 5.59 19.46 L 18.54 19.46 C 21.19 19.19 23.11 16.82 22.84 14.18 C 22.68 12.66 21.82 11.32 20.52 10.54 L 20.45 10.50 L 20.48 10.43 C 20.52 10.27 20.54 10.10 20.53 9.94 C 20.60 7.03 18.29 4.62 15.39 4.56 C 13.29 4.51 11.36 5.72 10.49 7.63 L 10.44 7.72 L 10.36 7.67 C 9.81 7.34 9.19 7.16 8.55 7.16 Z M 10.47 8.67 C 10.61 8.70 10.75 8.68 10.87 8.61 C 10.95 8.57 11.01 8.50 11.03 8.41 C 11.83 6.08 14.37 4.85 16.69 5.65 C 18.51 6.28 19.72 8.00 19.69 9.92 C 19.70 10.14 19.68 10.36 19.63 10.58 C 19.60 10.79 19.71 10.99 19.90 11.07 C 21.85 12.13 22.57 14.57 21.51 16.51 C 20.82 17.78 19.50 18.58 18.06 18.60 L 5.46 18.60 C 3.41 18.58 1.76 16.91 1.77 14.86 C 1.78 12.99 3.15 11.41 5.00 11.12 C 5.18 11.14 5.35 11.01 5.37 10.82 C 5.59 9.23 6.94 8.03 8.55 7.99 C 9.21 7.99 9.86 8.20 10.40 8.60 C 10.42 8.63 10.44 8.66 10.47 8.67 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Cloud-Storage</h3>
       <p>Grosse Dateien (Videos, PPTX) bleiben in Box/OneDrive. Das Projekt verlinkt darauf. Git ist nicht fuer grosse Binaerdateien gemacht.</p>
     </div>
@@ -211,11 +224,11 @@
   <div class="spacer"><div class="eyebrow">Der Weg</div><h2>Vom Start zum ersten Projekt</h2><p>Was passiert wenn du als neues Teammitglied anfaengst.</p></div>
   <div class="g" style="grid-template-columns:repeat(5,1fr)">
     <div>
-      <div class="step-num step-num-red">1</div>
+      <div class="step-num step-num-black">1</div>
       <h3>Link bekommen</h3>
       <p>Kollegin schickt dir den Link zur GitHub-Seite per Slack oder Mail.</p>
     </div>
-    <div class="c-warm">
+    <div>
       <div class="step-num step-num-black">2</div>
       <h3>Tools einrichten</h3>
       <p>Claude Code installieren, GitHub-Account erstellen, SSH-Key anlegen.</p>
@@ -225,13 +238,13 @@
       <h3>Zugang beantragen</h3>
       <p>Ein Ticket wird automatisch erstellt. Admin gibt frei.</p>
     </div>
-    <div class="c-warm">
-      <div class="step-num step-num-emerald">4</div>
+    <div>
+      <div class="step-num step-num-black">4</div>
       <h3>Marketplace entdecken</h3>
       <p>52 fertige Skills durchstoebern. Sofort einsetzbar.</p>
     </div>
-    <div class="c-red">
-      <div class="step-num" style="background:var(--white);color:var(--red)">5</div>
+    <div class="c-emerald">
+      <div class="step-num step-num-black">5</div>
       <h3>Kunden-Repo starten</h3>
       <p>Neues Repo per Ticket — wird automatisch mit Template erstellt.</p>
     </div>
@@ -252,17 +265,17 @@
       <h3>Admin benachrichtigt</h3>
       <p>E-Mail von GitHub. Kein Slack, kein Anrufen.</p>
     </div>
-    <div class="c-red">
-      <div class="step-num" style="background:var(--white);color:var(--red)">3</div>
+    <div>
+      <div class="step-num step-num-black">3</div>
       <h3>Admin gibt frei</h3>
       <p>Antwort mit <code>/approve</code>. Ein Wort — fertig.</p>
     </div>
     <div>
-      <div class="step-num step-num-emerald">4</div>
+      <div class="step-num step-num-black">4</div>
       <h3>Automation laeuft</h3>
       <p>Einladung, Repo oder Zugang — automatisch.</p>
     </div>
-    <div>
+    <div class="c-emerald">
       <div class="step-num step-num-black">5</div>
       <h3>Ticket schliesst sich</h3>
       <p>Zusammenfassung was passiert ist. Dokumentiert.</p>
@@ -271,19 +284,23 @@
 
   <div class="spacer-sm" style="padding-top:2rem"><h3>Vier Ticket-Typen</h3></div>
   <div class="g" style="grid-template-columns:repeat(4,1fr)">
-    <a href="https://github.com/plan-net-journey/.github/issues/new?template=access-request.yml" class="cell-link c-red">
+    <a href="https://github.com/plan-net-journey/.github/issues/new?template=access-request.yml" class="cell-link">
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 19.75 2.50 C 19.58 2.44 15.63 0.89 12.55 2.52 C 10.12 3.81 5.84 2.84 4.75 2.56 L 4.75 1.72 C 4.75 1.52 4.59 1.36 4.39 1.36 C 4.19 1.36 4.02 1.52 4.02 1.72 L 4.02 2.81 C 4.02 2.81 4.02 2.82 4.02 2.82 C 4.02 2.83 4.02 2.83 4.02 2.84 L 4.02 22.75 C 4.02 22.95 4.19 23.11 4.39 23.11 C 4.59 23.11 4.75 22.95 4.75 22.75 L 4.75 14.19 C 5.57 14.39 7.37 14.78 9.23 14.78 C 10.52 14.78 11.84 14.59 12.90 14.03 C 15.67 12.56 19.44 14.03 19.48 14.05 C 19.59 14.09 19.72 14.08 19.82 14.01 C 19.91 13.95 19.98 13.83 19.98 13.71 L 19.98 2.84 C 19.98 2.69 19.88 2.55 19.75 2.50 Z M 19.25 13.20 C 18.07 12.83 15.03 12.08 12.55 13.40 C 10.12 14.69 5.84 13.72 4.75 13.44 L 4.75 3.31 C 6.15 3.66 10.33 4.52 12.90 3.16 C 15.28 1.90 18.39 2.80 19.25 3.09 L 19.25 13.20 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Org-Zugang &rarr;</h3>
       <p>Neues Teammitglied braucht Zugang.</p>
     </a>
     <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-request.yml" class="cell-link">
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 17.19 9.30 C 18.18 9.30 18.99 8.49 18.99 7.49 C 18.99 6.50 18.18 5.69 17.19 5.69 C 16.19 5.69 15.38 6.50 15.38 7.49 C 15.38 8.49 16.19 9.30 17.19 9.30 Z M 17.19 6.46 C 17.76 6.46 18.22 6.92 18.22 7.49 C 18.22 8.07 17.76 8.53 17.19 8.53 C 16.62 8.53 16.15 8.07 16.15 7.49 C 16.15 6.92 16.62 6.46 17.19 6.46 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 0.89 18.75 L 7.58 18.75 L 7.58 19.53 L 0.89 19.53 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 5.01 18.95 L 9.14 18.95 L 9.14 19.72 L 5.01 19.72 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 5.16 21.70 L 10.25 21.70 L 10.25 22.47 L 5.16 22.47 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 23.11 6.84 L 21.99 1.86 L 16.92 1.53 L 12.25 6.99 L 5.96 6.69 L 3.43 9.65 L 7.21 12.89 L 7.21 12.89 C 7.21 12.89 8.22 13.76 8.22 13.76 L 6.98 15.21 L 11.15 18.78 L 12.39 17.34 L 12.98 17.84 L 12.98 18.71 L 13.40 18.21 L 17.18 21.45 L 19.70 18.49 L 18.44 12.31 L 23.11 6.85 Z M 17.26 2.32 L 21.37 2.59 L 22.28 6.63 L 13.32 17.11 L 12.89 16.75 L 12.89 16.75 C 12.89 16.75 8.72 13.17 8.72 13.17 L 8.72 13.17 C 8.72 13.17 8.30 12.80 8.30 12.80 L 17.25 2.32 Z M 4.52 9.56 L 6.30 7.48 L 11.62 7.73 L 7.71 12.30 L 4.52 9.56 Z M 11.07 17.69 L 8.07 15.12 L 8.81 14.26 L 11.22 16.32 L 11.81 16.83 L 11.07 17.69 Z M 18.87 18.28 L 17.10 20.36 L 13.91 17.62 L 17.81 13.05 L 18.88 18.28 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Neues Repo &rarr;</h3>
       <p>Privates Repo mit Template.</p>
     </a>
     <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=repo-access-request.yml" class="cell-link">
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 10.04 21.30 L 10.04 15.61 L 11.31 14.23 L 10.04 12.85 L 10.04 10.46 C 8.27 9.73 7.00 7.92 7.00 5.89 C 7.00 3.12 9.27 0.89 12.00 0.89 C 14.73 0.89 17.00 3.12 17.00 5.89 C 17.00 7.96 15.69 9.73 13.92 10.46 L 13.92 21.30 L 12.00 23.11 L 10.04 21.30 Z M 10.81 10.00 L 10.81 12.57 L 12.27 14.23 L 10.81 15.88 L 10.81 20.99 L 12.00 22.11 L 13.15 20.99 L 13.15 10.00 C 15.11 9.27 16.23 7.73 16.23 5.89 C 16.23 3.54 14.34 1.62 12.00 1.62 C 9.66 1.62 7.77 3.54 7.77 5.89 C 7.77 7.69 8.89 9.23 10.81 10.00 Z M 12.00 3.00 C 12.85 3.00 13.50 3.65 13.50 4.46 C 13.50 5.27 12.85 5.92 12.00 5.92 C 11.15 5.92 10.50 5.27 10.50 4.46 C 10.50 3.65 11.15 3.00 12.00 3.00 Z M 12.00 5.23 C 12.42 5.23 12.77 4.92 12.77 4.46 C 12.77 4.04 12.42 3.69 12.00 3.69 C 11.58 3.69 11.23 4.04 11.23 4.46 C 11.23 4.92 11.58 5.23 12.00 5.23 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Repo-Zugang &rarr;</h3>
       <p>Schreibzugang zu bestehendem Repo.</p>
     </a>
-    <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml" class="cell-link c-warm">
+    <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml" class="cell-link">
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 23.11 4.62 L 0.89 9.35 L 7.51 12.94 C 7.68 13.15 8.81 19.28 8.81 19.28 L 13.17 16.41 L 17.73 19.38 L 23.11 4.62 Z M 20.41 6.41 C 20.29 6.57 10.03 13.78 10.01 14.02 C 9.99 14.04 9.02 17.23 9.01 17.25 L 8.23 12.91 L 20.41 6.41 Z M 9.57 17.94 L 10.55 14.71 C 10.87 14.91 12.22 15.79 12.51 15.98 C 11.78 16.47 10.30 17.45 9.57 17.94 Z M 20.04 6.05 L 7.83 12.30 L 2.75 9.62 L 20.04 6.05 Z M 17.35 18.27 C 16.80 17.91 11.33 14.36 10.97 14.12 L 21.81 6.16 L 17.34 18.27 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Feedback &rarr;</h3>
       <p>Etwas unklar oder fehlt?</p>
     </a>
@@ -295,25 +312,28 @@
   <div class="spacer"><div class="eyebrow">Was sind Skills?</div><h2>Claude Code: Skills, Agents und Projekt-Kontext</h2><p>Mehr als ein Chatbot — ein Arbeitsumfeld das sich an euer Projekt anpasst.</p></div>
   <div class="g g3">
     <div>
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 18.63 11.36 C 18.63 9.50 17.83 7.72 16.45 6.47 C 15.05 5.22 13.24 4.64 11.36 4.85 C 8.36 5.18 5.94 7.60 5.61 10.61 C 5.37 12.75 6.14 14.80 7.73 16.23 C 8.53 16.96 8.99 17.95 8.99 18.97 L 8.99 20.14 L 9.59 20.14 L 9.59 23.11 L 14.66 23.11 L 14.66 20.14 L 15.21 20.14 L 15.21 18.97 C 15.21 17.95 15.67 16.96 16.48 16.23 C 17.85 14.99 18.63 13.22 18.63 11.37 L 18.63 11.37 Z M 10.35 22.35 L 10.35 21.64 L 13.90 21.64 L 13.90 22.35 L 10.35 22.35 Z M 13.90 20.88 L 10.35 20.88 L 10.35 20.14 L 13.90 20.14 L 13.90 20.88 Z M 15.96 15.66 C 15.00 16.54 14.44 17.74 14.44 18.97 L 14.44 19.38 L 9.75 19.38 L 9.75 18.97 C 9.75 17.74 9.20 16.54 8.24 15.67 C 6.84 14.40 6.15 12.59 6.36 10.69 C 6.66 8.04 8.79 5.90 11.44 5.61 C 13.10 5.43 14.70 5.94 15.94 7.04 C 17.16 8.14 17.87 9.72 17.87 11.37 C 17.87 13.00 17.17 14.57 15.96 15.67 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 19.79 11.02 L 22.51 11.02 L 22.51 11.78 L 19.79 11.78 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 1.49 11.43 L 4.21 11.43 L 4.21 12.19 L 1.49 12.19 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 18.20 16.74 L 18.96 16.74 L 18.96 19.19 L 18.20 19.19 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 5.09 3.65 L 5.85 3.65 L 5.85 6.04 L 5.09 6.04 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 17.35 4.45 L 19.80 4.45 L 19.80 5.21 L 17.35 5.21 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.26 17.58 L 6.71 17.58 L 6.71 18.35 L 4.26 18.35 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 11.65 0.89 L 12.42 0.89 L 12.42 3.62 L 11.65 3.62 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Skills</h3>
       <p>Wiederverwendbare Anweisungen fuer haeufige Aufgaben. Wie Rezepte die Claude befolgt.</p>
       <p style="margin-top:.75rem"><strong>Beispiel:</strong> <code>/campaign</code> startet die Kampagnenplanung.</p>
     </div>
     <div>
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 21.15 14.23 C 22.23 14.23 23.11 13.35 23.11 12.27 C 23.11 11.19 22.23 10.31 21.15 10.31 C 21.03 10.31 20.92 10.32 20.80 10.34 L 20.63 10.37 L 18.26 5.22 L 18.37 5.12 C 18.63 4.85 18.78 4.48 18.78 4.10 C 18.79 3.33 18.17 2.70 17.40 2.70 C 16.80 2.69 16.27 3.07 16.07 3.63 L 16.02 3.78 L 12.28 3.78 L 12.23 3.63 C 12.03 3.07 11.51 2.70 10.92 2.70 L 10.81 2.70 L 10.74 2.61 C 10.28 1.98 9.55 1.60 8.76 1.61 C 7.58 1.62 6.56 2.46 6.34 3.63 L 6.31 3.79 L 6.15 3.81 C 4.16 4.01 2.52 5.47 2.10 7.43 C 2.03 7.79 1.99 8.16 1.99 8.53 L 1.99 8.61 L 1.92 8.69 C 1.26 9.35 0.89 10.25 0.89 11.18 C 0.89 12.55 1.56 13.83 2.69 14.61 L 2.83 14.70 L 2.77 14.87 C 2.60 15.31 2.51 15.78 2.51 16.26 C 2.50 17.07 2.76 17.85 3.25 18.49 C 3.68 19.09 4.33 19.49 5.06 19.63 L 5.21 19.66 L 5.24 19.81 C 5.34 20.52 5.70 21.18 6.24 21.65 C 6.79 22.13 7.49 22.39 8.21 22.39 C 8.89 22.40 9.55 22.16 10.08 21.74 L 10.19 21.65 L 10.31 21.71 C 10.50 21.80 10.70 21.85 10.91 21.85 C 11.61 21.84 12.20 21.31 12.29 20.62 L 12.31 20.46 L 16.63 19.53 L 16.71 19.68 C 17.03 20.34 17.70 20.76 18.44 20.76 C 19.52 20.74 20.39 19.85 20.37 18.76 C 20.36 18.17 20.08 17.60 19.60 17.24 L 19.47 17.14 L 20.69 14.19 L 20.86 14.21 C 20.95 14.22 21.05 14.23 21.15 14.23 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Agents</h3>
       <p>Spezialisierte KI-Persoenlichkeiten fuer bestimmte Arbeitsweisen.</p>
       <p style="margin-top:.75rem"><strong>Beispiel:</strong> <em>Rook</em> prueft eure Ideen auf Schwachstellen.</p>
     </div>
     <div class="c-warm">
+      <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M 14.27 5.55 C 13.43 4.94 12.40 4.69 11.38 4.86 C 9.26 5.20 7.82 7.21 8.16 9.33 C 8.33 10.36 8.88 11.26 9.73 11.87 C 10.39 12.35 11.18 12.60 11.99 12.60 C 12.20 12.60 12.41 12.59 12.62 12.55 C 14.74 12.21 16.18 10.20 15.84 8.08 C 15.67 7.06 15.12 6.16 14.27 5.55 Z M 12.51 11.83 C 11.67 11.97 10.84 11.77 10.15 11.27 C 9.47 10.78 9.02 10.05 8.88 9.21 C 8.60 7.49 9.77 5.86 11.49 5.58 C 11.66 5.55 11.84 5.54 12.01 5.54 C 12.66 5.54 13.30 5.74 13.85 6.14 C 14.53 6.63 14.98 7.36 15.12 8.20 C 15.40 9.92 14.23 11.55 12.51 11.83 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 19.80 8.71 C 19.80 4.39 16.30 0.89 12.00 0.89 C 7.70 0.89 4.20 4.40 4.20 8.71 C 4.20 10.22 4.63 11.69 5.44 12.95 L 5.44 12.95 C 5.44 12.95 12.00 23.11 12.00 23.11 L 18.56 12.95 L 18.71 12.70 L 18.71 12.69 C 19.42 11.49 19.80 10.12 19.80 8.71 Z M 17.94 12.55 L 17.82 12.74 L 17.82 12.74 C 17.82 12.74 12.00 21.76 12.00 21.76 L 6.18 12.75 L 6.18 12.75 C 6.18 12.75 6.06 12.55 6.06 12.55 C 5.32 11.41 4.93 10.08 4.93 8.71 C 4.93 4.80 8.10 1.61 12.00 1.61 C 15.90 1.61 19.07 4.80 19.07 8.70 C 19.07 10.08 18.68 11.40 17.94 12.55 Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <h3>Projekt-Kontext</h3>
       <p>Claude liest automatisch die <code>CLAUDE.md</code> im Projekt und versteht den Kontext.</p>
       <p style="margin-top:.75rem">Merkt sich auch Dinge zwischen Sessions ueber <code>MEMORY.md</code>.</p>
     </div>
-    <div class="c-emerald s2">
+    <div class="c-dblack s2">
       <h3>Warum ist das besser als einzelne Prompts?</h3>
       <p>Ein Prompt geht verloren. Ein Skill ist versioniert, geteilt, getestet und verbessert sich ueber die Zeit. Wenn jemand einen besseren Weg findet, profitieren alle.</p>
     </div>
-    <div class="c-sand">
+    <div class="c-emerald">
       <h3>Muss ich programmieren koennen?</h3>
       <p>Nein. Skills sind Markdown-Dateien mit Anweisungen in natuerlicher Sprache. Claude Code hilft dabei.</p>
     </div>
@@ -369,7 +389,7 @@
 <div class="wrap">
   <footer class="foot signature-place">
     <div class="foot-logo">
-      <img src="assets/logo-plan-net-hoc-neg.svg" alt="Plan.Net — House of Communication">
+      <svg role="img" aria-label="Plan.Net — House of Communication" style="display:block;width:100%;max-width:270px;height:auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2122.78 217.1"><defs><style>.pnl-1{fill:none;}.pnl-2{fill:#f0191e;}.pnl-3{fill:#b2b2b2;}.pnl-4{clip-path:url(#pnl-cp);}.pnl-5{fill:url(#pnl-lg);}.pnl-6{fill:#868686;}.pnl-7{fill:#fff;}.pnl-8{clip-path:url(#pnl-cp2);}.pnl-9{fill:url(#pnl-lg2);}.pnl-10{fill:#c6c6c6;}</style><clipPath id="pnl-cp" transform="translate(-342.72 -175.39)"><rect class="pnl-1" x="2382.72" y="332.11" width="49.33" height="49.41"/></clipPath><linearGradient id="pnl-lg" x1="147.1" y1="460.72" x2="148.01" y2="460.72" gradientTransform="matrix(0, 54.5, 54.5, 0, -23044.4, -7860.36)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b2b2b2"/><stop offset="0.18" stop-color="#929292"/><stop offset="0.57" stop-color="#535352"/><stop offset="0.85" stop-color="#2c2c2a"/><stop offset="1" stop-color="#1d1d1b"/></linearGradient><clipPath id="pnl-cp2" transform="translate(-342.72 -175.39)"><rect class="pnl-1" x="2333.39" y="184.22" width="49.33" height="49.41"/></clipPath><linearGradient id="pnl-lg2" x1="147.39" y1="467.19" x2="148.29" y2="467.19" gradientTransform="matrix(0, -54.5, -54.5, 0, 27476.37, 8090.64)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#1d1d1b"/></linearGradient></defs><g id="ICON_RGB"><rect x="1908.32" y="0.85" width="214.46" height="214.46"/><rect class="pnl-2" x="1990.67" y="107.48" width="49.33" height="49.33"/><rect class="pnl-3" x="2040" y="107.48" width="49.33" height="49.33"/><g class="pnl-4"><rect class="pnl-5" x="2040" y="156.72" width="49.33" height="49.41"/></g><rect class="pnl-6" x="1941.35" y="58.16" width="49.33" height="49.33"/><rect class="pnl-7" x="1990.67" y="58.16" width="49.33" height="49.33"/><g class="pnl-8"><rect class="pnl-9" x="1990.67" y="8.83" width="49.33" height="49.41"/></g></g><g id="Agentur"><path class="pnl-7" d="M2007.7,270.91l-15.87-32.44c-3.65-7.45-7-15-9.41-21.35a128.92,128.92,0,0,1,.7,15v38.76H1958v-94.8h33.43l13.76,28.23c4.07,8.43,8.29,17,11.52,24.58a192.73,192.73,0,0,1-1-19.67V176.11h25.14v94.8Z" transform="translate(-342.72 -175.39)"/><path class="pnl-7" d="M2061.49,270.91V176.09H2117v22.2h-29.36v13.34h27.82V233h-27.82V248.3H2117v22.61Z" transform="translate(-342.72 -175.39)"/><path class="pnl-7" d="M2176.88,198.57v72.34h-26.13V198.57h-20.51V176.09h67.14v22.48Z" transform="translate(-342.72 -175.39)"/><path class="pnl-7" d="M1630.64,220.34a30.53,30.53,0,0,1-7,11.09,33.64,33.64,0,0,1-11.8,7.59,45.13,45.13,0,0,1-16.64,2.81h-1.55c-.65,0-1.45-.05-2.39-.14V270.9h-26.12V176.09q6.6-.28,13.69-.49t15-.21q19.11,0,29.15,8t10,23.74A38,38,0,0,1,1630.64,220.34Zm-27.39-20.25q-2.73-3.36-9.48-3.35h-1a10,10,0,0,0-1.55.14v23a5.75,5.75,0,0,0,1.13.15h.84a13.93,13.93,0,0,0,8.92-3.08q3.86-3.06,3.86-8.93A12.16,12.16,0,0,0,1603.25,200.09Z" transform="translate(-342.72 -175.39)"/><path class="pnl-7" d="M1643.11,270.9V176.09h26.13v71.5h25.45l-8.23,23.31Z" transform="translate(-342.72 -175.39)"/><path class="pnl-7" d="M1762.37,270.91l-4.92-15.46h-29.22l-4.77,15.46h-25.85l30.9-94.82h29.92l32.45,94.82ZM1747.05,223q-1.26-4.08-2.45-8a61.42,61.42,0,0,1-1.9-8.43h-.28q-.7,4.08-1.9,8.71c-.79,3.09-1.71,6.18-2.74,9.27l-3.23,10.4h16.3Z" transform="translate(-342.72 -175.39)"/><path class="pnl-7" d="M1849.39,270.91l-15.88-32.45q-2.8-5.62-5.19-11.1t-4.22-10.25q.42,4.21.56,7.3c.1,2.06.14,4.64.14,7.73v38.77h-25.14V176.09h33.43l13.77,28.23q3.09,6.33,6.11,12.58t5.41,12q-.57-4.92-.78-10c-.14-3.42-.21-6.62-.21-9.62V176.09h25.15v94.82Z" transform="translate(-342.72 -175.39)"/><rect class="pnl-7" x="1564.97" y="70.42" width="25.14" height="25.14"/><path class="pnl-10" d="M397.11,390.53v-37.3H368.79v37.3H342.72V295.89h26.07v34.49h28.32V295.89h26.08v94.64Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M482.77,392.49c-29.72,0-44.3-17.95-44.3-47.95,0-30.56,21.59-50.61,48.09-50.61,24.67,0,44.3,13.32,44.3,47.67C530.86,372.44,509.69,392.49,482.77,392.49Zm1.83-74.73c-9.12,0-18.37,7-18.37,24.82,0,16.12,5.19,25.93,17.81,25.93,8.13,0,19.06-5.6,19.06-25.65C503.1,326.31,497.07,317.76,484.6,317.76Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M584.56,392.49c-30.42,0-38.42-16.12-38.42-36.17V295.89h26.08v59.17c0,10.09,3.09,15.56,13.88,15.56,10.52,0,13.88-4.49,13.88-16.27V295.89h25.8V353C625.78,380.43,609.93,392.49,584.56,392.49Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M664.47,392.35a90.54,90.54,0,0,1-19.49-2l1.41-23.83a66,66,0,0,0,20.18,3.37c6.31,0,10.38-2.67,10.38-7,0-13.74-35.33-5.61-35.33-38,0-18.78,14.44-30.84,39.39-30.84a113.92,113.92,0,0,1,17.25,1.54l-1.4,22.57A62,62,0,0,0,680,315.66c-7.29,0-10.37,2.94-10.37,6.59,0,11.92,35.33,7.29,35.33,36.87C705,378.05,689.71,392.35,664.47,392.35Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M720.83,390.53V295.89h55.38V318h-29.3v13.32h27.76v21.31H746.91V368h29.3v22.58Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M870.42,392.49c-29.72,0-44.3-17.95-44.3-47.95,0-30.56,21.59-50.61,48.09-50.61,24.67,0,44.3,13.32,44.3,47.67C918.51,372.44,897.34,392.49,870.42,392.49Zm1.82-74.73c-9.11,0-18.36,7-18.36,24.82,0,16.12,5.19,25.93,17.8,25.93,8.13,0,19.07-5.6,19.07-25.65C890.75,326.31,884.72,317.76,872.24,317.76Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M959.87,318.32v15.29h26.36v21.45H959.87v35.47H933.79V295.89h54v22.43Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1082,391.79c-37.15,0-44.86-25.66-44.86-44.73,0-31.54,17.8-51.87,48.78-51.87a76.48,76.48,0,0,1,18.23,2.24L1101.19,321a58.46,58.46,0,0,0-15.29-2.11c-12.33,0-20,8.56-20,23.84,0,16.4,6.31,25.23,21,25.23a42.4,42.4,0,0,0,14.3-2.66l3.08,23.27A76.25,76.25,0,0,1,1082,391.79Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1158.09,392.49c-29.72,0-44.3-17.95-44.3-47.95,0-30.56,21.59-50.61,48.09-50.61,24.67,0,44.3,13.32,44.3,47.67C1206.18,372.44,1185,392.49,1158.09,392.49Zm1.83-74.73c-9.12,0-18.37,7-18.37,24.82,0,16.12,5.19,25.93,17.81,25.93,8.13,0,19.06-5.6,19.06-25.65C1178.42,326.31,1172.4,317.76,1159.92,317.76Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1306,390.53,1300.82,359c-1-6.31-2-13.32-2.81-21.45h-.28c-1.54,8.27-3.36,16.12-5.75,24.82l-7.57,28.18H1260l-7.43-25.1a191.7,191.7,0,0,1-6.17-27.9h-.28c-.84,9.39-1.82,16.54-2.81,23.69l-3.92,29.31h-26.22l15.7-94.64h29.45l10,32.81a206,206,0,0,1,5,21.45h.28a154.72,154.72,0,0,1,5.47-21.87l10.09-32.39h28.6l15.56,94.64Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1435,390.53,1429.8,359c-1-6.31-2-13.32-2.8-21.45h-.29c-1.54,8.27-3.36,16.12-5.74,24.82l-7.57,28.18H1389l-7.43-25.1a193,193,0,0,1-6.17-27.9h-.28c-.84,9.39-1.82,16.54-2.8,23.69l-3.93,29.31h-26.21l15.7-94.64h29.44l10,32.81a201,201,0,0,1,5,21.45h.28a156.09,156.09,0,0,1,5.47-21.87l10.09-32.39h28.6l15.57,94.64Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1513.2,392.49c-30.42,0-38.41-16.12-38.41-36.17V295.89h26.07v59.17c0,10.09,3.09,15.56,13.88,15.56,10.52,0,13.88-4.49,13.88-16.27V295.89h25.8V353C1554.42,380.43,1538.58,392.49,1513.2,392.49Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1624.79,390.53,1609,358.14c-3.65-7.43-7-15-9.39-21.31a128.39,128.39,0,0,1,.7,15v38.7h-25.1V295.89h33.37l13.74,28.18c4.06,8.41,8.27,17,11.49,24.54a191.87,191.87,0,0,1-1-19.63V295.89h25.1v94.64Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1679.44,390.53V295.89h26.08v94.64Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1765.11,391.79c-37.16,0-44.87-25.66-44.87-44.73,0-31.54,17.81-51.87,48.79-51.87a76.48,76.48,0,0,1,18.23,2.24l-3,23.56a58.32,58.32,0,0,0-15.28-2.11c-12.34,0-20,8.56-20,23.84,0,16.4,6.31,25.23,21,25.23a42.31,42.31,0,0,0,14.3-2.66l3.09,23.27A76.25,76.25,0,0,1,1765.11,391.79Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1861,390.53l-4.91-15.43h-29.16l-4.76,15.43h-25.8l30.84-94.64h29.87l32.38,94.64Zm-15.28-47.81a122.63,122.63,0,0,1-4.35-16.41h-.28a125.8,125.8,0,0,1-4.62,17.95l-3.23,10.37h16.26Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1931.79,318.32v72.21h-26.08V318.32h-20.46V295.89h67v22.43Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M1964.88,390.53V295.89H1991v94.64Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M2050.54,392.49c-29.72,0-44.3-17.95-44.3-47.95,0-30.56,21.59-50.61,48.08-50.61,24.68,0,44.31,13.32,44.31,47.67C2098.63,372.44,2077.46,392.49,2050.54,392.49Zm1.82-74.73c-9.11,0-18.36,7-18.36,24.82,0,16.12,5.18,25.93,17.8,25.93,8.13,0,19.07-5.6,19.07-25.65C2070.87,326.31,2064.84,317.76,2052.36,317.76Z" transform="translate(-342.72 -175.39)"/><path class="pnl-10" d="M2163.54,390.53l-15.84-32.39c-3.65-7.43-7-15-9.4-21.31a128.39,128.39,0,0,1,.7,15v38.7h-25.09V295.89h33.37L2161,324.07c4.07,8.41,8.28,17,11.5,24.54a191.87,191.87,0,0,1-1-19.63V295.89h25.1v94.64Z" transform="translate(-342.72 -175.39)"/></g></svg>
     </div>
     <div class="foot-made">
       <span class="sig-work">
