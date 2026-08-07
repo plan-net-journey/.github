@@ -214,6 +214,77 @@
   </div>
 </div>
 
+<!-- TEAMS -->
+<div class="wrap spacer"><div class="eyebrow">Teams-Benachrichtigungen</div><h2>Einmal einrichten, Schritt fuer Schritt</h2>
+<p style="max-width:640px">Ohne das bekommt niemand mit, wenn ein Ticket aufschlaegt oder eine Aenderung
+auf Freigabe wartet. Dauert fuenf Minuten. Jede Maintainer-Gruppe macht das
+fuer ihre Repos selbst &mdash; auch in Kunden-Repos.</p></div>
+
+<div class="wrap" style="padding-bottom:1rem">
+  <div class="g g2">
+    <div class="c-red">
+      <div class="step-num" style="background:var(--white);color:var(--red)">1</div>
+      <h3>Die richtige App installieren</h3>
+      <p style="margin-top:.3rem">In Teams links auf <strong>Apps</strong>, nach <strong>GitHub</strong> suchen.
+      Es erscheinen drei. Du brauchst <strong>GitHub Notifications</strong> von Microsoft Corporation.</p>
+      <p style="margin-top:.5rem"><strong>Nicht</strong> die App namens &bdquo;GitHub&ldquo; (das ist eine Vorschau-Version
+      fuer Code-Erzeugung) und <strong>nicht</strong> &bdquo;GHEC&ldquo; (fuer Enterprise-Konten, habt ihr nicht).</p>
+    </div>
+    <div>
+      <div class="step-num step-num-black">2</div>
+      <h3>Anmelden</h3>
+      <p style="margin-top:.3rem">Im Chat mit dem Bot eingeben:</p>
+      <p style="margin-top:.5rem"><code>@GitHub Notifications signin</code></p>
+      <p style="margin-top:.5rem">Oeffnet einen Browser-Login. Einmalig. Danach erscheinen deine Antworten
+      auf GitHub unter <strong>deinem Namen</strong> &mdash; wichtig, damit Freigaben zugeordnet werden koennen.</p>
+    </div>
+    <div>
+      <div class="step-num step-num-emerald">3</div>
+      <h3>Abonnieren</h3>
+      <p style="margin-top:.3rem">Im <strong>persoenlichen Chat</strong> mit dem Bot &mdash; dort brauchst du kein <code>@</code> davor:</p>
+      <p style="margin-top:.5rem"><code>subscribe plan-net-journey/admin-ops issues</code></p>
+      <p style="margin-top:.25rem"><code>subscribe plan-net-journey/Journey-Skills pulls, comments, reviews</code></p>
+      <p style="margin-top:.5rem">Reihenfolge beachten: <strong>Repo zuerst</strong>, Ereignisarten dahinter.
+      Komma nur <em>zwischen</em> den Ereignisarten, nicht nach dem Repo.</p>
+    </div>
+    <div class="c-warm">
+      <div class="step-num step-num-black">4</div>
+      <h3>Kontrollieren</h3>
+      <p style="margin-top:.3rem"><code>subscribe list features</code></p>
+      <p style="margin-top:.5rem">Zeigt, was dieser Chat abonniert hat. Steht dort nichts, hat Schritt 3 nicht funktioniert.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" style="padding-bottom:3rem">
+  <div class="g g3">
+    <div class="s2">
+      <h3>Welche Ereignisarten es gibt</h3>
+      <p style="margin-top:.3rem"><code>issues</code> &middot; <code>pulls</code> &middot; <code>comments</code> &middot;
+      <code>commits</code> &middot; <code>reviews</code> &middot; <code>releases</code> &middot;
+      <code>deployments</code> &middot; <code>branches</code> &middot; <code>discussions</code> &middot;
+      <code>workflows</code></p>
+      <p style="margin-top:.75rem">Damit laesst sich die Sprache pro Person steuern. Wer keine Entwickler-Meldungen
+      braucht, abonniert nur <code>comments</code> und bekommt dann ausschliesslich die
+      Klartext-Erklaerungen, die unsere Workflows schreiben &mdash; nicht die technischen PR-Karten.</p>
+    </div>
+    <div class="c-dblack">
+      <h3>Antworten</h3>
+      <p style="margin-top:.3rem">Jede Karte hat unten einen <strong>Comment</strong>-Knopf. Der oeffnet ein Textfeld;
+      was du dort schreibst, landet als Kommentar auf GitHub.</p>
+      <p style="margin-top:.5rem">Das ist der Weg, auf dem Freigaben zurueckkommen.</p>
+    </div>
+    <div class="s3 c-warm">
+      <h3>Fuer Kunden-Repos genauso</h3>
+      <p style="margin-top:.3rem">Das Abo haengt <strong>an dem Ort, an dem du den Befehl tippst</strong> &mdash;
+      nicht an einer Konfiguration im Code. Fuer einen Kunden also im Kanal dieses Kunden:</p>
+      <p style="margin-top:.5rem"><code>@GitHub Notifications subscribe plan-net-journey/&lt;kunden-repo&gt; pulls, comments</code></p>
+      <p style="margin-top:.5rem">Kommt ein neuer Kunde dazu, tippt seine Maintainer-Gruppe einen Befehl in ihren Kanal.
+      Kein Workflow anfassen, kein Secret, nichts deployen.</p>
+    </div>
+  </div>
+</div>
+
 <!-- TESTS -->
 <div class="wrap spacer"><div class="eyebrow">Tests</div><h2>Vor jeder Aenderung</h2></div>
 <div class="wrap" style="padding-bottom:3rem">
