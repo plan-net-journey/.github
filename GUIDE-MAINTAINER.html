@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PNJ — Maintainer Handbuch</title>
 <style>
   :root {
@@ -83,7 +88,6 @@
     background:var(--line-grid);border:1px solid var(--line-grid);margin-bottom:3rem}
   .foot>*{background:var(--cell);padding:1.15rem 1.5rem;display:flex;align-items:center}
   .foot-logo{background:var(--black);padding:1rem 1.5rem}
-  .foot-logo img{display:block;width:100%;max-width:270px;height:auto}
   .foot-made{flex-direction:column;align-items:flex-start;gap:.12rem}
   .foot-made strong{color:var(--text);font-weight:700;font-size:.88rem;
     letter-spacing:-.01em;display:flex;align-items:center;gap:.35rem}
@@ -106,14 +110,16 @@
   @media(max-width:820px){.foot{grid-template-columns:1fr}
     .foot-links{gap:1.1rem;flex-wrap:wrap}}
 </style>
+</head>
+<body>
 
 <div class="banner">DRAFT — Maintainer Handbuch. <a href="https://github.com/plan-net-journey/admin-ops/issues/new?template=feedback.yml">Feedback</a></div>
 
 <!-- NAV -->
 <div class="nav">
   <a href="ERKLAERUNG.html">Warum GitHub?</a>
-  <a href="GUIDE-USER.html">Fuer Teammitglieder</a>
-  <a href="GUIDE-MAINTAINER.html" class="active">Fuer Maintainer</a>
+  <a href="GUIDE-USER.html">Für Teammitglieder</a>
+  <a href="GUIDE-MAINTAINER.html" class="active">Für Maintainer</a>
 </div>
 
 <div class="wrap">
@@ -126,12 +132,12 @@
 <!-- ARCHITEKTUR -->
 <div class="wrap spacer"><div class="eyebrow">Architektur</div><h2>Repos und ihre Aufgaben</h2></div>
 <div class="wrap" style="padding-bottom:3rem">
-  <div class="g g3">
+  <div class="g g3" style="background:var(--white)">
     <div class="c-red s2"><h3>.github</h3><p style="margin-top:.3rem"><strong>PUBLIC</strong> — Einstiegspunkt. Onboarding, Access Requests, ERKLAERUNG, GitHub Pages.</p></div>
     <div class="c-dblack"><h3>admin-ops</h3><p style="margin-top:.3rem">Admin-Skills, Tickets, Tests, Memory, Brand Assets (LFS).</p></div>
-    <div class="c-emerald"><h3>Journey-Skills</h3><p style="margin-top:.3rem">Plugin Marketplace. PNJ Plugin, fachliche Skills.</p></div>
-    <div><h3>project-template</h3><p style="margin-top:.3rem">Vorlage fuer neue Repos. CLAUDE.md, design.md, .gitattributes.</p></div>
-    <div class="c-warm"><h3>Kunden-Repos</h3><p style="margin-top:.3rem">Pro Kunde/Projekt. Per Ticket erstellt, automatisch vom Template.</p></div>
+    <div class="c-dblack"><h3>Journey-Skills</h3><p style="margin-top:.3rem">Plugin Marketplace. PNJ Plugin, fachliche Skills.</p></div>
+    <div class="c-dblack"><h3>project-template</h3><p style="margin-top:.3rem">Vorlage für neue Repos. CLAUDE.md, design.md, .gitattributes.</p></div>
+    <div class="c-dblack"><h3>Kunden-Repos</h3><p style="margin-top:.3rem">Pro Kunde/Projekt. Per Ticket erstellt, automatisch vom Template.</p></div>
   </div>
 </div>
 
@@ -139,15 +145,15 @@
 <div class="wrap spacer"><div class="eyebrow">Zugangsstufen</div><h2>Wer sieht was</h2></div>
 <div class="wrap" style="padding-bottom:3rem">
   <div class="g g2">
-    <div class="c-dblack"><h3>Org Default: none</h3><p style="margin-top:.3rem">Niemand sieht Repos ohne expliziten Zugang. Alles ueber Teams.</p></div>
+    <div><h3>Org Default: none</h3><p style="margin-top:.3rem">Niemand sieht Repos ohne expliziten Zugang. Alles über Teams.</p></div>
     <div>
       <table><tr><th>Team</th><th>Zugang</th></tr>
       <tr><td><strong>maintainers</strong></td><td>Admin auf alle Repos</td></tr>
       <tr><td><strong>skill-users</strong></td><td>Read: Journey-Skills + admin-ops</td></tr>
       <tr><td><strong>[repo-name]</strong></td><td>Push (auto-erstellt bei Repo-Request)</td></tr></table>
     </div>
-    <div class="c-warm"><h3>Externe</h3><p style="margin-top:.3rem">Collaborators: direkt auf einzelne Repos, kein Team, kein Org-Mitglied.</p></div>
-    <div class="c-sand"><h3>Neue Members</h3><p style="margin-top:.3rem">Automatisch: skill-users Team (Marketplace + admin-ops Lesezugang).</p></div>
+    <div><h3>Externe</h3><p style="margin-top:.3rem">Collaborators: direkt auf einzelne Repos, kein Team, kein Org-Mitglied.</p></div>
+    <div><h3>Neue Members</h3><p style="margin-top:.3rem">Automatisch: skill-users Team (Marketplace + admin-ops Lesezugang).</p></div>
   </div>
 </div>
 
@@ -155,24 +161,24 @@
 <div class="wrap spacer"><div class="eyebrow">Ticket-Flow</div><h2>Vom Issue zum Ergebnis</h2></div>
 <div class="wrap" style="padding-bottom:3rem">
   <div class="g g5">
-    <div><div class="step-num step-num-red">1</div><h3>Issue erstellt</h3><p>User fuellt Formular aus.</p></div>
-    <div class="c-warm"><div class="step-num step-num-black">2</div><h3>Bot kommentiert</h3><p>Zusammenfassung + AI-Check + Anleitung.</p></div>
+    <div><div class="step-num step-num-red">1</div><h3>Issue erstellt</h3><p>User füllt Formular aus.</p></div>
+    <div><div class="step-num step-num-black">2</div><h3>Bot kommentiert</h3><p>Zusammenfassung + AI-Check + Anleitung.</p></div>
     <div><div class="step-num step-num-black">3</div><h3>Teams-Nachricht</h3><p>Adaptive Card im GitHub-Admin Channel.</p></div>
-    <div class="c-emerald"><div class="step-num" style="background:var(--white);color:var(--emerald)">4</div><h3>/approve</h3><p>Maintainer kommentiert. Per E-Mail-Reply moeglich.</p></div>
-    <div class="c-dblack"><div class="step-num" style="background:var(--red);color:var(--white)">5</div><h3>Automation</h3><p>Invite / Repo / Access. Issue geschlossen.</p></div>
+    <div><div class="step-num step-num-black">4</div><h3>/approve</h3><p>Maintainer kommentiert. Per E-Mail-Reply möglich.</p></div>
+    <div><div class="step-num step-num-black">5</div><h3>Automation</h3><p>Invite / Repo / Access. Issue geschlossen.</p></div>
   </div>
 </div>
 
 <!-- ADMIN SKILLS -->
-<div class="wrap spacer"><div class="eyebrow">Admin-Skills</div><h2>Deine Werkzeuge</h2><p>Clone admin-ops, oeffne Claude Code, nutze die Skills.</p></div>
+<div class="wrap spacer"><div class="eyebrow">Admin-Skills</div><h2>Deine Werkzeuge</h2><p>Clone admin-ops, öffne Claude Code, nutze die Skills.</p></div>
 <div class="wrap" style="padding-bottom:3rem">
   <div class="g g3">
-    <div class="c-red"><h3>/ticket-bearbeiten</h3><p style="margin-top:.3rem">Offene Tickets anzeigen und freigeben.</p></div>
+    <div><h3>/ticket-bearbeiten</h3><p style="margin-top:.3rem">Offene Tickets anzeigen und freigeben.</p></div>
     <div><h3>/user-verwalten</h3><p style="margin-top:.3rem">Members, Collaborators und Teams.</p></div>
-    <div><h3>/repo-verwalten</h3><p style="margin-top:.3rem">Repos erstellen, loeschen, Berechtigungen.</p></div>
-    <div class="c-warm"><h3>/token-verwalten</h3><p style="margin-top:.3rem">ORG_ADMIN_TOKEN pruefen und erneuern.</p></div>
-    <div class="c-warm"><h3>/org-status</h3><p style="margin-top:.3rem">Gesamtueberblick: Members, Teams, Repos, Tickets.</p></div>
-    <div class="c-dblack"><h3>So startest du</h3><p style="margin-top:.3rem"><code>gh repo clone plan-net-journey/admin-ops</code> — Claude Code oeffnen, Skill aufrufen.</p></div>
+    <div><h3>/repo-verwalten</h3><p style="margin-top:.3rem">Repos erstellen, löschen, Berechtigungen.</p></div>
+    <div><h3>/token-verwalten</h3><p style="margin-top:.3rem">ORG_ADMIN_TOKEN prüfen und erneuern.</p></div>
+    <div><h3>/org-status</h3><p style="margin-top:.3rem">Gesamtüberblick: Members, Teams, Repos, Tickets.</p></div>
+    <div><h3>So startest du</h3><p style="margin-top:.3rem"><code>gh repo clone plan-net-journey/admin-ops</code> — Claude Code öffnen, Skill aufrufen.</p></div>
   </div>
 </div>
 
@@ -188,8 +194,8 @@
       <tr><td>PR erstellen</td><td>Maintainer reviewed, merged auf main</td></tr>
       <tr><td>Version bumpen</td><td>plugin.json UND marketplace.json synchron</td></tr></table>
     </div>
-    <div class="c-emerald"><h3>Semver</h3><p style="margin-top:.5rem"><strong>Patch</strong> (1.0.1) — Bugfix<br><strong>Minor</strong> (1.1.0) — Neuer Skill<br><strong>Major</strong> (2.0.0) — Breaking</p></div>
-    <div class="c-red"><h3>Deprecation</h3><p style="margin-top:.3rem">Major Bump + "DEPRECATED". Migration in README. <strong>Nie loeschen.</strong></p></div>
+    <div><h3>Semver</h3><p style="margin-top:.5rem"><strong>Patch</strong> (1.0.1) — Bugfix<br><strong>Minor</strong> (1.1.0) — Neuer Skill<br><strong>Major</strong> (2.0.0) — Breaking</p></div>
+    <div><h3>Deprecation</h3><p style="margin-top:.3rem">Major Bump + "DEPRECATED". Migration in README. <strong>Nie löschen.</strong></p></div>
   </div>
 </div>
 
@@ -197,28 +203,27 @@
 <div class="wrap spacer"><div class="eyebrow">Verteilung</div><h2>Wie Updates beim Team ankommen</h2></div>
 <div class="wrap" style="padding-bottom:3rem">
   <div class="g g3">
-    <div class="c-dblack s2">
+    <div class="s2">
       <h3>Nichts passiert automatisch</h3>
-      <p style="margin-top:.3rem">Ein Merge auf <code>main</code> stellt die neue Version bereit — mehr nicht. Claude Code holt den Marketplace <strong>einmal beim Hinzufuegen</strong> und danach nie wieder von selbst. Bis jemand <code>/plugin marketplace update</code> ausfuehrt, arbeitet das Team mit dem Stand von damals.</p>
+      <p style="margin-top:.3rem">Ein Merge auf <code>main</code> stellt die neue Version bereit — mehr nicht. Claude Code holt den Marketplace <strong>einmal beim Hinzufügen</strong> und danach nie wieder von selbst. Bis jemand <code>/plugin marketplace update</code> ausführt, arbeitet das Team mit dem Stand von damals.</p>
       <p style="margin-top:.75rem">Wenn du also einen Skill ausrollst: sag dem Team Bescheid, dass es aktualisieren muss. Sonst merkt es niemand.</p>
     </div>
-    <div class="c-warm">
+    <div>
       <h3>Version bumpen ist Pflicht</h3>
       <p style="margin-top:.3rem">Ohne Bump in <code>plugin.json</code> <em>und</em> <code>marketplace.json</code> sieht Claude Code keinen Grund, die neue Fassung zu ziehen.</p>
     </div>
     <div class="s3">
-      <h3>Quelle pruefen wenn etwas nicht ankommt</h3>
-      <p style="margin-top:.3rem">Der Marketplace muss von GitHub kommen, nicht aus einem lokalen Ordner. Pruefen mit <code>/plugin marketplace list</code> — dort muss <code>GitHub (plan-net-journey/Journey-Skills)</code> stehen. Zeigt die Quelle auf einen Pfad, bekommt derjenige nie Updates.</p>
-      <p style="margin-top:.5rem">Haeufigste Ursache wenn jemand meldet &bdquo;bei mir gibt es den Skill nicht&ldquo;: alter Marketplace-Stand oder Claude Code seit dem Update nicht neu gestartet.</p>
+      <h3>Quelle prüfen wenn etwas nicht ankommt</h3>
+      <p style="margin-top:.3rem">Der Marketplace muss von GitHub kommen, nicht aus einem lokalen Ordner. Prüfen mit <code>/plugin marketplace list</code> — dort muss <code>GitHub (plan-net-journey/Journey-Skills)</code> stehen. Zeigt die Quelle auf einen Pfad, bekommt derjenige nie Updates.</p>
+      <p style="margin-top:.5rem">Häufigste Ursache wenn jemand meldet &bdquo;bei mir gibt es den Skill nicht&ldquo;: alter Marketplace-Stand oder Claude Code seit dem Update nicht neu gestartet.</p>
     </div>
   </div>
 </div>
 
-<!-- TEAMS -->
-<div class="wrap spacer"><div class="eyebrow">Teams-Benachrichtigungen</div><h2>Einmal einrichten, Schritt fuer Schritt</h2>
-<p style="max-width:640px">Ohne das bekommt niemand mit, wenn ein Ticket aufschlaegt oder eine Aenderung
-auf Freigabe wartet. Dauert fuenf Minuten. Jede Maintainer-Gruppe macht das
-fuer ihre Repos selbst &mdash; auch in Kunden-Repos.</p></div>
+<div class="wrap spacer"><div class="eyebrow">Teams-Benachrichtigungen</div><h2>Einmal einrichten, Schritt für Schritt</h2>
+<p style="max-width:640px">Ohne das bekommt niemand mit, wenn ein Ticket aufschlägt oder eine Änderung
+auf Freigabe wartet. Dauert fünf Minuten. Jede Maintainer-Gruppe macht das
+für ihre Repos selbst &mdash; auch in Kunden-Repos.</p></div>
 
 <div class="wrap" style="padding-bottom:1rem">
   <div class="g g2">
@@ -228,20 +233,20 @@ fuer ihre Repos selbst &mdash; auch in Kunden-Repos.</p></div>
       <p style="margin-top:.3rem">In Teams links auf <strong>Apps</strong>, nach <strong>GitHub</strong> suchen.
       Es erscheinen drei. Du brauchst <strong>GitHub Notifications</strong> von Microsoft Corporation.</p>
       <p style="margin-top:.5rem"><strong>Nicht</strong> die App namens &bdquo;GitHub&ldquo; (das ist eine Vorschau-Version
-      fuer Code-Erzeugung) und <strong>nicht</strong> &bdquo;GHEC&ldquo; (fuer Enterprise-Konten, habt ihr nicht).</p>
+      für Code-Erzeugung) und <strong>nicht</strong> &bdquo;GHEC&ldquo; (für Enterprise-Konten, habt ihr nicht).</p>
     </div>
     <div>
       <div class="step-num step-num-black">2</div>
       <h3>Anmelden</h3>
       <p style="margin-top:.3rem">Im Chat mit dem Bot eingeben:</p>
       <p style="margin-top:.5rem"><code>@GitHub Notifications signin</code></p>
-      <p style="margin-top:.5rem">Oeffnet einen Browser-Login. Einmalig. Danach erscheinen deine Antworten
-      auf GitHub unter <strong>deinem Namen</strong> &mdash; wichtig, damit Freigaben zugeordnet werden koennen.</p>
+      <p style="margin-top:.5rem">Öffnet einen Browser-Login. Einmalig. Danach erscheinen deine Antworten
+      auf GitHub unter <strong>deinem Namen</strong> &mdash; wichtig, damit Freigaben zugeordnet werden können.</p>
     </div>
     <div>
       <div class="step-num step-num-emerald">3</div>
       <h3>Abonnieren</h3>
-      <p style="margin-top:.3rem">Im <strong>persoenlichen Chat</strong> mit dem Bot &mdash; dort brauchst du kein <code>@</code> davor:</p>
+      <p style="margin-top:.3rem">Im <strong>persönlichen Chat</strong> mit dem Bot &mdash; dort brauchst du kein <code>@</code> davor:</p>
       <p style="margin-top:.5rem"><code>subscribe plan-net-journey/admin-ops issues</code></p>
       <p style="margin-top:.25rem"><code>subscribe plan-net-journey/Journey-Skills pulls, comments, reviews</code></p>
       <p style="margin-top:.5rem">Reihenfolge beachten: <strong>Repo zuerst</strong>, Ereignisarten dahinter.
@@ -264,20 +269,20 @@ fuer ihre Repos selbst &mdash; auch in Kunden-Repos.</p></div>
       <code>commits</code> &middot; <code>reviews</code> &middot; <code>releases</code> &middot;
       <code>deployments</code> &middot; <code>branches</code> &middot; <code>discussions</code> &middot;
       <code>workflows</code></p>
-      <p style="margin-top:.75rem">Damit laesst sich die Sprache pro Person steuern. Wer keine Entwickler-Meldungen
-      braucht, abonniert nur <code>comments</code> und bekommt dann ausschliesslich die
-      Klartext-Erklaerungen, die unsere Workflows schreiben &mdash; nicht die technischen PR-Karten.</p>
+      <p style="margin-top:.75rem">Damit lässt sich die Sprache pro Person steuern. Wer keine Entwickler-Meldungen
+      braucht, abonniert nur <code>comments</code> und bekommt dann ausschließlich die
+      Klartext-Erklärungen, die unsere Workflows schreiben &mdash; nicht die technischen PR-Karten.</p>
     </div>
     <div class="c-dblack">
       <h3>Antworten</h3>
-      <p style="margin-top:.3rem">Jede Karte hat unten einen <strong>Comment</strong>-Knopf. Der oeffnet ein Textfeld;
+      <p style="margin-top:.3rem">Jede Karte hat unten einen <strong>Comment</strong>-Knopf. Der öffnet ein Textfeld;
       was du dort schreibst, landet als Kommentar auf GitHub.</p>
-      <p style="margin-top:.5rem">Das ist der Weg, auf dem Freigaben zurueckkommen.</p>
+      <p style="margin-top:.5rem">Das ist der Weg, auf dem Freigaben zurückkommen.</p>
     </div>
     <div class="s3 c-warm">
-      <h3>Fuer Kunden-Repos genauso</h3>
-      <p style="margin-top:.3rem">Das Abo haengt <strong>an dem Ort, an dem du den Befehl tippst</strong> &mdash;
-      nicht an einer Konfiguration im Code. Fuer einen Kunden also im Kanal dieses Kunden:</p>
+      <h3>Für Kunden-Repos genauso</h3>
+      <p style="margin-top:.3rem">Das Abo hängt <strong>an dem Ort, an dem du den Befehl tippst</strong> &mdash;
+      nicht an einer Konfiguration im Code. Für einen Kunden also im Kanal dieses Kunden:</p>
       <p style="margin-top:.5rem"><code>@GitHub Notifications subscribe plan-net-journey/&lt;kunden-repo&gt; pulls, comments</code></p>
       <p style="margin-top:.5rem">Kommt ein neuer Kunde dazu, tippt seine Maintainer-Gruppe einen Befehl in ihren Kanal.
       Kein Workflow anfassen, kein Secret, nichts deployen.</p>
@@ -286,32 +291,32 @@ fuer ihre Repos selbst &mdash; auch in Kunden-Repos.</p></div>
 </div>
 
 <!-- TESTS -->
-<div class="wrap spacer"><div class="eyebrow">Tests</div><h2>Vor jeder Aenderung</h2></div>
+<div class="wrap spacer"><div class="eyebrow">Tests</div><h2>Vor jeder Änderung</h2></div>
 <div class="wrap" style="padding-bottom:3rem">
   <div class="g g2">
-    <div class="c-dblack s2"><h3><code>bash tests/verify-setup.sh</code></h3><p style="margin-top:.5rem">39 Checks: Repos, Inhalte, Pages, Org-Settings, Labels, Secrets, Teams, YAML-Syntax.</p></div>
+    <div class="s2"><h3><code>bash tests/verify-setup.sh</code></h3><p style="margin-top:.5rem">39 Checks: Repos, Inhalte, Pages, Org-Settings, Labels, Secrets, Teams, YAML-Syntax.</p></div>
     <div><h3>Checkliste</h3><p style="margin-top:.3rem">Alle <code>process.env.*</code> haben <code>env:</code>.<br>Alle <code>steps.*.outputs.*</code> existieren.<br>Jeder Ticket-Typ getestet.</p></div>
-    <div class="c-warm"><h3>Regel</h3><p style="margin-top:.3rem"><strong>Nicht committen</strong> wenn Tests fehlschlagen.</p></div>
+    <div><h3>Regel</h3><p style="margin-top:.3rem"><strong>Nicht committen</strong> wenn Tests fehlschlagen.</p></div>
   </div>
 </div>
 
 <!-- LEARNINGS -->
 <div class="wrap spacer"><div class="eyebrow">Learnings</div><h2>Aus Fehlern gelernt</h2></div>
-<div class="wrap" style="padding-bottom:3rem">
+<div class="wrap" style="padding-bottom:0">
   <div class="g g3">
-    <div class="c-red"><div class="step-num" style="background:var(--white);color:var(--red)">1</div><h3>User-Eingaben nicht blind vertrauen</h3><p style="margin-top:.3rem">Automatische Quelle nutzen wenn verfuegbar.</p></div>
-    <div><div class="step-num step-num-black">2</div><h3>Jeden Ticket-Typ testen</h3><p style="margin-top:.3rem">Nicht nur den der geaendert wurde.</p></div>
-    <div><div class="step-num step-num-black">3</div><h3>Kein JSON in Bash</h3><p style="margin-top:.3rem">JavaScript fuer alles was JSON baut.</p></div>
-    <div class="c-warm"><div class="step-num step-num-emerald">4</div><h3>Alle Pfade testen</h3><p style="margin-top:.3rem">Env vars, secrets, outputs nach Refactoring.</p></div>
-    <div class="c-warm s2"><div class="step-num step-num-emerald">5</div><h3>Nicht-Techniker testen lassen</h3><p style="margin-top:.3rem">Formulare und Anleitungen vor dem Shipping von jemandem pruefen lassen der GitHub nicht kennt.</p></div>
+    <div class="c-emerald"><div class="step-num" style="background:var(--white);color:var(--emerald)">1</div><h3>User-Eingaben nicht blind vertrauen</h3><p style="margin-top:.3rem">Automatische Quelle nutzen wenn verfügbar.</p></div>
+    <div class="c-emerald"><div class="step-num" style="background:var(--white);color:var(--emerald)">2</div><h3>Jeden Ticket-Typ testen</h3><p style="margin-top:.3rem">Nicht nur den der geändert wurde.</p></div>
+    <div class="c-emerald"><div class="step-num" style="background:var(--white);color:var(--emerald)">3</div><h3>Kein JSON in Bash</h3><p style="margin-top:.3rem">JavaScript für alles was JSON baut.</p></div>
+    <div class="c-emerald"><div class="step-num" style="background:var(--white);color:var(--emerald)">4</div><h3>Alle Pfade testen</h3><p style="margin-top:.3rem">Env vars, secrets, outputs nach Refactoring.</p></div>
+    <div class="c-emerald s2"><div class="step-num" style="background:var(--white);color:var(--emerald)">5</div><h3>Nicht-Techniker testen lassen</h3><p style="margin-top:.3rem">Formulare und Anleitungen vor dem Shipping von jemandem prüfen lassen der GitHub nicht kennt.</p></div>
   </div>
 </div>
 
 <!-- CTA -->
 <div class="wrap" style="padding-bottom:4rem">
-  <div class="g g2">
+  <div class="g g2" style="border-top:1px solid var(--line-grid)">
     <div class="c-dblack" style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1rem;padding:3rem">
-      <h2 style="text-align:center">Admin-Ops oeffnen</h2>
+      <h2 style="text-align:center">Admin-Ops öffnen</h2>
       <p style="text-align:center">Clone das Repo und starte mit <code>/ticket-bearbeiten</code></p>
     </div>
     <div class="c-red" style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1rem;padding:3rem">
@@ -339,8 +344,10 @@ fuer ihre Repos selbst &mdash; auch in Kunden-Repos.</p></div>
     </div>
     <div class="foot-links">
       <a href="ERKLAERUNG.html">Warum GitHub?</a>
-      <a href="GUIDE-USER.html">Fuer Teammitglieder</a>
-      <a href="GUIDE-MAINTAINER.html">Fuer Maintainer</a>
+      <a href="GUIDE-USER.html">Für Teammitglieder</a>
+      <a href="GUIDE-MAINTAINER.html">Für Maintainer</a>
     </div>
   </footer>
 </div>
+</body>
+</html>
