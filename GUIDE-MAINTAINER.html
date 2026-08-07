@@ -192,6 +192,27 @@
   </div>
 </div>
 
+<!-- VERTEILUNG -->
+<div class="wrap spacer"><div class="eyebrow">Verteilung</div><h2>Wie Updates beim Team ankommen</h2></div>
+<div class="wrap" style="padding-bottom:3rem">
+  <div class="g g3">
+    <div class="c-dblack s2">
+      <h3>Nichts passiert automatisch</h3>
+      <p style="margin-top:.3rem">Ein Merge auf <code>main</code> stellt die neue Version bereit — mehr nicht. Claude Code holt den Marketplace <strong>einmal beim Hinzufuegen</strong> und danach nie wieder von selbst. Bis jemand <code>/plugin marketplace update</code> ausfuehrt, arbeitet das Team mit dem Stand von damals.</p>
+      <p style="margin-top:.75rem">Wenn du also einen Skill ausrollst: sag dem Team Bescheid, dass es aktualisieren muss. Sonst merkt es niemand.</p>
+    </div>
+    <div class="c-warm">
+      <h3>Version bumpen ist Pflicht</h3>
+      <p style="margin-top:.3rem">Ohne Bump in <code>plugin.json</code> <em>und</em> <code>marketplace.json</code> sieht Claude Code keinen Grund, die neue Fassung zu ziehen.</p>
+    </div>
+    <div class="s3">
+      <h3>Quelle pruefen wenn etwas nicht ankommt</h3>
+      <p style="margin-top:.3rem">Der Marketplace muss von GitHub kommen, nicht aus einem lokalen Ordner. Pruefen mit <code>/plugin marketplace list</code> — dort muss <code>GitHub (plan-net-journey/Journey-Skills)</code> stehen. Zeigt die Quelle auf einen Pfad, bekommt derjenige nie Updates.</p>
+      <p style="margin-top:.5rem">Haeufigste Ursache wenn jemand meldet &bdquo;bei mir gibt es den Skill nicht&ldquo;: alter Marketplace-Stand oder Claude Code seit dem Update nicht neu gestartet.</p>
+    </div>
+  </div>
+</div>
+
 <!-- TESTS -->
 <div class="wrap spacer"><div class="eyebrow">Tests</div><h2>Vor jeder Aenderung</h2></div>
 <div class="wrap" style="padding-bottom:3rem">
