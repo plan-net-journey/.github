@@ -287,14 +287,38 @@ Wiederhole den Test bis er erfolgreich ist. NICHT weitergehen bevor die Verbindu
 
 Die "Organisation" auf GitHub ist wie ein Teamraum — dort liegen alle Projekte. Ohne Zugang kann man die Projekte nicht sehen.
 
-Pruefe ob der User bereits Mitglied ist:
+Pruefe den Zugangsstatus. **Wichtig: den Wert auswerten, nicht nur ob der
+Aufruf klappt.** Eine offene Einladung antwortet ebenfalls mit Erfolg — wer
+nur auf den Rueckgabewert des Befehls schaut, haelt jemanden mit unbestaetigter
+Einladung faelschlich fuer ein Mitglied und schickt ihn in Schritte, die dann
+scheitern.
+
 ```bash
-gh api orgs/plan-net-journey/memberships/USERNAME 2>/dev/null && echo "Bereits Mitglied!" || echo "Noch kein Mitglied"
+gh api orgs/plan-net-journey/memberships/USERNAME --jq .state 2>/dev/null \
+  | grep -E '^(active|pending)$' || echo "keine"
 ```
 
-**Falls bereits Mitglied:** Ueberspringe diesen Schritt.
+Der `grep` ist nicht kosmetisch: Bei fehlender Mitgliedschaft schreibt `gh` den
+Fehlertext nach stdout statt stderr. Ohne den Filter bekommst du eine JSON-
+Fehlermeldung als vermeintlichen Status zurueck.
 
-**Falls kein Mitglied:**
+Drei moegliche Antworten:
+
+**`active`** — Zugang steht. Ueberspringe diesen Schritt, weiter mit Phase 8.
+
+**`pending`** — Es liegt eine Einladung vor, die noch nicht angenommen wurde.
+**Hier anhalten.** Sag dem User:
+
+> Es liegt bereits eine Einladung fuer dich bereit — du musst sie nur noch
+> annehmen. Schau in deine Mails (Absender GitHub) oder oeffne direkt
+> https://github.com/orgs/plan-net-journey/invitation
+>
+> Sag mir Bescheid, sobald du sie angenommen hast, dann machen wir weiter.
+
+Erst weitermachen, wenn der User bestaetigt. Dann den Status erneut pruefen —
+er muss jetzt `active` sein.
+
+**`keine`** (Fehler/404) — kein Zugang und keine Einladung:
 
 Frag den User nach Team/Rolle und erstelle ein Access Request Issue:
 
