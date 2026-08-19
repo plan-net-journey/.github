@@ -39,6 +39,21 @@ jobs:
 
             const typeLabel = {access: 'Org-Zugang', repo: 'Neues Repo', 'repo-access': 'Repo-Zugang', feedback: 'Feedback'}[type];
 
+            // Set labels and assignees (GitHub drops these from templates for users without write access)
+            const labelMap = {access: 'access-request', repo: 'repo-request', 'repo-access': 'repo-access', feedback: 'feedback'};
+            const label = labelMap[type];
+            if (label) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: number, labels: [label]
+              });
+            }
+            const admins = ['basteiz', 'gklemm', 'Luke2605'];
+            await github.rest.issues.update({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: number, assignees: admins
+            });
+
             // Parse key fields from body
             function getField(name) {
               const m = body.match(new RegExp('###\\s*' + name + '[\\s]*\\n+([^#\\n][^\\n]*)', 'i'));
@@ -105,7 +120,8 @@ jobs:
 
             comment += `\n---\n`;
             comment += `**Freigeben:** \`/approve\` kommentieren\n`;
-            comment += `**Oder:** admin-ops in Claude Code oeffnen → \`/ticket-bearbeiten\``;
+            comment += `**Oder:** admin-ops in Claude Code oeffnen → \`/ticket-bearbeiten\`\n\n`;
+            comment += `cc @basteiz @gklemm @Luke2605`;
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -149,11 +165,18 @@ jobs:
               };
 
               try {
-                await fetch(webhookUrl, {
+                const teamsResp = await fetch(webhookUrl, {
                   method: 'POST',
                   headers: {'Content-Type': 'application/json'},
                   body: JSON.stringify(card)
                 });
+                const teamsStatus = teamsResp.status;
+                const teamsBody = await teamsResp.text();
+                if (!teamsResp.ok) {
+                  core.warning(`Teams webhook returned ${teamsStatus}: ${teamsBody}`);
+                } else {
+                  core.info(`Teams notification sent (${teamsStatus})`);
+                }
               } catch (e) {
                 core.warning('Teams notification failed: ' + e.message);
               }
