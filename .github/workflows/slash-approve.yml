@@ -106,7 +106,7 @@ jobs:
           fi
 
           gh api orgs/plan-net-journey/invitations \
-            -f "invitee_id=${USER_ID}" \
+            -F "invitee_id=${USER_ID}" \
             -f role=direct_member 2>&1 || echo "Note: User may already be a member"
 
           echo "Adding ${USERNAME} to skill-users team..."
