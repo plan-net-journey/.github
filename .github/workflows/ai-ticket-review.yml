@@ -48,10 +48,8 @@ jobs:
                 issue_number: number, labels: [label]
               });
             }
-            const {data: teamMembers} = await github.rest.teams.listMembersInOrg({
-              org: 'plan-net-journey', team_slug: 'maintainers'
-            });
-            const admins = teamMembers.map(m => m.login);
+            // GITHUB_TOKEN cannot read org teams (404), so the list stays static
+            const admins = ['basteiz', 'gklemm', 'Luke2605'];
             await github.rest.issues.update({
               owner: context.repo.owner, repo: context.repo.repo,
               issue_number: number, assignees: admins

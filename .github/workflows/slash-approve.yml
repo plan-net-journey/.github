@@ -99,7 +99,12 @@ jobs:
           fi
 
           echo "Inviting ${USERNAME} (issue author) to plan-net-journey..."
-          USER_ID=$(gh api "users/${USERNAME}" --jq '.id' 2>/dev/null)
+          if ! gh api user --jq '.login' >/dev/null; then
+            echo "::error::ORG_ADMIN_TOKEN is invalid or expired - rotate the secret"
+            exit 1
+          fi
+
+          USER_ID=$(gh api "users/${USERNAME}" --jq '.id')
           if [ -z "$USER_ID" ]; then
             echo "Could not find GitHub user: ${USERNAME}"
             exit 1
