@@ -2,7 +2,7 @@ name: Ticket Review
 
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
 jobs:
   review:
@@ -49,7 +49,7 @@ jobs:
               });
             }
             // GITHUB_TOKEN cannot read org teams (404), so the list stays static
-            const admins = ['basteiz', 'gklemm', 'Luke2605'];
+            const admins = ['basteiz', 'gklemm', 'shustis', 'Luke2605'];
             await github.rest.issues.update({
               owner: context.repo.owner, repo: context.repo.repo,
               issue_number: number, assignees: admins
