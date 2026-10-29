@@ -157,6 +157,8 @@ Falls die Datei nicht existiert, erstelle sie. Falls ein anderer `Host github.co
 chmod 600 ~/.ssh/config
 ```
 
+**Warum das wichtig ist:** Claude Code holt Plugins und deren Updates im Hintergrund per `git`, ohne nachfragen zu duerfen. Ein SSH Key mit Passwort funktioniert dort nur, wenn er ueber den Keychain-Block oben automatisch geladen ist. Sonst scheitern Plugin-Updates still.
+
 ---
 
 ## Phase 4: Git konfigurieren
@@ -411,21 +413,60 @@ Jetzt installieren wir das PNJ-Plugin — damit hat der User in jedem Projekt Zu
 Sag dem User:
 > Ich richte jetzt den Skills-Marketplace ein. Danach hast du in jedem Projekt Zugriff auf `/pnj:hilfe` wenn du nicht weiterweisst, und `/pnj:ticket` wenn du etwas beantragen willst.
 
+**Zuerst den Git-Login fuer HTTPS hinterlegen.** Claude Code probiert fuer den Marketplace zuerst SSH und faellt sonst auf HTTPS zurueck. Damit beide Wege ohne Rueckfrage klappen:
+```bash
+gh auth setup-git
+```
+
+Pruefe, dass das private Repo erreichbar ist:
+```bash
+git ls-remote git@github.com:plan-net-journey/Journey-Skills.git HEAD 2>&1 | head -1
+git ls-remote https://github.com/plan-net-journey/Journey-Skills.git HEAD 2>&1 | head -1
+```
+Beide Zeilen muessen mit einer Commit-ID beginnen.
+
+- **Scheitert die HTTPS-Zeile:** `gh auth setup-git` ist nicht durch. Wiederholen, ggf. `! gh auth login`. NICHT weitergehen.
+- **Scheitert nur die SSH-Zeile** (z. B. `Permission denied (publickey)`): Richte HTTPS als festen Weg ein. Lies `~/.claude/settings.json`, ergaenze unter `"env"` den Eintrag `"CLAUDE_CODE_PLUGIN_PREFER_HTTPS": "1"` (bestehende Eintraege behalten) und sag dem User in einem Satz, warum: Ohne diese Einstellung scheitern Installationen ueber `/plugin` und Updates still, auch wenn es im Terminal klappt.
+
 Der User muss diese Befehle in Claude Code ausfuehren:
 ```
 ! claude plugin marketplace add plan-net-journey/Journey-Skills
-! claude plugin install pnj --scope user
+! claude plugin install pnj@journey-skills
 ```
 
+**Auto-Update einschalten.** Fuer eigene Marketplaces ist es standardmaessig aus. Fuehre den User hin:
+`/plugin` → Tab **Marketplaces** → `journey-skills` → **Enable auto-update**.
+
 Erklaere dem User:
-> Der Marketplace ist eingerichtet. **Updates kommen nicht von selbst** — neue Skills und neue Versionen holst du dir mit `/plugin marketplace update`. Einmal die Woche reicht. Woran du merkst dass du es zu lange nicht gemacht hast: jemand spricht von einem Skill, den es bei dir nicht gibt.
+> Der Marketplace ist eingerichtet und Auto-Update ist an: neue Skills und Versionen kommen von selbst. Aktiv werden sie beim naechsten Start oder sofort mit `/reload-plugins`. Was das Plugin kann, zeigt dir `/pnj:info`. Falls je etwas hakt, prueft `/pnj:hilfe` deine Installation; Hilfe zum GitHub-Zugang steht im README des Journey-Skills-Repos.
+
+Ohne Auto-Update gilt: `/plugin marketplace update journey-skills`, dann `/plugin update pnj@journey-skills`, dann `/reload-plugins`.
+
+**Abschlusspruefung** (erst weiter, wenn alles passt):
+```bash
+echo "SOURCE: $(claude plugin marketplace list 2>/dev/null | grep -A1 'journey-skills' | grep 'Source' | sed 's/.*Source: //')"
+echo "PLUGIN: $(claude plugin list 2>/dev/null | grep -A2 'pnj@journey-skills' | grep 'Version' | sed 's/.*Version: //')"
+echo "AUTOUPDATE: $(cat ~/.claude/plugins/known_marketplaces.json ~/.claude/settings.json 2>/dev/null | grep -A8 '"journey-skills"' | grep -c '"autoUpdate": *true')"
+claude plugin marketplace update journey-skills 2>&1 | tail -1
+```
+
+| Befund | Bedeutung | Was tun |
+|---|---|---|
+| `SOURCE` zeigt GitHub/Git | richtig registriert | — |
+| `PLUGIN` zeigt eine Version | installiert | — |
+| `AUTOUPDATE` ist 1 | Auto-Update an | — |
+| `AUTOUPDATE` ist 0 | Auto-Update aus | User noch einmal durch `/plugin` → Marketplaces fuehren |
+| letzte Zeile `Successfully updated` | Git-Zugang klappt ohne Rueckfrage | — |
+| Fehler beim Update | Zugang hakt | Schritte oben wiederholen; Fehlerbilder im README von Journey-Skills |
+
+Erst wenn alle Zeilen passen, Phase 9 als erledigt melden.
 
 Wichtig fuer dein Verstaendnis, falls der User nachfragt: Der Klon in
 `~/clients/Journey-Skills` ist zum Reinschauen und Weiterentwickeln da — er ist
 **nicht** die Quelle deiner installierten Skills. Die liegen separat unter
 `~/.claude/plugins/` und kommen direkt von GitHub. Aenderungen im Klon wirken
 sich also nicht auf deine Skills aus; die gehen ueber einen Pull Request und
-kommen dann beim naechsten `/plugin marketplace update` bei allen an.
+kommen dann per Auto-Update bei allen an. Eigene Skills beitragen: `/pnj:skill-bauen`.
 
 ---
 
@@ -441,14 +482,14 @@ GitHub User:  [username]
 SSH Key:      eingerichtet
 Verbindung:   [erfolgreich / fehlgeschlagen]
 Team-Zugang:  [Mitglied / beantragt]
-PNJ-Skills:   global installiert
+PNJ-Skills:   installiert, Auto-Update [an / aus], Git-Zugang [SSH / HTTPS]
 
 =========================================
 ```
 
 **Was du jetzt hast:**
 
-- **PNJ-Plugin** — ueberall verfuegbar. Tippe `/pnj:hilfe` wenn du nicht weiterweisst.
+- **PNJ-Plugin** — ueberall verfuegbar, mit Auto-Update. Tippe `/pnj:info` fuer eine Uebersicht oder `/pnj:hilfe` wenn du nicht weiterweisst.
 - **Journey-Skills Marketplace** — weitere Plugins installierbar mit `/plugin install NAME`
 - **admin-ops** — Dokumentation und Tickets (https://github.com/plan-net-journey/admin-ops)
 
