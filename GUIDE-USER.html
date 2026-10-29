@@ -151,9 +151,10 @@
     <div class="c-dblack">
       <div class="step-num" style="background:var(--white);color:var(--dblack)">3</div>
       <h3>Plugin installieren</h3>
-      <p>Nachdem du Org-Zugang hast, installiere das PNJ Plugin. Tippe in Claude Code:</p>
+      <p>Nachdem du Org-Zugang hast: einmal im Terminal <code>gh auth setup-git</code> (Git-Login für Claude Code hinterlegen). Dann in Claude Code:</p>
       <p style="margin-top:.5rem"><code>/plugin marketplace add plan-net-journey/Journey-Skills</code></p>
-      <p style="margin-top:.25rem"><code>/plugin install pnj --scope user</code></p>
+      <p style="margin-top:.25rem"><code>/plugin install pnj@journey-skills</code></p>
+      <p style="margin-top:.5rem">Danach Auto-Update einschalten: <code>/plugin</code> → Marketplaces → journey-skills → <strong>Enable auto-update</strong>. Hakt etwas mit dem Zugang: Hilfe steht im README des Journey-Skills-Repos.</p>
     </div>
   </div>
 </div>
@@ -225,18 +226,18 @@
 
 <!-- AKTUELL BLEIBEN -->
 <div class="wrap">
-  <div class="spacer"><div class="eyebrow">Aktuell bleiben</div><h2>Updates kommen nicht von selbst</h2></div>
+  <div class="spacer"><div class="eyebrow">Aktuell bleiben</div><h2>Updates mit Auto-Update</h2></div>
   <div class="g g3">
     <div class="c-red s2">
-      <h3>Einmal die Woche</h3>
-      <p style="margin-top:.3rem">Neue Skills und neue Versionen landen nicht automatisch bei dir. Der Marketplace wird nur geholt, wenn du ihn holst:</p>
-      <p style="margin-top:.75rem"><code>/plugin marketplace update</code></p>
-      <p style="margin-top:.75rem">Danach installierst du neu dazugekommene Plugins wie gewohnt. Bestehende werden beim nächsten Start von Claude Code auf die neue Version gehoben.</p>
+      <h3>Einmal einschalten</h3>
+      <p style="margin-top:.3rem">Für unseren Marketplace ist Auto-Update standardmäßig aus. Einmal einschalten, dann kommen neue Skills und Versionen von selbst:</p>
+      <p style="margin-top:.75rem"><code>/plugin</code> → Marketplaces → journey-skills → <strong>Enable auto-update</strong></p>
+      <p style="margin-top:.75rem">Aktiv wird ein Update beim nächsten Start oder sofort mit <code>/reload-plugins</code>. Ohne Auto-Update von Hand: <code>/plugin marketplace update journey-skills</code>, dann <code>/plugin update pnj@journey-skills</code>.</p>
     </div>
     <div class="c-dblack">
       <h3>Woran du es merkst</h3>
       <p style="margin-top:.3rem">Jemand spricht von einem Skill, den es bei dir nicht gibt. Oder ein Skill verhält sich anders als beschrieben.</p>
-      <p style="margin-top:.5rem">Dann hast du eine alte Version — einmal aktualisieren, Claude Code neu starten.</p>
+      <p style="margin-top:.5rem">Dann hast du eine alte Version. <code>/pnj:hilfe</code> prüft das und sagt dir, ob Auto-Update aus ist oder der GitHub-Zugang hakt.</p>
       <p style="margin-top:.5rem">In Projekten aus dem <strong>project-template</strong> passiert das automatisch beim Start. Überall sonst musst du selbst dran denken.</p>
     </div>
     <div class="s3">
