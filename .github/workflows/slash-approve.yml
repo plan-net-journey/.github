@@ -6,13 +6,13 @@ on:
 
 jobs:
   approve:
+    # Nur Maintainer duerfen freigeben. Vorher reichte die Org-Rolle MEMBER:
+    # jedes Org-Mitglied konnte eine Einladung fuer beliebige GitHub-Accounts
+    # freigeben. Feste Liste, gleich `admins` in ai-ticket-review.yml und in
+    # admin-ops (slash-approve.yml, ticket-review.yml).
     if: |
-      contains(github.event.comment.body, '/approve') &&
-      (
-        github.event.comment.author_association == 'OWNER' ||
-        github.event.comment.author_association == 'MEMBER' ||
-        github.event.comment.author_association == 'COLLABORATOR'
-      )
+      startsWith(github.event.comment.body, '/approve') &&
+      contains(fromJSON('["basteiz","gklemm","shustis","Luke2605"]'), github.event.comment.user.login)
     runs-on: ubuntu-latest
     permissions:
       issues: write
